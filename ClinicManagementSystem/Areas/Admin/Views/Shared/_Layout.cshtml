@@ -1,0 +1,73 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Clinic Management System | Admin </title>
+    <link rel="icon" href="~/public/img/logo-in-title.png" type="image/x-icon">
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!-- Font Awesome Icons -->
+    <link href="~/Asset/plugins/fontawesome-free/css/all.min.css" rel="stylesheet" />
+    <!-- overlayScrollbars -->
+    <link href="~/Asset/plugins/overlayScrollbars/css/OverlayScrollbars.min.css" rel="stylesheet" />
+    <!-- Theme style -->
+    <link href="~/Asset/dist/css/adminlte.min.css" rel="stylesheet" />
+    <link href="~/Asset/plugins/icheck-bootstrap/icheck-bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Asset/plugins/dropzone/min/dropzone.min.css" rel="stylesheet" />
+    <link href="~/Asset/plugins/bs-stepper/css/bs-stepper.min.css" rel="stylesheet" />
+    <link href="~/Asset/plugins/dropzone/min/dropzone.min.css" rel="stylesheet" />
+    <link href="~/Asset/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css" rel="stylesheet" />
+</head>
+<body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
+    <div class="wrapper">
+        @Html.Partial("NavBar")
+
+        @Html.Partial("Aside")
+
+        @RenderBody()
+
+        <aside class="control-sidebar control-sidebar-dark"></aside>
+
+        @Html.Partial("Footer")
+    </div>
+
+    <!-- REQUIRED Asset -->
+    <script src="~/Asset/plugins/jquery/jquery.min.js"></script>
+    <script src="~/Asset/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/Asset/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+    <script src="~/Asset/dist/js/adminlte.js"></script>
+    <script src="~/Asset/plugins/jquery-mousewheel/jquery.mousewheel.js"></script>
+    <script src="~/Asset/plugins/raphael/raphael.min.js"></script>
+    <script src="~/Asset/plugins/jquery-mapael/jquery.mapael.min.js"></script>
+    <script src="~/Asset/plugins/jquery-mapael/maps/usa_states.min.js"></script>
+    <script src="~/Asset/dist/js/demo.js"></script>
+    <script src="~/Asset/dist/js/pages/dashboard2.js"></script>
+    <script src="~/Asset/plugins/moment/moment.min.js"></script>
+    <script src="~/Asset/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+    <script src="~/Asset/plugins/sweetalert2/sweetalert2.min.js"></script>
+    <script>
+
+        $(function () {
+            bsCustomFileInput.init();
+        });
+
+        $(function () {
+            var href = window.location.href;
+            $('nav ul li a').each(function (e, i) {
+                if (href.indexOf($(this).attr('href')) >= 0) {
+                    $(this).addClass('active');
+                }
+            });
+        });
+
+    </script>
+
+    @RenderSection("ScriptConfig", false)
+
+    @section Asset {
+        @Scripts.Render("~/bundles/jqueryval")
+    }
+
+</body>
+</html>

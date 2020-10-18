@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="314247694c794275a62f76dc5b16be7c" Name="Diagram1">
+        <EntityTypeShape EntityType="ClinicDataContext.Activity" Width="1.5" PointX="11.75" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ClinicDataContext.Customer" Width="1.5" PointX="3.75" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ClinicDataContext.Education" Width="1.5" PointX="14" PointY="2" IsExpanded="true" />
+        <EntityTypeShape EntityType="ClinicDataContext.EducationFeedback" Width="1.5" PointX="16.25" PointY="3.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ClinicDataContext.Employee" Width="1.5" PointX="0.75" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ClinicDataContext.Medicine" Width="1.5" PointX="3" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ClinicDataContext.MedicineFeedback" Width="1.5" PointX="8.25" PointY="9.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ClinicDataContext.MedicineImage" Width="1.5" PointX="5.25" PointY="13.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ClinicDataContext.MedicineOrder" Width="1.5" PointX="6" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ClinicDataContext.MedicineOrderDetail" Width="1.5" PointX="8.25" PointY="6.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ClinicDataContext.MedicineType" Width="1.5" PointX="0.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ClinicDataContext.Payment" Width="1.5" PointX="3.75" PointY="17" IsExpanded="true" />
+        <EntityTypeShape EntityType="ClinicDataContext.ScientificApparatu" Width="1.5" PointX="6" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ClinicDataContext.ScientificApparatusFeedback" Width="1.5" PointX="11.25" PointY="9.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ClinicDataContext.ScientificApparatusImage" Width="1.5" PointX="8.25" PointY="12.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ClinicDataContext.ScientificApparatusOrder" Width="1.5" PointX="9" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ClinicDataContext.ScientificApparatusOrderDetail" Width="1.5" PointX="11.25" PointY="6.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ClinicDataContext.ScientificApparatusType" Width="1.5" PointX="3.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ClinicDataContext.Subject" Width="1.5" PointX="11.75" PointY="13.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ClinicDataContext.Supplier" Width="1.5" PointX="0.75" PointY="9.375" IsExpanded="true" />
+        <AssociationConnector Association="ClinicDataContext.FK__Education__Activ__4AB81AF0" ManuallyRouted="false" />
+        <AssociationConnector Association="ClinicDataContext.FK__Education__Usern__5BE2A6F2" ManuallyRouted="false" />
+        <AssociationConnector Association="ClinicDataContext.FK__MedicineF__Usern__5812160E" ManuallyRouted="false" />
+        <AssociationConnector Association="ClinicDataContext.FK__MedicineO__Usern__37A5467C" ManuallyRouted="false" />
+        <AssociationConnector Association="ClinicDataContext.FK__Scientifi__Usern__3F466844" ManuallyRouted="false" />
+        <AssociationConnector Association="ClinicDataContext.FK__Scientifi__Usern__5441852A" ManuallyRouted="false" />
+        <AssociationConnector Association="ClinicDataContext.FK__Education__Educa__5CD6CB2B" ManuallyRouted="false" />
+        <AssociationConnector Association="ClinicDataContext.FK__Education__Subje__4BAC3F29" ManuallyRouted="false" />
+        <AssociationConnector Association="ClinicDataContext.FK__Medicine__Suppli__34C8D9D1" ManuallyRouted="false" />
+        <AssociationConnector Association="ClinicDataContext.FK__Medicine__TypeID__33D4B598" ManuallyRouted="false" />
+        <AssociationConnector Association="ClinicDataContext.FK__MedicineF__Medic__59063A47" ManuallyRouted="false" />
+        <AssociationConnector Association="ClinicDataContext.FK__MedicineI__Medic__4E88ABD4" ManuallyRouted="false" />
+        <AssociationConnector Association="ClinicDataContext.FK__MedicineO__Medic__3C69FB99" ManuallyRouted="false" />
+        <AssociationConnector Association="ClinicDataContext.FK__MedicineO__Order__3B75D760" ManuallyRouted="false" />
+        <AssociationConnector Association="ClinicDataContext.FK__MedicineO__Payme__38996AB5" ManuallyRouted="false" />
+        <AssociationConnector Association="ClinicDataContext.FK__Scientifi__Payme__403A8C7D" ManuallyRouted="false" />
+        <AssociationConnector Association="ClinicDataContext.FK__Scientifi__Scien__440B1D61" ManuallyRouted="false" />
+        <AssociationConnector Association="ClinicDataContext.FK__Scientifi__Scien__5165187F" ManuallyRouted="false" />
+        <AssociationConnector Association="ClinicDataContext.FK__Scientifi__Scien__5535A963" ManuallyRouted="false" />
+        <AssociationConnector Association="ClinicDataContext.FK__Scientifi__Suppl__29572725" ManuallyRouted="false" />
+        <AssociationConnector Association="ClinicDataContext.FK__Scientifi__TypeI__286302EC" ManuallyRouted="false" />
+        <AssociationConnector Association="ClinicDataContext.FK__Scientifi__Order__4316F928" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
