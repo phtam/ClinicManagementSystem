@@ -1,0 +1,50 @@
+﻿@model ClinicManagementSystem.EF.ScientificApparatusType
+
+@{
+    ViewBag.Title = "Edit Scientific Apparatus Type";
+    ViewBag.Function = "Scientific Apparatus Types";
+    ViewBag.ChildFunction = "Create Scientific Apparatus Type";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card card-green">
+                    <div class="card-header">
+                        <h3 class="card-title">Edit Scientific Apparatus Type</h3>
+                    </div>
+                    @using (Html.BeginForm("Edit", "ScientificApparatusTypes", FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @Html.HiddenFor(model => model.TypeID)
+                        <div class="form-horizontal">
+                            <div class="card-body">
+                                <div class="form-group row">
+                                    @Html.LabelFor(model => model.TypeName, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.EditorFor(model => model.TypeName, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter scientific apparatus type name" } })
+                                        @Html.ValidationMessageFor(model => model.TypeName, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter description" } })
+                                        @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <button type="submit" class="btn btn-success">Save</button>
+                                <a class="btn btn-default float-right" href="~/Admin/ScientificApparatusTypes">Cancel</a>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

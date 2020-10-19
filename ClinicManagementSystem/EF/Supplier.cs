@@ -11,7 +11,8 @@ namespace ClinicManagementSystem.EF
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Supplier
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -20,14 +21,29 @@ namespace ClinicManagementSystem.EF
             this.Medicines = new HashSet<Medicine>();
             this.ScientificApparatus = new HashSet<ScientificApparatu>();
         }
-    
+
+        
+        //[Required(ErrorMessage = "Please enter SupplierID !")]
         public int SupplierID { get; set; }
+
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Please enter CompanyName !")]
         public string CompanyName { get; set; }
+
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Please enter ContactName !")]
         public string ContactName { get; set; }
+
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Please enter Address !")]
         public string Address { get; set; }
+
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Please enter Phone Number !")]
+        [RegularExpression(@"^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$", ErrorMessage = "Incorrect phone number format !")]
         public string Phone { get; set; }
+
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Please enter Email !")]
+        [RegularExpression(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$", ErrorMessage = "Incorrect email format !")]
         public string Email { get; set; }
-    
+        
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Medicine> Medicines { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
