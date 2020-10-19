@@ -1,0 +1,51 @@
+﻿@model ClinicManagementSystem.EF.Activity
+
+@{
+    ViewBag.Title = "Create Activity";
+    ViewBag.Function = "Activities";
+    ViewBag.ChildFunction = "Create Activity";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+
+                <div class="card card-green">
+                    <div class="card-header">
+                        <h3 class="card-title">New Activity</h3>
+                    </div>
+                    @using (Html.BeginForm("Create", "Activities", FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
+                        <div class="form-horizontal">
+                            <div class="card-body">
+                                <div class="form-group row">
+                                    @Html.LabelFor(model => model.ActivityName, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.EditorFor(model => model.ActivityName, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter activity name" } })
+                                        @Html.ValidationMessageFor(model => model.ActivityName, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter description" } })
+                                        @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="card-footer">
+                                <button type="submit" class="btn btn-success">Create</button>
+                                <a class="btn btn-default float-right" href="~/Admin/Activities">Cancel</a>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

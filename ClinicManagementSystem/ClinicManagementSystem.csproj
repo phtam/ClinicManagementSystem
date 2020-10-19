@@ -14,7 +14,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ClinicManagementSystem</RootNamespace>
     <AssemblyName>ClinicManagementSystem</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
@@ -25,6 +25,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -61,11 +62,7 @@
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
-    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Abstractions" />
     <Reference Include="System.Web.Routing" />
     <Reference Include="System.Xml" />
@@ -129,8 +126,13 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\ActivitiesController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Admin\Controllers\MedicineTypesController.cs" />
     <Compile Include="Areas\Admin\Controllers\PaymentsController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ScientificApparatusTypesController.cs" />
+    <Compile Include="Areas\Admin\Controllers\SubjectsController.cs" />
+    <Compile Include="Areas\Admin\Controllers\SuppliersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="EF\Activity.cs">
       <DependentUpon>ClinicModel.tt</DependentUpon>
@@ -2543,6 +2545,31 @@
     <Content Include="Areas\Admin\Views\Payments\Details.cshtml" />
     <Content Include="Areas\Admin\Views\Payments\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Payments\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Suppliers\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Suppliers\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Suppliers\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Suppliers\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Suppliers\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Subjects\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Subjects\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Subjects\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Subjects\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Subjects\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Activities\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Activities\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Activities\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Activities\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Activities\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\MedicineTypes\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\MedicineTypes\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\MedicineTypes\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\MedicineTypes\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\MedicineTypes\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\ScientificApparatusTypes\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\ScientificApparatusTypes\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\ScientificApparatusTypes\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\ScientificApparatusTypes\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\ScientificApparatusTypes\Index.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
