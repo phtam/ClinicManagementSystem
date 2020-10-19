@@ -1,0 +1,160 @@
+﻿@model IEnumerable<ClinicManagementSystem.EF.Customer>
+
+@{
+    ViewBag.Title = "Manage Customers";
+    ViewBag.Manage = "Manage Customers";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Data of Customers</h3>
+                <p>
+                    <a class="btn btn-success btn-sm float-right" href="~/Admin/Customers/Create">
+                        <i class="fas fa-plus">
+                        </i>
+                        Create New
+                    </a>
+                    <a style="cursor:pointer; color:white" id="print" class="btn btn-primary btn-sm float-right"><i class="fas fa-print"></i> Print</a>
+                </p>
+            </div>
+            <div class="card-body">
+                <table id="tbl_Customer" class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.FullName)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.DateOfBirth)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Gender)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Phone)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Email)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Address)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Avatar)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Status)
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.FullName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.DateOfBirth)
+                                </td>
+                                <td>
+                                    @if (item.Gender == true)
+                                    {
+                                        <div>Male</div>
+                                    }
+                                    else
+                                    {
+                                        <div>Female</div>
+                                    }
+                                </td>
+                                <td>
+                                    <a href="tel: @item.Phone">@Html.DisplayFor(modelItem => item.Phone)</a>
+                                </td>
+                                <td>
+                                    <a href="mailto: @item.Email">@Html.DisplayFor(modelItem => item.Email)</a>
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Address)
+                                </td>
+                                <td>
+                                    <img src="@Url.Content(item.Avatar)" width="100" height="100" />
+                                </td>
+                                <td>
+                                    @if (item.Status == true)
+                                    {
+                                        <span class="badge badge-success">Active</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge badge-danger">Disable</span>
+                                    }
+                                </td>
+
+                                <td class="project-actions text-right">
+                                    <a class="btn btn-primary btn-sm" href="~/Admin/Customers/Details/@item.Username">
+                                        <i class="fas fa-folder">
+                                        </i>
+                                        View
+                                    </a>
+                                    <a class="btn btn-info btn-sm" href="~/Admin/Customers/Edit/@item.Username">
+                                        <i class="fas fa-pencil-alt">
+                                        </i>
+                                        Edit
+                                    </a>
+                                    <a class="btn btn-danger btn-sm" href="~/Admin/Customers/Delete/@item.Username">
+                                        <i class="fas fa-trash">
+                                        </i>
+                                        Delete
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section ScriptConfig
+{
+    <link href="~/Asset/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
+    <link href="~/Asset/plugins/datatables-responsive/css/responsive.bootstrap4.min.css" rel="stylesheet" />
+    <script src="~/Asset/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/Asset/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <script src="~/Asset/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="~/Asset/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+    <script>
+        $(function () {
+            $("#tbl_Customer").DataTable({
+                "destroy": true,
+                "responsive": true,
+                "autoWidth": false,
+                "aoColumns": [
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    { sWidth: '180px' }
+                ]
+            });
+        });
+
+        $('#print').click(function () {
+            window.print();
+            return false;
+        });
+
+    </script>
+
+}

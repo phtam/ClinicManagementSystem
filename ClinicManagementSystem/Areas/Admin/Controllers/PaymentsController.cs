@@ -14,13 +14,13 @@ namespace ClinicManagementSystem.Areas.Admin.Controllers
     {
         private ClinicData db = new ClinicData();
 
-        // GET: Admin/Payments
+
         public ActionResult Index()
         {
             return View(db.Payments.ToList());
         }
 
-        // GET: Admin/Payments/Details/5
+
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -35,15 +35,12 @@ namespace ClinicManagementSystem.Areas.Admin.Controllers
             return View(payment);
         }
 
-        // GET: Admin/Payments/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Admin/Payments/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "PaymentID,PaymentName")] Payment payment)
