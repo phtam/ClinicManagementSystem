@@ -22,6 +22,7 @@ namespace ClinicManagementSystem.EF
         }
     
         public int PaymentID { get; set; }
+
         public string PaymentName { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

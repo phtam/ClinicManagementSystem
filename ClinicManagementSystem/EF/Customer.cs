@@ -42,7 +42,7 @@ namespace ClinicManagementSystem.EF
         public Nullable<bool> Status { get; set; }
 
         public HttpPostedFileBase ImageFile { get; set; }
-    
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<EducationFeedback> EducationFeedbacks { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

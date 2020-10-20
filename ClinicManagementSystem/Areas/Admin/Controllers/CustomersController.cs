@@ -108,6 +108,7 @@ namespace ClinicManagementSystem.Areas.Admin.Controllers
                 string fileName = Path.GetFileNameWithoutExtension(customer.ImageFile.FileName) + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(customer.ImageFile.FileName);
                 
                 customer.Avatar = "~/public/uploadedFiles/customerPictures/" + fileName;
+                // ~/public/uploadedFiles/customerPictures/anh.jpg
 
                 string uploadFolderPath = Server.MapPath("~/public/uploadedFiles/customerPictures/");
 
@@ -198,6 +199,7 @@ namespace ClinicManagementSystem.Areas.Admin.Controllers
                     }
 
                     fileName = Path.Combine(uploadFolderPath, fileName);
+
                     if (userOldImage != null)
                     {
                         System.IO.File.Delete(Server.MapPath(userOldImage));

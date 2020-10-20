@@ -11,6 +11,7 @@ namespace ClinicManagementSystem.EF
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
 
     public partial class Supplier
@@ -26,10 +27,11 @@ namespace ClinicManagementSystem.EF
         //[Required(ErrorMessage = "Please enter SupplierID !")]
         public int SupplierID { get; set; }
 
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Please enter CompanyName !")]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Please enter Company Name !")]
         public string CompanyName { get; set; }
 
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Please enter ContactName !")]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Please enter Contact Name !")]
+        [DisplayName("Contact Name")]
         public string ContactName { get; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "Please enter Address !")]
