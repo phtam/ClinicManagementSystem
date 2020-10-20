@@ -133,6 +133,7 @@
     <Compile Include="Areas\Admin\Controllers\CustomersController.cs" />
     <Compile Include="Areas\Admin\Controllers\EmployeesController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Admin\Controllers\MedicinesController.cs" />
     <Compile Include="Areas\Admin\Controllers\MedicineTypesController.cs" />
     <Compile Include="Areas\Admin\Controllers\PaymentsController.cs" />
     <Compile Include="Areas\Admin\Controllers\ScientificApparatusTypesController.cs" />
@@ -2586,6 +2587,11 @@
     <Content Include="Areas\Admin\Views\Employees\Details.cshtml" />
     <Content Include="Areas\Admin\Views\Employees\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Employees\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Medicines\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Medicines\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Medicines\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Medicines\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Medicines\Index.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
