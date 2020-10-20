@@ -1,0 +1,142 @@
+﻿@model ClinicManagementSystem.EF.Medicine
+
+@{
+	ViewBag.Title = "Edit";
+	ViewBag.Function = "Medicine";
+	ViewBag.ChildFunction = "Edit Medicine";
+	Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+
+<section class="content">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-12">
+
+				<div class="card card-green">
+					<div class="card-header">
+						<h3 class="card-title">New Medicine</h3>
+					</div>
+					@using (Html.BeginForm("Edit", "Medicines", FormMethod.Post, new { enctype = "multipart/form-data" }))
+					{
+						@Html.AntiForgeryToken()
+				<div class="form-horizontal">
+					<h4>Medicine</h4>
+					<hr />
+					@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+					@Html.HiddenFor(model => model.MedicineID)
+
+					<div class="form-group">
+						@Html.LabelFor(model => model.TypeID, "TypeID", htmlAttributes: new { @class = "control-label col-md-2" })
+						<div class="col-md-10">
+							@Html.DropDownList("TypeID", null, htmlAttributes: new { @class = "form-control" })
+							@Html.ValidationMessageFor(model => model.TypeID, "", new { @class = "text-danger" })
+						</div>
+					</div>
+
+					<div class="form-group">
+						@Html.LabelFor(model => model.SupplierID, "SupplierID", htmlAttributes: new { @class = "control-label col-md-2" })
+						<div class="col-md-10">
+							@Html.DropDownList("SupplierID", null, htmlAttributes: new { @class = "form-control" })
+							@Html.ValidationMessageFor(model => model.SupplierID, "", new { @class = "text-danger" })
+						</div>
+					</div>
+
+					<div class="form-group">
+						@Html.LabelFor(model => model.MedicineName, htmlAttributes: new { @class = "control-label col-md-2" })
+						<div class="col-md-10">
+							@Html.EditorFor(model => model.MedicineName, new { htmlAttributes = new { @class = "form-control" } })
+							@Html.ValidationMessageFor(model => model.MedicineName, "", new { @class = "text-danger" })
+						</div>
+					</div>
+
+					<div class="form-group">
+						@Html.LabelFor(model => model.ShortDescription, htmlAttributes: new { @class = "control-label col-md-2" })
+						<div class="col-md-10">
+							@Html.EditorFor(model => model.ShortDescription, new { htmlAttributes = new { @class = "form-control" } })
+							@Html.ValidationMessageFor(model => model.ShortDescription, "", new { @class = "text-danger" })
+						</div>
+					</div>
+
+					<div class="form-group">
+						@Html.LabelFor(model => model.Composition, htmlAttributes: new { @class = "control-label col-md-2" })
+						<div class="col-md-10">
+							@Html.EditorFor(model => model.Composition, new { htmlAttributes = new { @class = "form-control" } })
+							@Html.ValidationMessageFor(model => model.Composition, "", new { @class = "text-danger" })
+						</div>
+					</div>
+
+					<div class="form-group">
+						@Html.LabelFor(model => model.Usage, htmlAttributes: new { @class = "control-label col-md-2" })
+						<div class="col-md-10">
+							@Html.EditorFor(model => model.Usage, new { htmlAttributes = new { @class = "form-control" } })
+							@Html.ValidationMessageFor(model => model.Usage, "", new { @class = "text-danger" })
+						</div>
+					</div>
+
+					<div class="form-group">
+						@Html.LabelFor(model => model.Quantity, htmlAttributes: new { @class = "control-label col-md-2" })
+						<div class="col-md-10">
+							@Html.EditorFor(model => model.Quantity, new { htmlAttributes = new { @class = "form-control" } })
+							@Html.ValidationMessageFor(model => model.Quantity, "", new { @class = "text-danger" })
+						</div>
+					</div>
+
+					<div class="form-group">
+						@Html.LabelFor(model => model.OldUnitPrice, htmlAttributes: new { @class = "control-label col-md-2" })
+						<div class="col-md-10">
+							@Html.EditorFor(model => model.OldUnitPrice, new { htmlAttributes = new { @class = "form-control" } })
+							@Html.ValidationMessageFor(model => model.OldUnitPrice, "", new { @class = "text-danger" })
+						</div>
+					</div>
+
+					<div class="form-group">
+						@Html.LabelFor(model => model.UnitPrice, htmlAttributes: new { @class = "control-label col-md-2" })
+						<div class="col-md-10">
+							@Html.EditorFor(model => model.UnitPrice, new { htmlAttributes = new { @class = "form-control" } })
+							@Html.ValidationMessageFor(model => model.UnitPrice, "", new { @class = "text-danger" })
+						</div>
+					</div>
+
+					<div class="form-group row">
+						@Html.LabelFor(model => model.Thumbnail, htmlAttributes: new { @class = "col-sm-2 col-form-label" })
+						<div class="col-sm-10">
+							<div class="custom-file">
+								<input type="file" class="custom-file-input" name="ImageFile" id="ImageFile">
+								<label class="custom-file-label" for="customFile">Choose file</label>
+								@Html.ValidationMessageFor(model => model.Thumbnail, "", new { @class = "text-danger" })
+							</div>
+						</div>
+					</div>
+
+					<div class="form-group row">
+						@Html.LabelFor(model => model.Status, htmlAttributes: new { @class = "control-label col-md-2" })
+						<div class="col-md-10">
+							<div class="checkbox">
+								@{
+									var selectListStatus = new SelectList(new List<SelectListItem> { new SelectListItem { Text = "Active", Value = "true" }, new SelectListItem { Text = "Disable", Value = "false" }, }, "Value", "Text");
+								}
+								@Html.DropDownListFor(model => model.Status, selectListStatus, htmlAttributes: new { @class = "form-control" })
+								@Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
+							</div>
+						</div>
+					</div>
+					(<input type="hidden" name="userOldImage" value="@Session["OLD_CUSTOMER_IMAGE"]" /> session giữ ảnh củ)
+					<div class="card-footer">
+						<button type="submit" class="btn btn-success">Save</button>
+						<a class="btn btn-default float-right" href="~/Admin/Medicine">Cancel</a>
+					</div>
+				</div>
+					}
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+@section ScriptConfig
+{
+	<link href="~/Asset/plugins/daterangepicker/daterangepicker.css" rel="stylesheet" />
+	<script src="~/Asset/plugins/daterangepicker/daterangepicker.js"></script>
+	<script src="~/Asset/plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
+}

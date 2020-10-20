@@ -1,0 +1,178 @@
+﻿@model IEnumerable<ClinicManagementSystem.EF.Medicine>
+
+@{
+	ViewBag.Title = "Index";
+	ViewBag.Manage = "Medicine";
+	Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+
+<section class="content">
+	<div class="container-fluid">
+		<div class="card">
+			<div class="card-header">
+				<h3 class="card-title">Data of Medicine</h3>
+				<p>
+					<a class="btn btn-success btn-sm float-right" href="~/Admin/Medicines/Create">
+						<i class="fas fa-plus">
+						</i>
+						Create New
+					</a>
+					<a style="cursor:pointer; color:white" id="print" class="btn btn-primary btn-sm float-right"><i class="fas fa-print"></i> Print</a>
+				</p>
+			</div>
+			<div class="card-body">
+				<table id="tbl_Medicines" class="table table-bordered table-striped">
+					<thead>
+						<tr>
+							<th>
+								@Html.DisplayNameFor(model => model.MedicineName)
+							</th>
+							<th>
+								@Html.DisplayNameFor(model => model.ShortDescription)
+							</th>
+							<th>
+								@Html.DisplayNameFor(model => model.Composition)
+							</th>
+							<th>
+								@Html.DisplayNameFor(model => model.Usage)
+							</th>
+							<th>
+								@Html.DisplayNameFor(model => model.Quantity)
+							</th>
+							<th>
+								@Html.DisplayNameFor(model => model.OldUnitPrice)
+							</th>
+							<th>
+								@Html.DisplayNameFor(model => model.UnitPrice)
+							</th>
+							<th>
+								@Html.DisplayNameFor(model => model.Thumbnail)
+							</th>
+							<th>
+								@Html.DisplayNameFor(model => model.Status)
+							</th>
+							<th>
+								@Html.DisplayNameFor(model => model.Supplier.CompanyName)
+							</th>
+							<th>
+								@Html.DisplayNameFor(model => model.MedicineType.TypeName)
+							</th>
+							<th></th>
+
+						</tr>
+					</thead>
+					<tbody>
+						@foreach (var item in Model)
+						{
+							<tr>
+								<td>
+									@Html.DisplayFor(modelItem => item.MedicineName)
+								</td>
+								<td>
+									@Html.DisplayFor(modelItem => item.ShortDescription)
+								</td>
+								<td>
+									@Html.DisplayFor(modelItem => item.Composition)
+								</td>
+								<td>
+									@Html.DisplayFor(modelItem => item.Usage)
+								</td>
+								<td>
+									@Html.DisplayFor(modelItem => item.Quantity)
+								</td>
+								<td>
+									@Html.DisplayFor(modelItem => item.OldUnitPrice)
+								</td>
+								<td>
+									@Html.DisplayFor(modelItem => item.UnitPrice)
+								</td>
+								<td>
+									@if (!item.Thumbnail.IsEmpty())
+									{
+										<img class="col-sm-10" id="imageDetail" src="@Url.Content(item.Thumbnail)" />
+									}
+									else
+									{
+										<p class="col-sm-10">No Image</p>
+									}
+								</td>
+								<td>
+									@if (item.Status == true)
+									{
+										<span class="badge badge-success">Active</span>
+									}
+									else
+									{
+										<span class="badge badge-danger">Disable</span>
+									}
+								</td>
+								<td>
+									@Html.DisplayFor(modelItem => item.Supplier.CompanyName)
+								</td>
+								<td>
+									@Html.DisplayFor(modelItem => item.MedicineType.TypeName)
+								</td>
+						
+								<td class="project-actions text-right">
+									<a class="btn btn-primary btn-sm" href="~/Admin/Medicines/Details/@item.MedicineID">
+										<i class="fas fa-folder">
+										</i>
+										View
+									</a>
+									<a class="btn btn-info btn-sm" href="~/Admin/Medicines/Edit/@item.MedicineID">
+										<i class="fas fa-pencil-alt">
+										</i>
+										Edit
+									</a>
+									<a class="btn btn-danger btn-sm" href="~/Admin/Medicines/Delete/@item.MedicineID">
+										<i class="fas fa-trash">
+										</i>
+										Delete
+									</a>
+								</td>
+							</tr>
+						}
+
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</section>
+
+@section ScriptConfig
+{
+	<link href="~/Asset/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
+	<link href="~/Asset/plugins/datatables-responsive/css/responsive.bootstrap4.min.css" rel="stylesheet" />
+	<script src="~/Asset/plugins/datatables/jquery.dataTables.min.js"></script>
+	<script src="~/Asset/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+	<script src="~/Asset/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+	<script src="~/Asset/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+	<script>
+        $("#tbl_Medicines").DataTable({
+            "responsive": true,
+            "autoWidth": false,
+            "aoColumns": [
+                null,
+                null,
+                null,
+                null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+                { sWidth: '180px' }
+            ]
+        });
+
+        $('#print').click(function () {
+            window.print();
+            return false;
+        });
+
+	</script>
+}
