@@ -11,7 +11,10 @@ namespace ClinicManagementSystem.EF
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
+    using System.Web;
+
     public partial class Medicine
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -21,20 +24,52 @@ namespace ClinicManagementSystem.EF
             this.MedicineImages = new HashSet<MedicineImage>();
             this.MedicineOrderDetails = new HashSet<MedicineOrderDetail>();
         }
-    
+
         public int MedicineID { get; set; }
+
         public Nullable<int> TypeID { get; set; }
+
         public Nullable<int> SupplierID { get; set; }
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Please enter MedicineName !")]
+        [StringLength(maximumLength: 50, MinimumLength = 5, ErrorMessage = " Medicine Name must be between 5 to 50 charaters")
+        [DisplayName("Medicine Name")]
         public string MedicineName { get; set; }
+
+
+
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Please enter Short description !")]
+        [StringLength(maximumLength: 50, ErrorMessage = " Short description no more than 50 characters")] 
+        {}
         public string ShortDescription { get; set; }
+
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Please enter Composition !")]
+        [StringLength(maximumLength: 50, ErrorMessage = " Composition no more than 50 characters")]
         public string Composition { get; set; }
+
+
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Please enter Usage !")]
+        [StringLength(maximumLength: 50, ErrorMessage = " Usage no more than 50 characters")]
         public string Usage { get; set; }
+
+       
+        [RegularExpression(@"^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$", ErrorMessage = "Incorrect Quantity number format !")]
         public Nullable<int> Quantity { get; set; }
+
+
+       
+        [RegularExpression(@"^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$", ErrorMessage = "Incorrect Old  Unit rice number format !")]
+        [DisplayName("Old Unit Price")]
         public Nullable<int> OldUnitPrice { get; set; }
+
+       
+        [RegularExpression(@"^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$", ErrorMessage = "Incorrect Unit Price number format !")]
         public Nullable<int> UnitPrice { get; set; }
+
         public string Thumbnail { get; set; }
+
         public Nullable<bool> Status { get; set; }
-    
+
+        public HttpPostedFileBase ImageFile { get; set; }
         public virtual Supplier Supplier { get; set; }
         public virtual MedicineType MedicineType { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
