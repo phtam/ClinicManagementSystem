@@ -11,12 +11,20 @@ namespace ClinicManagementSystem.EF
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
+    using System.Web;
+
     public partial class Employee
     {
         public string Username { get; set; }
         public string Password { get; set; }
         public string FullName { get; set; }
+
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Please select birthdate")]
+        [DataType(DataType.Date, ErrorMessage = "Birthdate must be date")]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [DisplayName("Birthday")]
         public Nullable<System.DateTime> DateOfBirth { get; set; }
         public Nullable<bool> Gender { get; set; }
         public string Phone { get; set; }
@@ -25,5 +33,7 @@ namespace ClinicManagementSystem.EF
         public string Avatar { get; set; }
         public Nullable<int> Position { get; set; }
         public Nullable<bool> Status { get; set; }
+
+        public HttpPostedFileBase ImageFile { get; set; }
     }
 }

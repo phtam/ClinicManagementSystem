@@ -1,9 +1,9 @@
-﻿@model ClinicManagementSystem.EF.Customer
+﻿@model ClinicManagementSystem.EF.Employee
 
 @{
-    ViewBag.Title = "Create Customer";
-    ViewBag.Function = "Customers";
-    ViewBag.ChildFunction = "Create Customer";
+    ViewBag.Title = "Create Employee";
+    ViewBag.Function = "Employees";
+    ViewBag.ChildFunction = "Create Employee";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
@@ -11,12 +11,11 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
-
                 <div class="card card-green">
                     <div class="card-header">
-                        <h3 class="card-title">New Customer</h3>
+                        <h3 class="card-title">New Employee</h3>
                     </div>
-                    @using (Html.BeginForm("Create", "Customers", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    @using (Html.BeginForm("Create", "Employees", FormMethod.Post, new { enctype = "multipart/form-data" }))
                     {
                         @Html.AntiForgeryToken()
                         <div class="form-horizontal">
@@ -90,6 +89,19 @@
                                 </div>
 
                                 <div class="form-group row">
+                                    @Html.LabelFor(model => model.Position, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        <div class="checkbox">
+                                            @{
+                                                var selectListPosition = new SelectList(new List<SelectListItem> { new SelectListItem { Text = "Staff", Value = "0" }, new SelectListItem { Text = "Administrator", Value = "1" }, }, "Value", "Text");
+                                            }
+                                            @Html.DropDownListFor(model => model.Position, selectListPosition, htmlAttributes: new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.Position, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
                                     @Html.LabelFor(model => model.Avatar, htmlAttributes: new { @class = "col-sm-2 col-form-label" })
                                     <div class="col-sm-10">
                                         <div class="custom-file">
@@ -116,7 +128,7 @@
 
                             <div class="card-footer">
                                 <button type="submit" class="btn btn-success">Create</button>
-                                <a class="btn btn-default float-right" href="~/Admin/Customers">Cancel</a>
+                                <a class="btn btn-default float-right" href="~/Admin/Employees">Cancel</a>
                             </div>
                         </div>
                     }
