@@ -1,8 +1,8 @@
 ﻿@model IEnumerable<ClinicManagementSystem.EF.Medicine>
 
 @{
-	ViewBag.Title = "Index";
-	ViewBag.Manage = "Medicine";
+	ViewBag.Title = "Manage Medicines";
+	ViewBag.Manage = "Manage Medicines";
 	Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
@@ -24,43 +24,40 @@
 			<div class="card-body">
 				<table id="tbl_Medicines" class="table table-bordered table-striped">
 					<thead>
-						<tr>
-							<th>
-								@Html.DisplayNameFor(model => model.MedicineName)
-							</th>
-							<th>
-								@Html.DisplayNameFor(model => model.ShortDescription)
-							</th>
-							<th>
-								@Html.DisplayNameFor(model => model.Composition)
-							</th>
-							<th>
-								@Html.DisplayNameFor(model => model.Usage)
-							</th>
-							<th>
-								@Html.DisplayNameFor(model => model.Quantity)
-							</th>
-							<th>
-								@Html.DisplayNameFor(model => model.OldUnitPrice)
-							</th>
-							<th>
-								@Html.DisplayNameFor(model => model.UnitPrice)
-							</th>
-							<th>
-								@Html.DisplayNameFor(model => model.Thumbnail)
-							</th>
-							<th>
-								@Html.DisplayNameFor(model => model.Status)
-							</th>
-							<th>
-								@Html.DisplayNameFor(model => model.Supplier.CompanyName)
-							</th>
-							<th>
-								@Html.DisplayNameFor(model => model.MedicineType.TypeName)
-							</th>
-							<th></th>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.MedicineName)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.ShortDescription)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.UnitInStock)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.UnitOnOrder)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.OldUnitPrice)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.UnitPrice)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Thumbnail)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Status)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Supplier.CompanyName)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.MedicineType.TypeName)
+                            </th>
+                            <th></th>
 
-						</tr>
+                        </tr>
 					</thead>
 					<tbody>
 						@foreach (var item in Model)
@@ -73,13 +70,10 @@
 									@Html.DisplayFor(modelItem => item.ShortDescription)
 								</td>
 								<td>
-									@Html.DisplayFor(modelItem => item.Composition)
+									@Html.DisplayFor(modelItem => item.UnitInStock)
 								</td>
 								<td>
-									@Html.DisplayFor(modelItem => item.Usage)
-								</td>
-								<td>
-									@Html.DisplayFor(modelItem => item.Quantity)
+									@Html.DisplayFor(modelItem => item.UnitOnOrder)
 								</td>
 								<td>
 									@Html.DisplayFor(modelItem => item.OldUnitPrice)
@@ -100,11 +94,11 @@
 								<td>
 									@if (item.Status == true)
 									{
-										<span class="badge badge-success">Active</span>
+										<span class="badge badge-success">Being Sold</span>
 									}
 									else
 									{
-										<span class="badge badge-danger">Disable</span>
+										<span class="badge badge-danger">Stop Selling</span>
 									}
 								</td>
 								<td>
@@ -156,9 +150,8 @@
             "aoColumns": [
                 null,
                 null,
-                null,
-                null,
 				null,
+                null,
 				null,
 				null,
 				null,

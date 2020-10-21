@@ -11,7 +11,9 @@ namespace ClinicManagementSystem.EF
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
+
     public partial class ScientificApparatu
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -23,16 +25,51 @@ namespace ClinicManagementSystem.EF
         }
     
         public int ScientificApparatusID { get; set; }
+
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Please choice scientific apparatus type!")]
         public Nullable<int> TypeID { get; set; }
+
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Please choice supplier !")]
         public Nullable<int> SupplierID { get; set; }
+
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Please enter scientific apparatus name !")]
+        [StringLength(maximumLength: 100, MinimumLength = 5, ErrorMessage = "Scientific Apparatus Name must be between 5 to 100 charaters.")]
+        [DisplayName("Scientific Apparatus Name")]
         public string ScientificApparatusName { get; set; }
+
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Please enter short description!")]
+        [StringLength(maximumLength: 200, MinimumLength = 5, ErrorMessage = "Short Description must be between 5 to 200 charaters.")]
+        [DisplayName("Short Description")]
         public string ShortDescription { get; set; }
-        public string Composition { get; set; }
-        public string Usage { get; set; }
-        public Nullable<int> Quantity { get; set; }
+
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Please enter description!")]
+        public string Description { get; set; }
+
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Please enter specification!")]
+        public string Specification { get; set; }
+
+        [DisplayName("Unit In Stock")]
+        [Range(maximum: Int64.MaxValue, minimum: 0, ErrorMessage = "Unit In Stock must be a positive number")]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Please enter unit in stock!")]
+        public Nullable<int> UnitInStock { get; set; }
+
+        [DisplayName("Unit On Order")]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Please enter unit on order!")]
+        [Range(maximum: Int64.MaxValue, minimum: 0, ErrorMessage = "Unit On Order must be a positive number")]
+        public Nullable<int> UnitOnOrder { get; set; }
+
+        [DisplayName("Old Unit Price")]
+        [Range(maximum: Int64.MaxValue, minimum: 0, ErrorMessage = "Old Unit On Price must be a positive number")]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Please enter old unit price!")]
         public Nullable<int> OldUnitPrice { get; set; }
+
+        [DisplayName("Unit Price")]
+        [Range(maximum: Int64.MaxValue, minimum: 0, ErrorMessage = "Unit On Price must be a positive number")]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Please enter unit price!")]
         public Nullable<int> UnitPrice { get; set; }
+
         public string Thumbnail { get; set; }
+
         public Nullable<bool> Status { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

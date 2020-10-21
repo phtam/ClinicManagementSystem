@@ -11,6 +11,7 @@ namespace ClinicManagementSystem.EF
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
 
     public partial class Subject
@@ -24,9 +25,12 @@ namespace ClinicManagementSystem.EF
         public int SubjectID { get; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "Please enter SubjectName !")]
+        [StringLength(maximumLength: 60, MinimumLength = 5, ErrorMessage = "Subject name must be from 5 to 60 charaters")]
+        [DisplayName("Subject Name")]
         public string SubjectName { get; set; }
 
         [Required(ErrorMessage = "Please enter Description !")]
+        [StringLength(maximumLength: 200, MinimumLength = 5, ErrorMessage = "Description name must be from 5 to 200 charaters")]
         public string Description { get; set; }
 
     

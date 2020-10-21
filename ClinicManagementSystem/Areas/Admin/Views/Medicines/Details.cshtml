@@ -2,7 +2,7 @@
 
 @{
 	ViewBag.Title = "Medicine Details";
-	ViewBag.Function = "Medicine";
+	ViewBag.Function = "Medicines";
 	ViewBag.ChildFunction = "Medicine Details";
 	Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
@@ -21,123 +21,133 @@
 				<div class="row">
 					<div class="col-12 col-md-12 col-lg-12 order-12 order-md-12">
 						<div class="row">
-							<div class="col-12">
-								<div class="post">
-									<div class="col-sm-2 user-block">
-										<strong>@Html.DisplayNameFor(model => model.MedicineID)</strong>:
-									</div>
-									<p class="col-sm-10">
-										@Html.DisplayFor(model => model.MedicineID)
-									</p>
-								</div>
-								<div class="post">
-									<div class="col-sm-2 user-block">
-										<strong>@Html.DisplayNameFor(model => model.MedicineType.TypeName)</strong>:
-									</div>
-									<p class="col-sm-10">
-										@Html.DisplayFor(model => model.MedicineType.TypeName)
+                            <div class="col-12">
+                                <div class="post">
+                                    <div class="col-sm-2 user-block">
+                                        <strong>@Html.DisplayNameFor(model => model.MedicineID)</strong>:
+                                    </div>
+                                    <p class="col-sm-10">
+                                        @Html.DisplayFor(model => model.MedicineID)
+                                    </p>
+                                </div>
+                                <div class="post">
+                                    <div class="col-sm-2 user-block">
+                                        <strong>@Html.DisplayNameFor(model => model.MedicineType.TypeName)</strong>:
+                                    </div>
+                                    <p class="col-sm-10">
+                                        @Html.DisplayFor(model => model.MedicineType.TypeName)
 
-									</p>
-								</div>
-								<div class="post">
-									<div class="col-sm-2 user-block">
-										<strong>@Html.DisplayNameFor(model => model.Supplier.CompanyName)</strong>:
-									</div>
-									<p class="col-sm-10">
-										@Html.DisplayFor(model => model.Supplier.CompanyName)
+                                    </p>
+                                </div>
+                                <div class="post">
+                                    <div class="col-sm-2 user-block">
+                                        <strong>@Html.DisplayNameFor(model => model.Supplier.CompanyName)</strong>:
+                                    </div>
+                                    <p class="col-sm-10">
+                                        @Html.DisplayFor(model => model.Supplier.CompanyName)
 
-									</p>
-								</div>
-								<div class="post">
-									<div class="col-sm-2 user-block">
-										<strong>@Html.DisplayNameFor(model => model.MedicineName)</strong>:
-									</div>
-									<p class="col-sm-10">
-										@Html.DisplayFor(model => model.MedicineName)
-									</p>
-								</div>
+                                    </p>
+                                </div>
+                                <div class="post">
+                                    <div class="col-sm-2 user-block">
+                                        <strong>@Html.DisplayNameFor(model => model.MedicineName)</strong>:
+                                    </div>
+                                    <p class="col-sm-10">
+                                        @Html.DisplayFor(model => model.MedicineName)
+                                    </p>
+                                </div>
 
-								<div class="post">
-									<div class="col-sm-2 user-block">
-										<strong>@Html.DisplayNameFor(model => model.ShortDescription)</strong>:
-									</div>
-									<p class="col-sm-10">
-										@Html.DisplayFor(model => model.ShortDescription)
-									</p>
-								</div>
+                                <div class="post">
+                                    <div class="col-sm-2 user-block">
+                                        <strong>@Html.DisplayNameFor(model => model.ShortDescription)</strong>:
+                                    </div>
+                                    <p class="col-sm-10">
+                                        @Html.DisplayFor(model => model.ShortDescription)
+                                    </p>
+                                </div>
 
-								<div class="post">
-									<div class="col-sm-2 user-block">
-										<strong>@Html.DisplayNameFor(model => model.Composition)</strong>:
-									</div>
-									<p class="col-sm-10">
-										@Html.DisplayFor(model => model.Composition)
-									</p>
-								</div>
+                                <div class="post">
+                                    <div class="col-sm-2 user-block">
+                                        <strong>@Html.DisplayNameFor(model => model.Composition)</strong>:
+                                    </div>
+                                    <p class="col-sm-10">
+                                        @Html.Raw(Model.Composition)
+                                    </p>
+                                </div>
 
-								<div class="post">
-									<div class="col-sm-2 user-block">
-										<strong>@Html.DisplayNameFor(model => model.Usage)</strong>:
-									</div>
-									<p class="col-sm-10">
-										@Html.DisplayFor(model => model.Usage)
-									</p>
-								</div>
+                                <div class="post">
+                                    <div class="col-sm-2 user-block">
+                                        <strong>@Html.DisplayNameFor(model => model.Usage)</strong>:
+                                    </div>
+                                    <p class="col-sm-10">
+                                        @Html.Raw(Model.Usage)
+                                    </p>
+                                </div>
 
-								<div class="post">
-									<div class="col-sm-2 user-block">
-										<strong>@Html.DisplayNameFor(model => model.Quantity)</strong>:
-									</div>
-									<p class="col-sm-10">
-										@Html.DisplayFor(model => model.Quantity)
-									</p>
-								</div>
-								<div class="post">
-									<div class="col-sm-2 user-block">
-										<strong>@Html.DisplayNameFor(model => model.OldUnitPrice)</strong>:
-									</div>
-									<p class="col-sm-10">
-										@Html.DisplayFor(model => model.OldUnitPrice)
-									</p>
-								</div>
-								<div class="post">
-									<div class="col-sm-2 user-block">
-										<strong>@Html.DisplayNameFor(model => model.UnitPrice)</strong>:
-									</div>
-									<p class="col-sm-10">
-										@Html.DisplayFor(model => model.UnitPrice)
-									</p>
-								</div>
-								<div class="post">
-									<div class="col-sm-2 user-block">
-										<strong>@Html.DisplayNameFor(model => model.Thumbnail)</strong>:
-									</div>
-									@if (!Model.Thumbnail.IsEmpty())
-									{
-										<img class="col-sm-10" id="imageDetail" src="@Url.Content(Model.Thumbnail)" />
-									}
-									else
-									{
-										<p class="col-sm-10">No Image</p>
-									}
-								</div>
-								<div class="post">
-									<div class="col-sm-2 user-block">
-										<strong>@Html.DisplayNameFor(model => model.Status)</strong>:
-									</div>
-									<p class="col-sm-10">
-										@if (Model.Status == true)
-										{
-											<span class="badge badge-success">Active</span>
-										}
-										else
-										{
-											<span class="badge badge-danger">Disable</span>
-										}
-									</p>
-								</div>
+                                <div class="post">
+                                    <div class="col-sm-2 user-block">
+                                        <strong>@Html.DisplayNameFor(model => model.UnitInStock)</strong>:
+                                    </div>
+                                    <p class="col-sm-10">
+                                        @Html.DisplayFor(model => model.UnitInStock)
+                                    </p>
+                                </div>
 
-							</div>
+                                <div class="post">
+                                    <div class="col-sm-2 user-block">
+                                        <strong>@Html.DisplayNameFor(model => model.UnitOnOrder)</strong>:
+                                    </div>
+                                    <p class="col-sm-10">
+                                        @Html.DisplayFor(model => model.UnitOnOrder)
+                                    </p>
+                                </div>
+
+                                <div class="post">
+                                    <div class="col-sm-2 user-block">
+                                        <strong>@Html.DisplayNameFor(model => model.OldUnitPrice)</strong>:
+                                    </div>
+                                    <p class="col-sm-10">
+                                        @Html.DisplayFor(model => model.OldUnitPrice)
+                                    </p>
+                                </div>
+                                <div class="post">
+                                    <div class="col-sm-2 user-block">
+                                        <strong>@Html.DisplayNameFor(model => model.UnitPrice)</strong>:
+                                    </div>
+                                    <p class="col-sm-10">
+                                        @Html.DisplayFor(model => model.UnitPrice)
+                                    </p>
+                                </div>
+                                <div class="post">
+                                    <div class="col-sm-2 user-block">
+                                        <strong>@Html.DisplayNameFor(model => model.Thumbnail)</strong>:
+                                    </div>
+                                    @if (!Model.Thumbnail.IsEmpty())
+                                    {
+                                        <img class="col-sm-10" id="imageDetail" src="@Url.Content(Model.Thumbnail)" />
+                                    }
+                                    else
+                                    {
+                                        <p class="col-sm-10">No Image</p>
+                                    }
+                                </div>
+                                <div class="post">
+                                    <div class="col-sm-2 user-block">
+                                        <strong>@Html.DisplayNameFor(model => model.Status)</strong>:
+                                    </div>
+                                    <p class="col-sm-10">
+                                        @if (Model.Status == true)
+                                        {
+                                            <span class="badge badge-success">Being Sold</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge badge-danger">Stop Selling</span>
+                                        }
+                                    </p>
+                                </div>
+
+                            </div>
 						</div>
 					</div>
 

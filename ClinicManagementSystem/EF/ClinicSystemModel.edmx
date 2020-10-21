@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="ClinicDataContext.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="ClinicSystemDataContext.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Activity">
           <Key>
             <PropertyRef Name="ActivityID" />
@@ -77,7 +77,8 @@
           <Property Name="ShortDescription" Type="nvarchar" MaxLength="200" />
           <Property Name="Composition" Type="text" />
           <Property Name="Usage" Type="text" />
-          <Property Name="Quantity" Type="int" />
+          <Property Name="UnitInStock" Type="int" />
+          <Property Name="UnitOnOrder" Type="int" />
           <Property Name="OldUnitPrice" Type="int" />
           <Property Name="UnitPrice" Type="int" />
           <Property Name="Thumbnail" Type="nvarchar" MaxLength="300" />
@@ -147,9 +148,10 @@
           <Property Name="SupplierID" Type="int" />
           <Property Name="ScientificApparatusName" Type="nvarchar" MaxLength="100" />
           <Property Name="ShortDescription" Type="nvarchar" MaxLength="200" />
-          <Property Name="Composition" Type="text" />
-          <Property Name="Usage" Type="text" />
-          <Property Name="Quantity" Type="int" />
+          <Property Name="Description" Type="text" />
+          <Property Name="Specification" Type="text" />
+          <Property Name="UnitInStock" Type="int" />
+          <Property Name="UnitOnOrder" Type="int" />
           <Property Name="OldUnitPrice" Type="int" />
           <Property Name="UnitPrice" Type="int" />
           <Property Name="Thumbnail" Type="nvarchar" MaxLength="300" />
@@ -486,7 +488,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="ClinicDataContextStoreContainer">
+        <EntityContainer Name="ClinicSystemDataContextStoreContainer">
           <EntitySet Name="Activity" EntityType="Self.Activity" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Education" EntityType="Self.Education" Schema="dbo" store:Type="Tables" />
@@ -600,7 +602,7 @@
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="ClinicDataContext" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="ClinicSystemDataContext" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="Activity">
           <Key>
             <PropertyRef Name="ActivityID" />
@@ -684,7 +686,8 @@
           <Property Name="ShortDescription" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="Composition" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="Usage" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="Quantity" Type="Int32" />
+          <Property Name="UnitInStock" Type="Int32" />
+          <Property Name="UnitOnOrder" Type="Int32" />
           <Property Name="OldUnitPrice" Type="Int32" />
           <Property Name="UnitPrice" Type="Int32" />
           <Property Name="Thumbnail" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
@@ -770,9 +773,10 @@
           <Property Name="SupplierID" Type="Int32" />
           <Property Name="ScientificApparatusName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="ShortDescription" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="Composition" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="Usage" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="Quantity" Type="Int32" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Specification" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="UnitInStock" Type="Int32" />
+          <Property Name="UnitOnOrder" Type="Int32" />
           <Property Name="OldUnitPrice" Type="Int32" />
           <Property Name="UnitPrice" Type="Int32" />
           <Property Name="Thumbnail" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
@@ -1126,7 +1130,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="ClinicData" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="ClinicSystemData" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Activities" EntityType="Self.Activity" />
           <EntitySet Name="Customers" EntityType="Self.Customer" />
           <EntitySet Name="Educations" EntityType="Self.Education" />
@@ -1241,9 +1245,9 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="ClinicDataContextStoreContainer" CdmEntityContainer="ClinicData">
+        <EntityContainerMapping StorageEntityContainer="ClinicSystemDataContextStoreContainer" CdmEntityContainer="ClinicSystemData">
           <EntitySetMapping Name="Activities">
-            <EntityTypeMapping TypeName="ClinicDataContext.Activity">
+            <EntityTypeMapping TypeName="ClinicSystemDataContext.Activity">
               <MappingFragment StoreEntitySet="Activity">
                 <ScalarProperty Name="ActivityID" ColumnName="ActivityID" />
                 <ScalarProperty Name="ActivityName" ColumnName="ActivityName" />
@@ -1252,7 +1256,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Customers">
-            <EntityTypeMapping TypeName="ClinicDataContext.Customer">
+            <EntityTypeMapping TypeName="ClinicSystemDataContext.Customer">
               <MappingFragment StoreEntitySet="Customer">
                 <ScalarProperty Name="Username" ColumnName="Username" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
@@ -1268,7 +1272,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Educations">
-            <EntityTypeMapping TypeName="ClinicDataContext.Education">
+            <EntityTypeMapping TypeName="ClinicSystemDataContext.Education">
               <MappingFragment StoreEntitySet="Education">
                 <ScalarProperty Name="EducationID" ColumnName="EducationID" />
                 <ScalarProperty Name="LessonName" ColumnName="LessonName" />
@@ -1281,7 +1285,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="EducationFeedbacks">
-            <EntityTypeMapping TypeName="ClinicDataContext.EducationFeedback">
+            <EntityTypeMapping TypeName="ClinicSystemDataContext.EducationFeedback">
               <MappingFragment StoreEntitySet="EducationFeedback">
                 <ScalarProperty Name="FeedbackID" ColumnName="FeedbackID" />
                 <ScalarProperty Name="Username" ColumnName="Username" />
@@ -1292,7 +1296,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Employees">
-            <EntityTypeMapping TypeName="ClinicDataContext.Employee">
+            <EntityTypeMapping TypeName="ClinicSystemDataContext.Employee">
               <MappingFragment StoreEntitySet="Employee">
                 <ScalarProperty Name="Username" ColumnName="Username" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
@@ -1309,7 +1313,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Medicines">
-            <EntityTypeMapping TypeName="ClinicDataContext.Medicine">
+            <EntityTypeMapping TypeName="ClinicSystemDataContext.Medicine">
               <MappingFragment StoreEntitySet="Medicine">
                 <ScalarProperty Name="MedicineID" ColumnName="MedicineID" />
                 <ScalarProperty Name="TypeID" ColumnName="TypeID" />
@@ -1318,7 +1322,8 @@
                 <ScalarProperty Name="ShortDescription" ColumnName="ShortDescription" />
                 <ScalarProperty Name="Composition" ColumnName="Composition" />
                 <ScalarProperty Name="Usage" ColumnName="Usage" />
-                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="UnitInStock" ColumnName="UnitInStock" />
+                <ScalarProperty Name="UnitOnOrder" ColumnName="UnitOnOrder" />
                 <ScalarProperty Name="OldUnitPrice" ColumnName="OldUnitPrice" />
                 <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
                 <ScalarProperty Name="Thumbnail" ColumnName="Thumbnail" />
@@ -1327,7 +1332,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="MedicineFeedbacks">
-            <EntityTypeMapping TypeName="ClinicDataContext.MedicineFeedback">
+            <EntityTypeMapping TypeName="ClinicSystemDataContext.MedicineFeedback">
               <MappingFragment StoreEntitySet="MedicineFeedback">
                 <ScalarProperty Name="FeedbackID" ColumnName="FeedbackID" />
                 <ScalarProperty Name="Username" ColumnName="Username" />
@@ -1338,7 +1343,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="MedicineImages">
-            <EntityTypeMapping TypeName="ClinicDataContext.MedicineImage">
+            <EntityTypeMapping TypeName="ClinicSystemDataContext.MedicineImage">
               <MappingFragment StoreEntitySet="MedicineImage">
                 <ScalarProperty Name="ImageID" ColumnName="ImageID" />
                 <ScalarProperty Name="FileName" ColumnName="FileName" />
@@ -1347,7 +1352,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="MedicineOrders">
-            <EntityTypeMapping TypeName="ClinicDataContext.MedicineOrder">
+            <EntityTypeMapping TypeName="ClinicSystemDataContext.MedicineOrder">
               <MappingFragment StoreEntitySet="MedicineOrder">
                 <ScalarProperty Name="OrderID" ColumnName="OrderID" />
                 <ScalarProperty Name="Username" ColumnName="Username" />
@@ -1361,7 +1366,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="MedicineOrderDetails">
-            <EntityTypeMapping TypeName="ClinicDataContext.MedicineOrderDetail">
+            <EntityTypeMapping TypeName="ClinicSystemDataContext.MedicineOrderDetail">
               <MappingFragment StoreEntitySet="MedicineOrderDetail">
                 <ScalarProperty Name="OrderID" ColumnName="OrderID" />
                 <ScalarProperty Name="MedicineID" ColumnName="MedicineID" />
@@ -1370,7 +1375,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="MedicineTypes">
-            <EntityTypeMapping TypeName="ClinicDataContext.MedicineType">
+            <EntityTypeMapping TypeName="ClinicSystemDataContext.MedicineType">
               <MappingFragment StoreEntitySet="MedicineType">
                 <ScalarProperty Name="TypeID" ColumnName="TypeID" />
                 <ScalarProperty Name="TypeName" ColumnName="TypeName" />
@@ -1379,7 +1384,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Payments">
-            <EntityTypeMapping TypeName="ClinicDataContext.Payment">
+            <EntityTypeMapping TypeName="ClinicSystemDataContext.Payment">
               <MappingFragment StoreEntitySet="Payment">
                 <ScalarProperty Name="PaymentID" ColumnName="PaymentID" />
                 <ScalarProperty Name="PaymentName" ColumnName="PaymentName" />
@@ -1387,16 +1392,17 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ScientificApparatus">
-            <EntityTypeMapping TypeName="ClinicDataContext.ScientificApparatu">
+            <EntityTypeMapping TypeName="ClinicSystemDataContext.ScientificApparatu">
               <MappingFragment StoreEntitySet="ScientificApparatus">
                 <ScalarProperty Name="ScientificApparatusID" ColumnName="ScientificApparatusID" />
                 <ScalarProperty Name="TypeID" ColumnName="TypeID" />
                 <ScalarProperty Name="SupplierID" ColumnName="SupplierID" />
                 <ScalarProperty Name="ScientificApparatusName" ColumnName="ScientificApparatusName" />
                 <ScalarProperty Name="ShortDescription" ColumnName="ShortDescription" />
-                <ScalarProperty Name="Composition" ColumnName="Composition" />
-                <ScalarProperty Name="Usage" ColumnName="Usage" />
-                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Specification" ColumnName="Specification" />
+                <ScalarProperty Name="UnitInStock" ColumnName="UnitInStock" />
+                <ScalarProperty Name="UnitOnOrder" ColumnName="UnitOnOrder" />
                 <ScalarProperty Name="OldUnitPrice" ColumnName="OldUnitPrice" />
                 <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
                 <ScalarProperty Name="Thumbnail" ColumnName="Thumbnail" />
@@ -1405,7 +1411,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ScientificApparatusFeedbacks">
-            <EntityTypeMapping TypeName="ClinicDataContext.ScientificApparatusFeedback">
+            <EntityTypeMapping TypeName="ClinicSystemDataContext.ScientificApparatusFeedback">
               <MappingFragment StoreEntitySet="ScientificApparatusFeedback">
                 <ScalarProperty Name="FeedbackID" ColumnName="FeedbackID" />
                 <ScalarProperty Name="Username" ColumnName="Username" />
@@ -1416,7 +1422,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ScientificApparatusImages">
-            <EntityTypeMapping TypeName="ClinicDataContext.ScientificApparatusImage">
+            <EntityTypeMapping TypeName="ClinicSystemDataContext.ScientificApparatusImage">
               <MappingFragment StoreEntitySet="ScientificApparatusImage">
                 <ScalarProperty Name="ImageID" ColumnName="ImageID" />
                 <ScalarProperty Name="FileName" ColumnName="FileName" />
@@ -1425,7 +1431,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ScientificApparatusOrders">
-            <EntityTypeMapping TypeName="ClinicDataContext.ScientificApparatusOrder">
+            <EntityTypeMapping TypeName="ClinicSystemDataContext.ScientificApparatusOrder">
               <MappingFragment StoreEntitySet="ScientificApparatusOrder">
                 <ScalarProperty Name="OrderID" ColumnName="OrderID" />
                 <ScalarProperty Name="Username" ColumnName="Username" />
@@ -1439,7 +1445,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ScientificApparatusOrderDetails">
-            <EntityTypeMapping TypeName="ClinicDataContext.ScientificApparatusOrderDetail">
+            <EntityTypeMapping TypeName="ClinicSystemDataContext.ScientificApparatusOrderDetail">
               <MappingFragment StoreEntitySet="ScientificApparatusOrderDetail">
                 <ScalarProperty Name="OrderID" ColumnName="OrderID" />
                 <ScalarProperty Name="ScientificApparatusID" ColumnName="ScientificApparatusID" />
@@ -1448,7 +1454,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ScientificApparatusTypes">
-            <EntityTypeMapping TypeName="ClinicDataContext.ScientificApparatusType">
+            <EntityTypeMapping TypeName="ClinicSystemDataContext.ScientificApparatusType">
               <MappingFragment StoreEntitySet="ScientificApparatusType">
                 <ScalarProperty Name="TypeID" ColumnName="TypeID" />
                 <ScalarProperty Name="TypeName" ColumnName="TypeName" />
@@ -1457,7 +1463,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Subjects">
-            <EntityTypeMapping TypeName="ClinicDataContext.Subject">
+            <EntityTypeMapping TypeName="ClinicSystemDataContext.Subject">
               <MappingFragment StoreEntitySet="Subject">
                 <ScalarProperty Name="SubjectID" ColumnName="SubjectID" />
                 <ScalarProperty Name="SubjectName" ColumnName="SubjectName" />
@@ -1466,7 +1472,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Suppliers">
-            <EntityTypeMapping TypeName="ClinicDataContext.Supplier">
+            <EntityTypeMapping TypeName="ClinicSystemDataContext.Supplier">
               <MappingFragment StoreEntitySet="Supplier">
                 <ScalarProperty Name="SupplierID" ColumnName="SupplierID" />
                 <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />

@@ -15,7 +15,7 @@ namespace ClinicManagementSystem.Areas.Admin.Controllers
 {
     public class EmployeesController : Controller
     {
-        private ClinicData db = new ClinicData();
+        private ClinicSystemData db = new ClinicSystemData();
         private ImageProvider imgProvider = new ImageProvider();
 
         public ActionResult Index()

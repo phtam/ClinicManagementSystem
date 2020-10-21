@@ -25,6 +25,9 @@
                     <thead>
                         <tr>
                             <th>
+                                @Html.DisplayNameFor(model => model.PaymentID)
+                            </th>
+                            <th>
                                 @Html.DisplayNameFor(model => model.PaymentName)
                             </th>
                             <th></th>
@@ -34,6 +37,9 @@
                         @foreach (var item in Model)
                         {
                             <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.PaymentID)
+                                </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.PaymentName)
                                 </td>
@@ -78,6 +84,7 @@
             "responsive": true,
             "autoWidth": false,
             "aoColumns": [
+                null,
                 null,
                 { sWidth: '180px' }
             ]

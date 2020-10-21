@@ -12,7 +12,7 @@ namespace ClinicManagementSystem.Areas.Admin.Controllers
 {
     public class SuppliersController : Controller
     {
-        private ClinicData db = new ClinicData();
+        private ClinicSystemData db = new ClinicSystemData();
 
         // GET: Admin/Suppliers
         public ActionResult Index()

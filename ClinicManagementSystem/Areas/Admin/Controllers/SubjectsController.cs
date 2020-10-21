@@ -12,7 +12,7 @@ namespace ClinicManagementSystem.Areas.Admin.Controllers
 {
     public class SubjectsController : Controller
     {
-        private ClinicData db = new ClinicData();
+        private ClinicSystemData db = new ClinicSystemData();
 
         // GET: Admin/Subjects
         public ActionResult Index()
