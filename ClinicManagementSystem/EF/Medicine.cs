@@ -34,7 +34,7 @@ namespace ClinicManagementSystem.EF
         public Nullable<int> SupplierID { get; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "Please enter medicine name !")]
-        [StringLength(maximumLength: 100, MinimumLength = 5, ErrorMessage = " Medicine Name must be between 5 to 100 charaters")]
+        [StringLength(maximumLength: 100, MinimumLength = 5, ErrorMessage = " Medicine name must be between 5 to 100 charaters")]
         [DisplayName("Medicine Name")]
         public string MedicineName { get; set; }
 
@@ -52,11 +52,11 @@ namespace ClinicManagementSystem.EF
         public string Usage { get; set; }
 
         [DisplayName("Unit In Stock")]
-        [Range(maximum: Int64.MaxValue, minimum: 0, ErrorMessage = "Quantity must be a positive number")]
+        [Range(maximum: Int64.MaxValue, minimum: 0, ErrorMessage = "Unit in stock must be a positive number")]
         public Nullable<int> UnitInStock { get; set; }
 
         [DisplayName("Unit On Order")]
-        [Range(maximum: Int64.MaxValue, minimum: 0, ErrorMessage = "Quantity must be a positive number")]
+        [Range(maximum: Int64.MaxValue, minimum: 0, ErrorMessage = "Unit on order must be a positive number")]
         public Nullable<int> UnitOnOrder { get; set; }
 
         [DisplayName("Old Unit Price")]
@@ -66,11 +66,14 @@ namespace ClinicManagementSystem.EF
 
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "Please enter unit price !")]
-        [Range(maximum: Int64.MaxValue, minimum: 0, ErrorMessage = "Unit Price must be a positive number")]
+        [Range(maximum: Int64.MaxValue, minimum: 0, ErrorMessage = "Unit price must be a positive number")]
         [DisplayName("Unit Price")]
         public Nullable<int> UnitPrice { get; set; }
+
         public string Thumbnail { get; set; }
+
         public Nullable<bool> Status { get; set; }
+
         public HttpPostedFileBase ImageFile { get; set; }
 
         public virtual Supplier Supplier { get; set; }

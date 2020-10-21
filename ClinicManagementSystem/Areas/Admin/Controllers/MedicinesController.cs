@@ -139,6 +139,11 @@ namespace ClinicManagementSystem.Areas.Admin.Controllers
                         Directory.CreateDirectory(uploadFolderPath);
                     }
 
+                    if (medicineOldImage != null)
+                    {
+                        System.IO.File.Delete(Server.MapPath(medicineOldImage));
+                    }
+
                     fileName = Path.Combine(uploadFolderPath, fileName);
 
                     medicine.ImageFile.SaveAs(fileName);
@@ -176,9 +181,24 @@ namespace ClinicManagementSystem.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Medicine medicine = db.Medicines.Find(id);
-            db.Medicines.Remove(medicine);
-            db.SaveChanges();
+            try
+            {
+                Medicine medicine = db.Medicines.Find(id);
+                db.Medicines.Remove(medicine);
+                if (db.SaveChanges() > 0)
+                {
+                    if (medicine.Thumbnail != null)
+                    {
+                        System.IO.File.Delete(Server.MapPath(medicine.Thumbnail));
+                    }
+                    TempData["Notice_Delete_Success"] = true;
+                }
+            }
+            catch (Exception)
+            {
+                TempData["Notice_Delete_Fail"] = true;
+            }
+            
             return RedirectToAction("Index");
         }
 

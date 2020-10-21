@@ -19,7 +19,6 @@ namespace ClinicManagementSystem.EF
     {
         public string Username { get; set; }
 
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Please enter password!")]
         [StringLength(maximumLength: 200, MinimumLength = 8, ErrorMessage = "Password must be from 8 to 200 charaters")]
         public string Password { get; set; }
 

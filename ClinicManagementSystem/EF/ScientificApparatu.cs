@@ -33,12 +33,12 @@ namespace ClinicManagementSystem.EF
         public Nullable<int> SupplierID { get; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "Please enter scientific apparatus name !")]
-        [StringLength(maximumLength: 100, MinimumLength = 5, ErrorMessage = "Scientific Apparatus Name must be between 5 to 100 charaters.")]
+        [StringLength(maximumLength: 100, MinimumLength = 5, ErrorMessage = "Scientific apparatus Name must be between 5 to 100 charaters.")]
         [DisplayName("Scientific Apparatus Name")]
         public string ScientificApparatusName { get; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "Please enter short description!")]
-        [StringLength(maximumLength: 200, MinimumLength = 5, ErrorMessage = "Short Description must be between 5 to 200 charaters.")]
+        [StringLength(maximumLength: 200, MinimumLength = 5, ErrorMessage = "Short description must be between 5 to 200 charaters.")]
         [DisplayName("Short Description")]
         public string ShortDescription { get; set; }
 
@@ -49,7 +49,7 @@ namespace ClinicManagementSystem.EF
         public string Specification { get; set; }
 
         [DisplayName("Unit In Stock")]
-        [Range(maximum: Int64.MaxValue, minimum: 0, ErrorMessage = "Unit In Stock must be a positive number")]
+        [Range(maximum: Int64.MaxValue, minimum: 0, ErrorMessage = "Unit in stock must be a positive number")]
         [Required(AllowEmptyStrings = false, ErrorMessage = "Please enter unit in stock!")]
         public Nullable<int> UnitInStock { get; set; }
 
@@ -59,12 +59,12 @@ namespace ClinicManagementSystem.EF
         public Nullable<int> UnitOnOrder { get; set; }
 
         [DisplayName("Old Unit Price")]
-        [Range(maximum: Int64.MaxValue, minimum: 0, ErrorMessage = "Old Unit On Price must be a positive number")]
+        [Range(maximum: Int64.MaxValue, minimum: 0, ErrorMessage = "Old unit price must be a positive number")]
         [Required(AllowEmptyStrings = false, ErrorMessage = "Please enter old unit price!")]
         public Nullable<int> OldUnitPrice { get; set; }
 
         [DisplayName("Unit Price")]
-        [Range(maximum: Int64.MaxValue, minimum: 0, ErrorMessage = "Unit On Price must be a positive number")]
+        [Range(maximum: Int64.MaxValue, minimum: 0, ErrorMessage = "Unit price must be a positive number")]
         [Required(AllowEmptyStrings = false, ErrorMessage = "Please enter unit price!")]
         public Nullable<int> UnitPrice { get; set; }
 
