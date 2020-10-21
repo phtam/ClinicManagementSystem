@@ -141,79 +141,79 @@
     <Compile Include="Areas\Admin\Controllers\SuppliersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="EF\Activity.cs">
-      <DependentUpon>ClinicModel.tt</DependentUpon>
+      <DependentUpon>ClinicSystemModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="EF\ClinicModel.Context.cs">
+    <Compile Include="EF\ClinicSystemModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>ClinicModel.Context.tt</DependentUpon>
+      <DependentUpon>ClinicSystemModel.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="EF\ClinicModel.cs">
+    <Compile Include="EF\ClinicSystemModel.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>ClinicModel.tt</DependentUpon>
+      <DependentUpon>ClinicSystemModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="EF\ClinicModel.Designer.cs">
+    <Compile Include="EF\ClinicSystemModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>ClinicModel.edmx</DependentUpon>
+      <DependentUpon>ClinicSystemModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="EF\Customer.cs">
-      <DependentUpon>ClinicModel.tt</DependentUpon>
+      <DependentUpon>ClinicSystemModel.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\Education.cs">
-      <DependentUpon>ClinicModel.tt</DependentUpon>
+      <DependentUpon>ClinicSystemModel.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\EducationFeedback.cs">
-      <DependentUpon>ClinicModel.tt</DependentUpon>
+      <DependentUpon>ClinicSystemModel.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\Employee.cs">
-      <DependentUpon>ClinicModel.tt</DependentUpon>
+      <DependentUpon>ClinicSystemModel.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\Medicine.cs">
-      <DependentUpon>ClinicModel.tt</DependentUpon>
+      <DependentUpon>ClinicSystemModel.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\MedicineFeedback.cs">
-      <DependentUpon>ClinicModel.tt</DependentUpon>
+      <DependentUpon>ClinicSystemModel.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\MedicineImage.cs">
-      <DependentUpon>ClinicModel.tt</DependentUpon>
+      <DependentUpon>ClinicSystemModel.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\MedicineOrder.cs">
-      <DependentUpon>ClinicModel.tt</DependentUpon>
+      <DependentUpon>ClinicSystemModel.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\MedicineOrderDetail.cs">
-      <DependentUpon>ClinicModel.tt</DependentUpon>
+      <DependentUpon>ClinicSystemModel.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\MedicineType.cs">
-      <DependentUpon>ClinicModel.tt</DependentUpon>
+      <DependentUpon>ClinicSystemModel.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\Payment.cs">
-      <DependentUpon>ClinicModel.tt</DependentUpon>
+      <DependentUpon>ClinicSystemModel.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\ScientificApparatu.cs">
-      <DependentUpon>ClinicModel.tt</DependentUpon>
+      <DependentUpon>ClinicSystemModel.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\ScientificApparatusFeedback.cs">
-      <DependentUpon>ClinicModel.tt</DependentUpon>
+      <DependentUpon>ClinicSystemModel.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\ScientificApparatusImage.cs">
-      <DependentUpon>ClinicModel.tt</DependentUpon>
+      <DependentUpon>ClinicSystemModel.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\ScientificApparatusOrder.cs">
-      <DependentUpon>ClinicModel.tt</DependentUpon>
+      <DependentUpon>ClinicSystemModel.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\ScientificApparatusOrderDetail.cs">
-      <DependentUpon>ClinicModel.tt</DependentUpon>
+      <DependentUpon>ClinicSystemModel.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\ScientificApparatusType.cs">
-      <DependentUpon>ClinicModel.tt</DependentUpon>
+      <DependentUpon>ClinicSystemModel.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\Subject.cs">
-      <DependentUpon>ClinicModel.tt</DependentUpon>
+      <DependentUpon>ClinicSystemModel.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\Supplier.cs">
-      <DependentUpon>ClinicModel.tt</DependentUpon>
+      <DependentUpon>ClinicSystemModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -2401,15 +2401,15 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="EF\ClinicModel.Context.tt">
+    <Content Include="EF\ClinicSystemModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>ClinicModel.Context.cs</LastGenOutput>
-      <DependentUpon>ClinicModel.edmx</DependentUpon>
+      <DependentUpon>ClinicSystemModel.edmx</DependentUpon>
+      <LastGenOutput>ClinicSystemModel.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="EF\ClinicModel.tt">
+    <Content Include="EF\ClinicSystemModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ClinicModel.edmx</DependentUpon>
-      <LastGenOutput>ClinicModel.cs</LastGenOutput>
+      <DependentUpon>ClinicSystemModel.edmx</DependentUpon>
+      <LastGenOutput>ClinicSystemModel.cs</LastGenOutput>
     </Content>
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -2540,13 +2540,6 @@
     <Content Include="Asset\plugins\summernote\summernote.min.js.map" />
     <Content Include="Asset\plugins\toastr\toastr.js.map" />
     <Content Include="Areas\Admin\Views\Home\Index.cshtml" />
-    <EntityDeploy Include="EF\ClinicModel.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>ClinicModel.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="EF\ClinicModel.edmx.diagram">
-      <DependentUpon>ClinicModel.edmx</DependentUpon>
-    </Content>
     <Content Include="Areas\Admin\Views\Payments\Create.cshtml" />
     <Content Include="Areas\Admin\Views\Payments\Delete.cshtml" />
     <Content Include="Areas\Admin\Views\Payments\Details.cshtml" />
@@ -2592,6 +2585,13 @@
     <Content Include="Areas\Admin\Views\Medicines\Details.cshtml" />
     <Content Include="Areas\Admin\Views\Medicines\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Medicines\Index.cshtml" />
+    <EntityDeploy Include="EF\ClinicSystemModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>ClinicSystemModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="EF\ClinicSystemModel.edmx.diagram">
+      <DependentUpon>ClinicSystemModel.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />

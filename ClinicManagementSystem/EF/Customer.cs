@@ -11,6 +11,7 @@ namespace ClinicManagementSystem.EF
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
     using System.Web;
 
@@ -27,18 +28,37 @@ namespace ClinicManagementSystem.EF
         }
     
         public string Username { get; set; }
+
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Please enter password!")]
+        [StringLength(maximumLength: 200, MinimumLength = 8, ErrorMessage = "Password must be from 8 to 200 charaters")]
         public string Password { get; set; }
+
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Please enter fullname!")]
+        [StringLength(maximumLength: 60, MinimumLength = 3, ErrorMessage = "Fullname must be from 3 to 60 charaters")]
         public string FullName { get; set; }
 
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Please select birthdate")]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Please select date of birth!")]
         [DataType(DataType.Date, ErrorMessage = "Birthdate must be date")]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [DisplayName("Birthday")]
         public Nullable<System.DateTime> DateOfBirth { get; set; }
+
         public Nullable<bool> Gender { get; set; }
+
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Please enter phone number!")]
+        [StringLength(maximumLength: 20, MinimumLength = 3, ErrorMessage = "Phone number must be from 3 to 20 charaters")]
         public string Phone { get; set; }
+
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Please enter email!")]
+        [StringLength(maximumLength: 60, MinimumLength = 6, ErrorMessage = "Email must be from 6 to 60 charaters")]
         public string Email { get; set; }
+
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Please enter address")]
+        [StringLength(maximumLength: 200, MinimumLength = 6, ErrorMessage = "Address must be from 6 to 200 charaters")]
         public string Address { get; set; }
+
         public string Avatar { get; set; }
+
         public Nullable<bool> Status { get; set; }
 
         public HttpPostedFileBase ImageFile { get; set; }

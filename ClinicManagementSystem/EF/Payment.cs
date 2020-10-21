@@ -11,7 +11,9 @@ namespace ClinicManagementSystem.EF
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Payment
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -23,6 +25,9 @@ namespace ClinicManagementSystem.EF
     
         public int PaymentID { get; set; }
 
+        [DisplayName("Payment Name")]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Please enter payment name !")]
+        [StringLength(maximumLength: 60, MinimumLength = 5, ErrorMessage = "Payment name must be from 5 to 60 charaters")]
         public string PaymentName { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

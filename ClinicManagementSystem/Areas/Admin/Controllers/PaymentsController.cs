@@ -12,7 +12,7 @@ namespace ClinicManagementSystem.Areas.Admin.Controllers
 {
     public class PaymentsController : Controller
     {
-        private ClinicData db = new ClinicData();
+        private ClinicSystemData db = new ClinicSystemData();
 
 
         public ActionResult Index()

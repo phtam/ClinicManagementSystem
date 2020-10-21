@@ -15,7 +15,7 @@ namespace ClinicManagementSystem.Areas.Admin.Controllers
 {
     public class CustomersController : Controller
     {
-        private ClinicData db = new ClinicData();
+        private ClinicSystemData db = new ClinicSystemData();
         private ImageProvider imgProvider = new ImageProvider();
 
         public ActionResult Index()
@@ -108,7 +108,6 @@ namespace ClinicManagementSystem.Areas.Admin.Controllers
                 string fileName = Path.GetFileNameWithoutExtension(customer.ImageFile.FileName) + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(customer.ImageFile.FileName);
                 
                 customer.Avatar = "~/public/uploadedFiles/customerPictures/" + fileName;
-                // ~/public/uploadedFiles/customerPictures/anh.jpg
 
                 string uploadFolderPath = Server.MapPath("~/public/uploadedFiles/customerPictures/");
 

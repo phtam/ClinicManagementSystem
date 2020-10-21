@@ -24,26 +24,30 @@ namespace ClinicManagementSystem.EF
         }
 
         
-        //[Required(ErrorMessage = "Please enter SupplierID !")]
         public int SupplierID { get; set; }
 
         [DisplayName("Company Name")]
         [Required(AllowEmptyStrings = false, ErrorMessage = "Please enter Company Name !")]
+        [StringLength(maximumLength: 60, MinimumLength = 5, ErrorMessage = "Company name must be from 5 to 60 charaters")]
         public string CompanyName { get; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "Please enter Contact Name !")]
+        [StringLength(maximumLength: 60, MinimumLength = 5, ErrorMessage = "Contact name must be from 5 to 60 charaters")]
         [DisplayName("Contact Name")]
         public string ContactName { get; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "Please enter Address !")]
+        [StringLength(maximumLength: 200, MinimumLength = 5, ErrorMessage = "Address must be from 5 to 200 charaters")]
         public string Address { get; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "Please enter Phone Number !")]
         [RegularExpression(@"^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$", ErrorMessage = "Incorrect phone number format !")]
+        [StringLength(maximumLength: 10, MinimumLength = 3, ErrorMessage = "Phone number must be from 3 to 10 charaters")]
         public string Phone { get; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "Please enter Email !")]
         [RegularExpression(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$", ErrorMessage = "Incorrect email format !")]
+        [StringLength(maximumLength: 50, MinimumLength = 6, ErrorMessage = "Email must be from 3 to 10 charaters")]
         public string Email { get; set; }
         
 

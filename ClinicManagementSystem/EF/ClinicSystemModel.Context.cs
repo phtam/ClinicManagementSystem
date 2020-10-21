@@ -13,10 +13,10 @@ namespace ClinicManagementSystem.EF
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class ClinicData : DbContext
+    public partial class ClinicSystemData : DbContext
     {
-        public ClinicData()
-            : base("name=ClinicData")
+        public ClinicSystemData()
+            : base("name=ClinicSystemData")
         {
         }
     

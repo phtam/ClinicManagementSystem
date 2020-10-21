@@ -11,6 +11,7 @@ namespace ClinicManagementSystem.EF
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
 
     public partial class ScientificApparatusType
@@ -23,10 +24,13 @@ namespace ClinicManagementSystem.EF
     
         public int TypeID { get; set; }
 
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Please enter TypeName !")]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Please enter medicine type name !")]
+        [StringLength(maximumLength: 60, MinimumLength = 5, ErrorMessage = "Scientific apparatus type name must be from 5 to 60 charaters")]
+        [DisplayName("Type Name")]
         public string TypeName { get; set; }
 
         [Required(ErrorMessage = "Please enter Description !")]
+        [StringLength(maximumLength: 200, MinimumLength = 5, ErrorMessage = "Description must be from 5 to 200 charaters")]
         public string Description { get; set; }
     
 
