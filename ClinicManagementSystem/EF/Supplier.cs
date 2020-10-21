@@ -27,6 +27,7 @@ namespace ClinicManagementSystem.EF
         //[Required(ErrorMessage = "Please enter SupplierID !")]
         public int SupplierID { get; set; }
 
+        [DisplayName("Company Name")]
         [Required(AllowEmptyStrings = false, ErrorMessage = "Please enter Company Name !")]
         public string CompanyName { get; set; }
 

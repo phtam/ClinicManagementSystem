@@ -117,13 +117,40 @@ namespace ClinicManagementSystem.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "MedicineID,TypeID,SupplierID,MedicineName,ShortDescription,Composition,Usage,Quantity,OldUnitPrice,UnitPrice,Thumbnail,Status,ImageFile")] Medicine medicine)
+        public ActionResult Edit([Bind(Include = "MedicineID,TypeID,SupplierID,MedicineName,ShortDescription,Composition,Usage,Quantity,OldUnitPrice,UnitPrice,Thumbnail,Status,ImageFile")] Medicine medicine, String userOldImage)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(medicine).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
+            }
+            if (medicine.ImageFile == null)
+            {
+                medicine.Thumbnail = userOldImage;
+            }
+            else
+            {
+                string fileName = Path.GetFileNameWithoutExtension(medicine.ImageFile.FileName) + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(medicine.ImageFile.FileName);
+
+                medicine.Thumbnail = "~/public/uploadedFiles/customerPictures/" + fileName;
+
+                string uploadFolderPath = Server.MapPath("~/public/uploadedFiles/customerPictures/");
+
+                if (Directory.Exists(uploadFolderPath) == false)
+                {
+                    Directory.CreateDirectory(uploadFolderPath);
+                }
+
+                fileName = Path.Combine(uploadFolderPath, fileName);
+
+                if (userOldImage != null)
+                {
+                    System.IO.File.Delete(Server.MapPath(userOldImage));
+                }
+
+                medicine.ImageFile.SaveAs(fileName);
+
             }
             ViewBag.SupplierID = new SelectList(db.Suppliers, "SupplierID", "CompanyName", medicine.SupplierID);
             ViewBag.TypeID = new SelectList(db.MedicineTypes, "TypeID", "TypeName", medicine.TypeID);

@@ -25,10 +25,11 @@ namespace ClinicManagementSystem.EF
             this.MedicineOrderDetails = new HashSet<MedicineOrderDetail>();
         }
 
+        
         public int MedicineID { get; set; }
 
         public Nullable<int> TypeID { get; set; }
-
+       
         public Nullable<int> SupplierID { get; set; }
         [Required(AllowEmptyStrings = false, ErrorMessage = "Please enter MedicineName !")]
         [StringLength(maximumLength: 50, MinimumLength = 5, ErrorMessage = " Medicine Name must be between 5 to 50 charaters")]
@@ -38,20 +39,21 @@ namespace ClinicManagementSystem.EF
 
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "Please enter Short description !")]
-        [StringLength(maximumLength: 50, ErrorMessage = " Short description no more than 50 characters")] 
+        [DisplayName("Short Description")]
         public string ShortDescription { get; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "Please enter Composition !")]
-        [StringLength(maximumLength: 50, ErrorMessage = " Composition no more than 50 characters")]
+        [DisplayName("Composition")]
         public string Composition { get; set; }
 
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "Please enter Usage !")]
-        [StringLength(maximumLength: 50, ErrorMessage = " Usage no more than 50 characters")]
+        [DisplayName("Usage")]
         public string Usage { get; set; }
 
 
         [RegularExpression(@"^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$", ErrorMessage = "Incorrect Quantity number format !")]
+        [DisplayName("Quantity")]
         public Nullable<int> Quantity { get; set; }
 
 
@@ -62,8 +64,11 @@ namespace ClinicManagementSystem.EF
 
 
         [RegularExpression(@"^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$", ErrorMessage = "Incorrect Unit Price number format !")]
+        [DisplayName("Unit Price")]
         public Nullable<int> UnitPrice { get; set; }
 
+
+        [DisplayName("Thumnail")]
         public string Thumbnail { get; set; }
 
         public Nullable<bool> Status { get; set; }
