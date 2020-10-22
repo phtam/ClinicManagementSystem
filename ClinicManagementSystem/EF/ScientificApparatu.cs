@@ -13,6 +13,7 @@ namespace ClinicManagementSystem.EF
     using System.Collections.Generic;
     using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
+    using System.Web;
 
     public partial class ScientificApparatu
     {
@@ -50,11 +51,9 @@ namespace ClinicManagementSystem.EF
 
         [DisplayName("Unit In Stock")]
         [Range(maximum: Int64.MaxValue, minimum: 0, ErrorMessage = "Unit in stock must be a positive number")]
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Please enter unit in stock!")]
         public Nullable<int> UnitInStock { get; set; }
 
         [DisplayName("Unit On Order")]
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Please enter unit on order!")]
         [Range(maximum: Int64.MaxValue, minimum: 0, ErrorMessage = "Unit On Order must be a positive number")]
         public Nullable<int> UnitOnOrder { get; set; }
 
@@ -71,6 +70,8 @@ namespace ClinicManagementSystem.EF
         public string Thumbnail { get; set; }
 
         public Nullable<bool> Status { get; set; }
+
+        public HttpPostedFileBase ImageFile { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ScientificApparatusOrderDetail> ScientificApparatusOrderDetails { get; set; }

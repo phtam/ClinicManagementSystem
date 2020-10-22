@@ -1,0 +1,157 @@
+﻿@model ClinicManagementSystem.EF.ScientificApparatu
+
+@{
+    ViewBag.Title = "Scientific Apparatus Details";
+    ViewBag.Function = "ScientificApparatus";
+    ViewBag.ChildFunction = "Scientific Apparatus Details";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+
+<section class="content">
+    <div class="card">
+        <div class="card-header">
+            <h1 style="font-weight:bold; font-size:25px;" class="card-title">Detail of Scientific Apparatus</h1>
+
+            <div class="card-tools">
+                <a class="btn btn-block btn-secondary float-right" href="~/Admin/ScientificApparatus">Back to List</a>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-12 col-md-12 col-lg-12 order-12 order-md-12">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="post">
+                                <div class="col-sm-2 user-block">
+                                    <strong>@Html.DisplayNameFor(model => model.ScientificApparatusID)</strong>:
+                                </div>
+                                <p class="col-sm-10">
+                                    @Html.DisplayFor(model => model.ScientificApparatusID)
+                                </p>
+                            </div>
+                            <div class="post">
+                                <div class="col-sm-2 user-block">
+                                    <strong>@Html.DisplayNameFor(model => model.ScientificApparatusType.TypeName)</strong>:
+                                </div>
+                                <p class="col-sm-10">
+                                    @Html.DisplayFor(model => model.ScientificApparatusType.TypeName)
+
+                                </p>
+                            </div>
+                            <div class="post">
+                                <div class="col-sm-2 user-block">
+                                    <strong>@Html.DisplayNameFor(model => model.Supplier.CompanyName)</strong>:
+                                </div>
+                                <p class="col-sm-10">
+                                    @Html.DisplayFor(model => model.Supplier.CompanyName)
+
+                                </p>
+                            </div>
+                            <div class="post">
+                                <div class="col-sm-2 user-block">
+                                    <strong>@Html.DisplayNameFor(model => model.ScientificApparatusName)</strong>:
+                                </div>
+                                <p class="col-sm-10">
+                                    @Html.DisplayFor(model => model.ScientificApparatusName)
+                                </p>
+                            </div>
+
+                            <div class="post">
+                                <div class="col-sm-2 user-block">
+                                    <strong>@Html.DisplayNameFor(model => model.ShortDescription)</strong>:
+                                </div>
+                                <p class="col-sm-10">
+                                    @Html.DisplayFor(model => model.ShortDescription)
+                                </p>
+                            </div>
+
+                            <div class="post">
+                                <div class="col-sm-2 user-block">
+                                    <strong>@Html.DisplayNameFor(model => model.Description)</strong>:
+                                </div>
+                                <p class="col-sm-10">
+                                    @Html.Raw(Model.Description)
+                                </p>
+                            </div>
+
+                            <div class="post">
+                                <div class="col-sm-2 user-block">
+                                    <strong>@Html.DisplayNameFor(model => model.Specification)</strong>:
+                                </div>
+                                <p class="col-sm-10">
+                                    @Html.Raw(Model.Specification)
+                                </p>
+                            </div>
+
+                            <div class="post">
+                                <div class="col-sm-2 user-block">
+                                    <strong>@Html.DisplayNameFor(model => model.UnitInStock)</strong>:
+                                </div>
+                                <p class="col-sm-10">
+                                    @Html.DisplayFor(model => model.UnitInStock)
+                                </p>
+                            </div>
+
+                            <div class="post">
+                                <div class="col-sm-2 user-block">
+                                    <strong>@Html.DisplayNameFor(model => model.UnitOnOrder)</strong>:
+                                </div>
+                                <p class="col-sm-10">
+                                    @Html.DisplayFor(model => model.UnitOnOrder)
+                                </p>
+                            </div>
+
+                            <div class="post">
+                                <div class="col-sm-2 user-block">
+                                    <strong>@Html.DisplayNameFor(model => model.OldUnitPrice)</strong>:
+                                </div>
+                                <p class="col-sm-10">
+                                    @Html.DisplayFor(model => model.OldUnitPrice)
+                                </p>
+                            </div>
+                            <div class="post">
+                                <div class="col-sm-2 user-block">
+                                    <strong>@Html.DisplayNameFor(model => model.UnitPrice)</strong>:
+                                </div>
+                                <p class="col-sm-10">
+                                    @Html.DisplayFor(model => model.UnitPrice)
+                                </p>
+                            </div>
+                            <div class="post">
+                                <div class="col-sm-2 user-block">
+                                    <strong>@Html.DisplayNameFor(model => model.Thumbnail)</strong>:
+                                </div>
+                                @if (!Model.Thumbnail.IsEmpty())
+                                {
+                                    <img class="col-sm-10" id="imageDetail" src="@Url.Content(Model.Thumbnail)" />
+                                }
+                                else
+                                {
+                                    <p class="col-sm-10">No Image</p>
+                                }
+                            </div>
+                            <div class="post">
+                                <div class="col-sm-2 user-block">
+                                    <strong>@Html.DisplayNameFor(model => model.Status)</strong>:
+                                </div>
+                                <p class="col-sm-10">
+                                    @if (Model.Status == true)
+                                    {
+                                        <span class="badge badge-success">Being Sold</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge badge-danger">Stop Selling</span>
+                                    }
+                                </p>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
