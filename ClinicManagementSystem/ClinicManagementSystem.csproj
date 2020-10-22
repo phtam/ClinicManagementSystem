@@ -133,6 +133,7 @@
     <Compile Include="Areas\Admin\Controllers\CustomersController.cs" />
     <Compile Include="Areas\Admin\Controllers\EmployeesController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Admin\Controllers\MedicineFeedbacksController.cs" />
     <Compile Include="Areas\Admin\Controllers\MedicinesController.cs" />
     <Compile Include="Areas\Admin\Controllers\MedicineTypesController.cs" />
     <Compile Include="Areas\Admin\Controllers\PaymentsController.cs" />
@@ -2592,6 +2593,11 @@
     <Content Include="EF\ClinicSystemModel.edmx.diagram">
       <DependentUpon>ClinicSystemModel.edmx</DependentUpon>
     </Content>
+    <Content Include="Areas\Admin\Views\MedicineFeedbacks\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\MedicineFeedbacks\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\MedicineFeedbacks\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\MedicineFeedbacks\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\MedicineFeedbacks\Index.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
