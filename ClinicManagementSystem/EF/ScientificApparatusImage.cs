@@ -11,12 +11,15 @@ namespace ClinicManagementSystem.EF
 {
     using System;
     using System.Collections.Generic;
+    using System.Web;
     
     public partial class ScientificApparatusImage
     {
         public int ImageID { get; set; }
         public string FileName { get; set; }
         public Nullable<int> ScientificApparatusID { get; set; }
+
+        public HttpPostedFileBase ImageFile { get; set; }
     
         public virtual ScientificApparatu ScientificApparatu { get; set; }
     }

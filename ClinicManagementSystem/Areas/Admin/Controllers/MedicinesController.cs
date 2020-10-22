@@ -202,6 +202,102 @@ namespace ClinicManagementSystem.Areas.Admin.Controllers
             return RedirectToAction("Index");
         }
 
+        public ActionResult Image(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Medicine medicine = db.Medicines.Find(id);
+            ViewBag.Medicine = medicine;
+
+            var model = db.MedicineImages.Where(x => x.MedicineID == id);
+
+            if (medicine == null)
+            {
+                return HttpNotFound();
+            }
+            return View(model.ToList());
+
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Image([Bind(Include = "ImageID,FileName,MedicineID,ImageFile")] MedicineImage medicineImage)
+        {
+            if (ModelState.IsValid)
+            {
+                if (imgProvider.Validate(medicineImage.ImageFile) != null)
+                {
+                    TempData["Error"] = imgProvider.Validate(medicineImage.ImageFile);
+                    return RedirectToAction("Image", new { id = medicineImage.MedicineID });
+                }
+
+                string fileName = Path.GetFileNameWithoutExtension(medicineImage.ImageFile.FileName) + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(medicineImage.ImageFile.FileName);
+
+                medicineImage.FileName = "~/public/uploadedFiles/medicineImages/" + fileName;
+
+                string uploadFolderPath = Server.MapPath("~/public/uploadedFiles/medicineImages/");
+
+                if (Directory.Exists(uploadFolderPath) == false)
+                {
+                    Directory.CreateDirectory(uploadFolderPath);
+                }
+
+                fileName = Path.Combine(uploadFolderPath, fileName);
+
+                medicineImage.ImageFile.SaveAs(fileName);
+
+                db.MedicineImages.Add(medicineImage);
+                if (db.SaveChanges() > 0)
+                    TempData["Notice_Create_Success"] = true;
+
+                return RedirectToAction("Image", new { id = medicineImage.MedicineID });
+
+            }
+
+            return RedirectToAction("Image", new { id = medicineImage.MedicineID });
+        }
+
+
+        public ActionResult DeleteImage(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            MedicineImage medicineImage = db.MedicineImages.Find(id);
+            var medicineID = medicineImage.MedicineID;
+            try
+            {
+                db.MedicineImages.Remove(medicineImage);
+                if (db.SaveChanges() > 0)
+                {
+                    if (medicineImage.FileName != null)
+                    {
+                        System.IO.File.Delete(Server.MapPath(medicineImage.FileName));
+                    }
+                    TempData["Notice_Delete_Success"] = true;
+                }
+            }
+            catch (Exception)
+            {
+                TempData["Notice_Delete_Fail"] = true;
+            }
+
+            return RedirectToAction("Image", new { id = medicineID });
+        }
+
+        [HttpPost]
+        public ActionResult StockIn(int unitInStock, int medicineID)
+        {
+            var medicine = db.Medicines.Find(medicineID);
+            medicine.UnitInStock += unitInStock;
+            if (db.SaveChanges() > 0)
+                TempData["Notice_Save_Success"] = true;
+            return RedirectToAction("Index");
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

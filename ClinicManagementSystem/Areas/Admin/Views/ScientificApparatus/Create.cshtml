@@ -1,9 +1,9 @@
-﻿@model ClinicManagementSystem.EF.Medicine
+﻿@model ClinicManagementSystem.EF.ScientificApparatu
 
 @{
-    ViewBag.Title = "Create Medicine";
-    ViewBag.Function = "Medicines";
-    ViewBag.ChildFunction = "Create Medicine";
+    ViewBag.Title = "Create Scientific Apparatus";
+    ViewBag.Function = "ScientificApparatus";
+    ViewBag.ChildFunction = "Create Scientific Apparatus";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
@@ -12,12 +12,11 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
-
                 <div class="card card-green">
                     <div class="card-header">
-                        <h3 class="card-title">New Medicine</h3>
+                        <h3 class="card-title">New Scientific Apparatus</h3>
                     </div>
-                    @using (Html.BeginForm("Create", "Medicines", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    @using (Html.BeginForm("Create", "ScientificApparatus", FormMethod.Post, new { enctype = "multipart/form-data" }))
                     {
                         @Html.AntiForgeryToken()
                         <div class="form-horizontal">
@@ -40,10 +39,10 @@
                                 </div>
 
                                 <div class="form-group row ">
-                                    @Html.LabelFor(model => model.MedicineName, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    @Html.LabelFor(model => model.ScientificApparatusName, htmlAttributes: new { @class = "control-label col-md-2" })
                                     <div class="col-md-10">
-                                        @Html.EditorFor(model => model.MedicineName, new { htmlAttributes = new { @class = "form-control", @placeholder = " Enter Medicine Name" } })
-                                        @Html.ValidationMessageFor(model => model.MedicineName, "", new { @class = "text-danger" })
+                                        @Html.EditorFor(model => model.ScientificApparatusName, new { htmlAttributes = new { @class = "form-control", @placeholder = " Enter Scientific Apparatus Name" } })
+                                        @Html.ValidationMessageFor(model => model.ScientificApparatusName, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
 
@@ -56,18 +55,18 @@
                                 </div>
 
                                 <div class="form-group row">
-                                    @Html.LabelFor(model => model.Composition, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
                                     <div class="col-md-10">
-                                        @Html.TextAreaFor(model => model.Composition, new { @id = "summernote_Composition" })
-                                        @Html.ValidationMessageFor(model => model.Composition, "", new { @class = "text-danger" })
+                                        @Html.TextAreaFor(model => model.Description, new { @id = "summernote_Description" })
+                                        @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
 
                                 <div class="form-group row">
-                                    @Html.LabelFor(model => model.Usage, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    @Html.LabelFor(model => model.Specification, htmlAttributes: new { @class = "control-label col-md-2" })
                                     <div class="col-md-10">
-                                        @Html.TextAreaFor(model => model.Usage, new { @id = "summernote_Usage" })
-                                        @Html.ValidationMessageFor(model => model.Usage, "", new { @class = "text-danger" })
+                                        @Html.TextAreaFor(model => model.Specification, new { @id = "summernote_Specification" })
+                                        @Html.ValidationMessageFor(model => model.Specification, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
 
@@ -115,7 +114,7 @@
 
                             <div class="card-footer">
                                 <button type="submit" class="btn btn-success">Create</button>
-                                <a class="btn btn-default float-right" href="~/Admin/Medicines/Index">Cancel</a>
+                                <a class="btn btn-default float-right" href="~/Admin/ScientificApparatus/Index">Cancel</a>
                             </div>
                         </div>
                     }
@@ -134,8 +133,8 @@
     <link href="~/Asset/plugins/summernote/summernote-bs4.min.css" rel="stylesheet" />
     <script>
         $(function () {
-            $('#summernote_Composition').summernote()
-            $('#summernote_Usage').summernote()
+            $('#summernote_Description').summernote()
+            $('#summernote_Specification').summernote()
         })
     </script>
 }

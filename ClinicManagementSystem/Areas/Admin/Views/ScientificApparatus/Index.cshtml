@@ -1,8 +1,9 @@
-﻿@model IEnumerable<ClinicManagementSystem.EF.Medicine>
+﻿@model IEnumerable<ClinicManagementSystem.EF.ScientificApparatu>
+
 
 @{
-    ViewBag.Title = "Manage Medicines";
-    ViewBag.Manage = "Manage Medicines";
+    ViewBag.Title = "Manage Scientific Apparatus";
+    ViewBag.Manage = "Manage Scientific Apparatus";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
@@ -11,9 +12,9 @@
     <div class="container-fluid">
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">Data of Medicine</h3>
+                <h3 class="card-title">Data of Scientific Apparatus</h3>
                 <p>
-                    <a class="btn btn-success btn-sm float-right" href="~/Admin/Medicines/Create">
+                    <a class="btn btn-success btn-sm float-right" href="~/Admin/ScientificApparatus/Create">
                         <i class="fas fa-plus">
                         </i>
                         Create New
@@ -22,11 +23,11 @@
                 </p>
             </div>
             <div class="card-body">
-                <table id="tbl_Medicines" class="table table-bordered table-striped">
+                <table id="tbl_ScientificApparatus" class="table table-bordered table-striped">
                     <thead>
                         <tr>
                             <th>
-                                @Html.DisplayNameFor(model => model.MedicineName)
+                                @Html.DisplayNameFor(model => model.ScientificApparatusName)
                             </th>
                             <th>
                                 @Html.DisplayNameFor(model => model.ShortDescription)
@@ -53,7 +54,7 @@
                                 @Html.DisplayNameFor(model => model.Supplier.CompanyName)
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.MedicineType.TypeName)
+                                @Html.DisplayNameFor(model => model.ScientificApparatusType.TypeName)
                             </th>
                             <th></th>
 
@@ -64,7 +65,7 @@
                         {
                             <tr>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.MedicineName)
+                                    @Html.DisplayFor(modelItem => item.ScientificApparatusName)
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.ShortDescription)
@@ -105,41 +106,30 @@
                                     @Html.DisplayFor(modelItem => item.Supplier.CompanyName)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.MedicineType.TypeName)
+                                    @Html.DisplayFor(modelItem => item.ScientificApparatusType.TypeName)
                                 </td>
 
                                 <td class="project-actions text-right">
-                                    <a class="btn btn-success btn-sm btn-block" href="~/Admin/Medicines/Image/@item.MedicineID">
+                                    <a class="btn btn-success btn-sm btn-block" href="~/Admin/ScientificApparatus/Image/@item.ScientificApparatusID">
                                         <i class="fas fa-image">
                                         </i>
                                         Image
                                     </a>
-                                    <a class="btn btn-primary btn-sm btn-block" href="~/Admin/Medicines/Details/@item.MedicineID">
+                                    <a class="btn btn-primary btn-sm btn-block" href="~/Admin/ScientificApparatus/Details/@item.ScientificApparatusID">
                                         <i class="fas fa-folder">
                                         </i>
                                         View
                                     </a>
-                                    <a class="btn btn-info btn-sm btn-block" href="~/Admin/Medicines/Edit/@item.MedicineID">
+                                    <a class="btn btn-info btn-sm btn-block" href="~/Admin/ScientificApparatus/Edit/@item.ScientificApparatusID">
                                         <i class="fas fa-pencil-alt">
                                         </i>
                                         Edit
                                     </a>
-                                    <a class="btn btn-danger btn-sm btn-block" href="~/Admin/Medicines/Delete/@item.MedicineID">
+                                    <a class="btn btn-danger btn-sm btn-block" href="~/Admin/ScientificApparatus/Delete/@item.ScientificApparatusID">
                                         <i class="fas fa-trash">
                                         </i>
                                         Delete
                                     </a>
-                                    <a class="btn btn-warning btn-sm btn-block" data-toggle="modal" data-target="#modal-default-@item.MedicineID" href="#">
-                                        <i class="fas fa-file-import">
-                                        </i>
-                                        Stock in
-                                    </a>
-                                    <a class="btn btn-dark btn-sm btn-block" data-toggle="modal" data-target="#modal-default-2-@item.MedicineID" href="#">
-                                        <i class="fas fa-file-export">
-                                        </i>
-                                        Stock out
-                                    </a>
-
                                 </td>
                             </tr>
                         }
@@ -151,35 +141,6 @@
     </div>
 </section>
 
-@foreach (var item in Model)
-{
-    <div class="modal fade" id="modal-default-@item.MedicineID">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">@item.MedicineName</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                @using (Html.BeginForm("StockIn", "Medicines", FormMethod.Post))
-                {
-                    <div class="modal-body">
-                        <h4>Enter Quantity of @item.MedicineName which you stock in:</h4>
-                        @Html.TextBox("unitInStock", "", htmlAttributes: new { @class = "form-control", @type = "number" })
-                        @Html.Hidden("medicineID", item.MedicineID)
-                    </div>
-                    <div class="modal-footer justify-content-between">
-                        <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn btn-success">Confirm</button>
-                    </div>
-                }
-                </div>
-        </div>
-    </div>
-    }
-}
-
 @section ScriptConfig
 {
     <link href="~/Asset/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
@@ -189,20 +150,20 @@
     <script src="~/Asset/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
     <script src="~/Asset/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
     <script>
-        $("#tbl_Medicines").DataTable({
+        $("#tbl_ScientificApparatus").DataTable({
             "responsive": true,
             "autoWidth": false,
             "aoColumns": [
                 null,
                 null,
+				null,
                 null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
                 { sWidth: '80px' }
             ]
         });

@@ -138,6 +138,7 @@
     <Compile Include="Areas\Admin\Controllers\MedicinesController.cs" />
     <Compile Include="Areas\Admin\Controllers\MedicineTypesController.cs" />
     <Compile Include="Areas\Admin\Controllers\PaymentsController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ScientificApparatusController.cs" />
     <Compile Include="Areas\Admin\Controllers\ScientificApparatusFeedbacksController.cs" />
     <Compile Include="Areas\Admin\Controllers\ScientificApparatusTypesController.cs" />
     <Compile Include="Areas\Admin\Controllers\SubjectsController.cs" />
@@ -2595,6 +2596,13 @@
     <Content Include="EF\ClinicSystemModel.edmx.diagram">
       <DependentUpon>ClinicSystemModel.edmx</DependentUpon>
     </Content>
+    <Content Include="Areas\Admin\Views\ScientificApparatus\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\ScientificApparatus\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\ScientificApparatus\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\ScientificApparatus\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\ScientificApparatus\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Medicines\Image.cshtml" />
+    <Content Include="Areas\Admin\Views\ScientificApparatus\Image.cshtml" />
     <Content Include="Areas\Admin\Views\MedicineFeedbacks\Create.cshtml" />
     <Content Include="Areas\Admin\Views\MedicineFeedbacks\Delete.cshtml" />
     <Content Include="Areas\Admin\Views\MedicineFeedbacks\Details.cshtml" />

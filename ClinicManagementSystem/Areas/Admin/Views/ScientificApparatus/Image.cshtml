@@ -1,0 +1,202 @@
+﻿@model IEnumerable<ClinicManagementSystem.EF.ScientificApparatusImage>
+
+@{
+    ViewBag.Title = "Add Scientifi cApparatus Images";
+    ViewBag.Function = "ScientificApparatus";
+    ViewBag.ChildFunction = "Add ScientificApparatus Images";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    var apparatus = (ClinicManagementSystem.EF.ScientificApparatu)ViewBag.ScientificApparatus;
+}
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card card-success">
+                    <div class="card-header">
+                        <h3 class="card-title">New Scientific Apparatus Image</h3>
+                    </div>
+                    @using (Html.BeginForm("Image", "ScientificApparatus", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <div class="form-horizontal">
+                            <div class="card-body">
+                                @Html.Hidden("ScientificApparatusID", apparatus.ScientificApparatusID)
+                                <div class="form-group row">
+                                    @Html.Label("Scientific Apparatus Name", htmlAttributes: new { @class = "col-sm-2 col-form-label" })
+                                    <div class="col-sm-10">
+                                        @Html.TextBox("ScientificApparatusName", apparatus.ScientificApparatusName, htmlAttributes: new { @class = "form-control", @readonly = "readonly" })
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    @Html.Label("Image", htmlAttributes: new { @class = "col-sm-2 col-form-label" })
+                                    <div class="col-sm-10">
+                                        <div class="custom-file">
+                                            <input type="file" class="custom-file-input" name="ImageFile" id="ImageFile" required>
+                                            <label class="custom-file-label" for="customFile">Choose file</label>
+                                            <div style="color:red;font-size:17px">@TempData["Error"]</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <button type="submit" class="btn btn-success">Save</button>
+                                <a class="btn btn-default float-right" href="~/Admin/ScientificApparatus/Index">Cancel</a>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-lightblue">
+                        <div class="card-header">
+                            <h3 class="card-title">Data of Scientific Apparatus Images</h3>
+                        </div>
+                        <div class="card-body">
+                            <table id="tbl_Image" class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            No.
+                                        </th>
+                                        <th>
+                                            Image
+                                        </th>
+
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @{ int i = 0; }
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @{ i++; }
+                                                @i
+                                            </td>
+                                            <td>
+                                                <img src="@Url.Content(item.FileName)" style="max-height:200px; max-width:200px;" />
+                                            </td>
+
+                                            <td class="project-actions text-right">
+                                                <a class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal-xl-@item.ImageID" href="#">
+                                                    <i class="fas fa-search">
+                                                    </i>
+                                                    View
+                                                </a>
+
+                                                <a class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modal-danger-@item.ImageID" href="#">
+                                                    <i class="fas fa-trash">
+                                                    </i>
+                                                    Delete
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<style>
+    .img-responsive {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+</style>
+
+@{
+    foreach (var item in Model)
+    {
+        <div class="modal fade" id="modal-xl-@item.ImageID">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">@apparatus.ScientificApparatusName</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        @if (!item.FileName.IsEmpty())
+                        {
+                            <img src="@Url.Content(item.FileName)" class="img-responsive" style="max-height:100%; max-width:100%;" />
+                        }
+                        else
+                        {
+                            <p>No Image</p>
+                        }
+                    </div>
+                    <div class="modal-footer justify-content-between">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+    foreach (var item in Model)
+    {
+        <div class="modal fade" id="modal-danger-@item.ImageID">
+            <div class="modal-dialog">
+                <div class="modal-content bg-danger">
+                    <div class="modal-header">
+                        <h4 class="modal-title">DANGER</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p style="text-align: center;">You won't be able to revert this!</p>
+                        @if (!item.FileName.IsEmpty())
+                        {
+                            <img src="@Url.Content(item.FileName)" class="img-responsive" style="max-height:50%; max-width:50%;" />
+                        }
+                        else
+                        {
+                            <p>No Image</p>
+                        }
+                    </div>
+                    <div class="modal-footer justify-content-between">
+                        <button type="button" class="btn btn-outline-light" data-dismiss="modal">Cancel</button>
+                        <a href="@Url.Action("DeleteImage", "ScientificApparatus", new { id = item.ImageID })" class="btn btn-outline-light" id="btnConfirmDelete">Confirm</a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    }
+}
+
+@section ScriptConfig
+{
+    <link href="~/Asset/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
+    <link href="~/Asset/plugins/datatables-responsive/css/responsive.bootstrap4.min.css" rel="stylesheet" />
+    <script src="~/Asset/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/Asset/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <script src="~/Asset/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="~/Asset/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+    <script src="~/Asset/plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
+    <script>
+        $("#tbl_Image").DataTable({
+            "responsive": true,
+            "autoWidth": false,
+            "aoColumns": [
+                null,
+                null,
+                { sWidth: '180px' }
+            ]
+        });
+    </script>
+}
+
