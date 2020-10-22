@@ -1,24 +1,24 @@
-﻿@model IEnumerable<ClinicManagementSystem.EF.MedicineFeedback>
+﻿@model IEnumerable<ClinicManagementSystem.EF.ScientificApparatusFeedback>
 
 @{
-    ViewBag.Title = "Index MedicineFeedback";
-    ViewBag.Manage = "Manage MedicineFeedback";
+    ViewBag.Title = "Index ScientificApparatusFeedback";
+    ViewBag.Manage = "Manage ScientificApparatusFeedback";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
-
+}
 
 
 <section class="content">
     <div class="container-fluid">
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">Data of MedicineFeedback</h3>
-                <p>                  
+                <h3 class="card-title">Data of ScientificApparatusFeedback</h3>
+                <p>
                     <a style="cursor:pointer; color:white" id="print" class="btn btn-primary btn-sm float-right"><i class="fas fa-print"></i> Print</a>
                 </p>
             </div>
             <div class="card-body">
-                <table id="tbl_MedicineFeedbacks" class="table table-bordered table-striped">
+                <table id="tbl_ScientificApparatusFeedbacks" class="table table-bordered table-striped">
                     <thead>
                         <tr>
                             <th>
@@ -31,7 +31,7 @@
                                 @Html.DisplayNameFor(model => model.Customer.Password)
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.Medicine.MedicineName)
+                                @Html.DisplayNameFor(model => model.ScientificApparatu.ScientificApparatusName)
                             </th>
                             <th></th>
 
@@ -40,34 +40,34 @@
                     <tbody>
                         @foreach (var item in Model)
                         {
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Content)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.CreatedDate)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Customer.Password)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Medicine.MedicineName)
-                            </td>
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Content)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CreatedDate)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Customer.Password)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ScientificApparatu.ScientificApparatusName)
+                                </td>
 
-                            <td class="project-actions text-right">
-                                <a class="btn btn-primary btn-sm" href="~/Admin/MedicineFeedbacks/Details/@item.FeedbackID">
-                                    <i class="fas fa-folder">
-                                    </i>
-                                    View
-                                </a>
+                                <td class="project-actions text-right">
+                                    <a class="btn btn-primary btn-sm" href="~/Admin/ScientificApparatusFeedbacks/Details/@item.FeedbackID">
+                                        <i class="fas fa-folder">
+                                        </i>
+                                        View
+                                    </a>
 
-                                <a class="btn btn-danger btn-sm" href="~/Admin/MedicineFeedbacks/Delete/@item.FeedbackID">
-                                    <i class="fas fa-trash">
-                                    </i>
-                                    Delete
-                                </a>
-                            </td>
-                        </tr>
+                                    <a class="btn btn-danger btn-sm" href="~/Admin/ScientificApparatusFeedbacks/Delete/@item.FeedbackID">
+                                        <i class="fas fa-trash">
+                                        </i>
+                                        Delete
+                                    </a>
+                                </td>
+                            </tr>
                         }
 
                     </tbody>
@@ -86,13 +86,13 @@
     <script src="~/Asset/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
     <script src="~/Asset/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
     <script>
-        $("#tbl_MedicineFeedbacks").DataTable({
+        $("#tbl_ScientificApparatusFeedbacks").DataTable({
             "responsive": true,
             "autoWidth": false,
             "aoColumns": [
                 null,
                 null,
-                null, 
+                null,
                 null,
                 { sWidth: '180px' }
             ]
