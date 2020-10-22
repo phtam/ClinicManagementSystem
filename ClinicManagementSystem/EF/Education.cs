@@ -11,7 +11,8 @@ namespace ClinicManagementSystem.EF
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel;
+
     public partial class Education
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -21,6 +22,7 @@ namespace ClinicManagementSystem.EF
         }
     
         public int EducationID { get; set; }
+        [DisplayName("Lesson Name")]
         public string LessonName { get; set; }
         public Nullable<int> ActivityID { get; set; }
         public Nullable<int> SubjectID { get; set; }
