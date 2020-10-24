@@ -1,8 +1,8 @@
 ﻿@model IEnumerable<ClinicManagementSystem.EF.EducationFeedback>
 
 @{
-    ViewBag.Title = "Index EducationFeedback";
-    ViewBag.Manage = "Manage EducationFeedback";
+    ViewBag.Title = "Manage Education Feedbacks";
+    ViewBag.Manage = "Manage Education Feedbacks";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
@@ -10,7 +10,7 @@
     <div class="container-fluid">
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">Data of EducationFeedback</h3>
+                <h3 class="card-title">Data of Education Feedbacks</h3>
                 <p>
                     <a style="cursor:pointer; color:white" id="print" class="btn btn-primary btn-sm float-right"><i class="fas fa-print"></i> Print</a>
                 </p>
@@ -20,16 +20,19 @@
                     <thead>
                         <tr>
                             <th>
-                                @Html.DisplayNameFor(model => model.Content)
+                                @Html.DisplayNameFor(model => model.Username)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Customer.FullName)
                             </th>
                             <th>
                                 @Html.DisplayNameFor(model => model.CreatedDate)
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.Customer.Password)
+                                @Html.DisplayNameFor(model => model.Education.LessonName)
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.Education.LessonName)
+                                @Html.DisplayNameFor(model => model.Content)
                             </th>
                             <th></th>
                         </tr>
@@ -37,33 +40,36 @@
                     <tbody>
                         @foreach (var item in Model)
                         {
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Content)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.CreatedDate)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Customer.Password)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Education.LessonName)
-                            </td>
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Username)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Customer.FullName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CreatedDate)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Education.LessonName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Content)
+                                </td>
 
-                            <td class="project-actions text-right">
-                                <a class="btn btn-primary btn-sm" href="~/Admin/EducationFeedbacks/Details/@item.FeedbackID">
-                                    <i class="fas fa-folder">
-                                    </i>
-                                    View
-                                </a>
-                                <a class="btn btn-danger btn-sm" href="~/Admin/EducationFeedbacks/Delete/@item.FeedbackID">
-                                    <i class="fas fa-trash">
-                                    </i>
-                                    Delete
-                                </a>
-                            </td>
-                        </tr>
+                                <td class="project-actions text-right">
+                                    <a class="btn btn-primary btn-sm" href="~/Admin/EducationFeedbacks/Details/@item.FeedbackID">
+                                        <i class="fas fa-folder">
+                                        </i>
+                                        View
+                                    </a>
+                                    <a class="btn btn-danger btn-sm" href="~/Admin/EducationFeedbacks/Delete/@item.FeedbackID">
+                                        <i class="fas fa-trash">
+                                        </i>
+                                        Delete
+                                    </a>
+                                </td>
+                            </tr>
                         }
 
                     </tbody>
@@ -90,7 +96,8 @@
                 null,
                 null,
                 null,
-                { sWidth: '180px' }
+                null,
+                { sWidth: '120px' }
             ]
         });
 

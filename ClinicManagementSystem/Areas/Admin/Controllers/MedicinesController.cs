@@ -154,7 +154,11 @@ namespace ClinicManagementSystem.Areas.Admin.Controllers
                 db.Entry(medicine).Property(x => x.UnitInStock).IsModified = false;
                 db.Entry(medicine).Property(x => x.UnitOnOrder).IsModified = false;
                 if (db.SaveChanges() > 0)
+                {
+                    Session.Remove("OLD_MEDICINE_IMAGE");
                     TempData["Notice_Save_Success"] = true;
+                }
+                    
                 return RedirectToAction("Index");
             }
             

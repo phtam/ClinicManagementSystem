@@ -1,9 +1,9 @@
 ﻿@model ClinicManagementSystem.EF.MedicineFeedback
 
 @{
-    ViewBag.Title = "Delete MedicineFeedback";
-    ViewBag.Function = "MedicineFeedback";
-    ViewBag.ChildFunction = "Delete MedicineFeedback";
+    ViewBag.Title = "Delete Medicine Feedback";
+    ViewBag.Function = "MedicineFeedbacks";
+    ViewBag.ChildFunction = "Delete Medicine Feedback";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
@@ -41,39 +41,46 @@
                         <div class="col-12">
                             <div class="post">
                                 <div class="col-sm-2 user-block">
-                                    <strong> @Html.DisplayNameFor(model => model.Content)</strong>:
+                                    <strong>@Html.DisplayNameFor(model => model.Username)</strong>:
                                 </div>
                                 <p class="col-sm-10">
-                                    @Html.DisplayFor(model => model.Content)
+                                    @Html.DisplayFor(model => model.Username)
                                 </p>
                             </div>
-                            
                             <div class="post">
                                 <div class="col-sm-2 user-block">
-                                    <strong> @Html.DisplayNameFor(model => model.CreatedDate)</strong>:
+                                    <strong>@Html.DisplayNameFor(model => model.Customer.FullName)</strong>:
+                                </div>
+                                <p class="col-sm-10">
+                                    @Html.DisplayFor(model => model.Customer.FullName)
+                                </p>
+                            </div>
+                            <div class="post">
+                                <div class="col-sm-2 user-block">
+                                    <strong>@Html.DisplayNameFor(model => model.CreatedDate)</strong>:
                                 </div>
                                 <p class="col-sm-10">
                                     @Html.DisplayFor(model => model.CreatedDate)
+
                                 </p>
                             </div>
-
                             <div class="post">
                                 <div class="col-sm-2 user-block">
-                                    <strong>@Html.DisplayNameFor(model => model.Customer.Password)</strong>:
-                                </div>
-                                <p class="col-sm-10">
-                                    @Html.DisplayFor(model => model.Customer.Password)
-                                </p>
-                            </div>
-
-                            <div class="post">
-                                <div class="col-sm-2 user-block">
-                                    <strong>@Html.DisplayNameFor(model => model.Medicine.MedicineName)</strong>:
+                                    <strong> @Html.DisplayNameFor(model => model.Medicine.MedicineName)</strong>:
                                 </div>
                                 <p class="col-sm-10">
                                     @Html.DisplayFor(model => model.Medicine.MedicineName)
+
                                 </p>
-                            </div>                                                 
+                            </div>
+                            <div class="post">
+                                <div class="col-sm-2 user-block">
+                                    <strong>@Html.DisplayNameFor(model => model.Content)</strong>:
+                                </div>
+                                <p class="col-sm-10">
+                                    @Html.Raw(Model.Content)
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>

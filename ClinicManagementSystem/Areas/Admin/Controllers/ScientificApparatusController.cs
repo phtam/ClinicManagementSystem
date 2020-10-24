@@ -152,7 +152,11 @@ namespace ClinicManagementSystem.Areas.Admin.Controllers
                 db.Entry(scientificApparatu).Property(x => x.UnitInStock).IsModified = false;
                 db.Entry(scientificApparatu).Property(x => x.UnitOnOrder).IsModified = false;
                 if (db.SaveChanges() > 0)
+                {
+                    Session.Remove("OLD_SCIENTIFIC_APPARATUS_IMAGE");
                     TempData["Notice_Save_Success"] = true;
+                }
+                    
                 return RedirectToAction("Index");
             }
             ViewBag.SupplierID = new SelectList(db.Suppliers, "SupplierID", "CompanyName", scientificApparatu.SupplierID);

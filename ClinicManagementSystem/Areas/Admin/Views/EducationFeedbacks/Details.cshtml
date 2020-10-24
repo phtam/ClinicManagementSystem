@@ -1,18 +1,16 @@
 ﻿@model ClinicManagementSystem.EF.EducationFeedback
 
 @{
-    ViewBag.Title = "Details EducationFeedback";
+    ViewBag.Title = "Education Feedback Detail";
     ViewBag.Function = "EducationFeedbacks";
-    ViewBag.ChildFunction = "EducationFeedback Details";
+    ViewBag.ChildFunction = "Education Feedback Detail";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
-}
-
 
 <section class="content">
     <div class="card">
         <div class="card-header">
-            <h1 style="font-weight:bold; font-size:25px;" class="card-title">Detail of EducationFeedback</h1>
+            <h1 style="font-weight:bold; font-size:25px;" class="card-title">Detail of Education Feedback</h1>
 
             <div class="card-tools">
                 <a class="btn btn-block btn-secondary float-right" href="~/Admin/EducationFeedBacks">Back to List</a>
@@ -25,10 +23,18 @@
                         <div class="col-12">
                             <div class="post">
                                 <div class="col-sm-2 user-block">
-                                    <strong> @Html.DisplayNameFor(model => model.Content)</strong>:
+                                    <strong> @Html.DisplayNameFor(model => model.Username)</strong>:
                                 </div>
                                 <p class="col-sm-10">
-                                    @Html.DisplayFor(model => model.Content)
+                                    @Html.DisplayFor(model => model.Username)
+                                </p>
+                            </div>
+                            <div class="post">
+                                <div class="col-sm-2 user-block">
+                                    <strong> @Html.DisplayNameFor(model => model.Customer.FullName)</strong>:
+                                </div>
+                                <p class="col-sm-10">
+                                    @Html.DisplayFor(model => model.Customer.FullName)
                                 </p>
                             </div>
                             <div class="post">
@@ -42,19 +48,19 @@
                             </div>
                             <div class="post">
                                 <div class="col-sm-2 user-block">
-                                    <strong> @Html.DisplayNameFor(model => model.Customer.Password)</strong>:
+                                    <strong> @Html.DisplayNameFor(model => model.Education.LessonName)</strong>:
                                 </div>
                                 <p class="col-sm-10">
-                                    @Html.DisplayFor(model => model.Customer.Password)
+                                    @Html.DisplayFor(model => model.Education.LessonName)
 
                                 </p>
                             </div>
                             <div class="post">
                                 <div class="col-sm-2 user-block">
-                                    <strong>@Html.DisplayNameFor(model => model.Education.LessonName)</strong>:
+                                    <strong>@Html.DisplayNameFor(model => model.Content)</strong>:
                                 </div>
                                 <p class="col-sm-10">
-                                    @Html.DisplayFor(model => model.Education.LessonName)
+                                    @Html.Raw(Model.Content)
                                 </p>
                             </div>
                         </div>

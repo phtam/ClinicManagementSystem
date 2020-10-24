@@ -1,38 +1,44 @@
-﻿@model IEnumerable<ClinicManagementSystem.EF.ScientificApparatusFeedback>
+﻿@model IEnumerable<ClinicManagementSystem.EF.Education>
 
 @{
-    ViewBag.Title = "Manage Scientific Apparatus Feedbacks";
-    ViewBag.Manage = "Manage Scientific Apparatus Feedbacks";
+    ViewBag.Title = "Manage Educations";
+    ViewBag.Manage = "Manage Educations";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
+
 
 <section class="content">
     <div class="container-fluid">
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">Data of Scientific Apparatus Feedbacks</h3>
+                <h3 class="card-title">Data of Education</h3>
                 <p>
+                    <a class="btn btn-success btn-sm float-right" href="~/Admin/Educations/Create">
+                        <i class="fas fa-plus">
+                        </i>
+                        Create New
+                    </a>
                     <a style="cursor:pointer; color:white" id="print" class="btn btn-primary btn-sm float-right"><i class="fas fa-print"></i> Print</a>
                 </p>
             </div>
             <div class="card-body">
-                <table id="tbl_ScientificApparatusFeedbacks" class="table table-bordered table-striped">
+                <table id="tbl_Educations" class="table table-bordered table-striped">
                     <thead>
                         <tr>
                             <th>
-                                @Html.DisplayNameFor(model => model.Username)
+                                @Html.DisplayNameFor(model => model.LessonName)
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.Customer.FullName)
+                                @Html.DisplayNameFor(model => model.CreateDate)
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.CreatedDate)
+                                @Html.DisplayNameFor(model => model.Thumbnail)
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.ScientificApparatu.ScientificApparatusName)
+                                @Html.DisplayNameFor(model => model.Activity.ActivityName)
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.Content)
+                                @Html.DisplayNameFor(model => model.Subject.SubjectName)
                             </th>
                             <th></th>
 
@@ -43,29 +49,40 @@
                         {
                             <tr>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.Username)
+                                    @Html.DisplayFor(modelItem => item.LessonName)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.Customer.FullName)
+                                    @Html.DisplayFor(modelItem => item.CreateDate)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.CreatedDate)
+                                    @if (!item.Thumbnail.IsEmpty())
+                                    {
+                                        <img id="imageDetail" src="@Url.Content(item.Thumbnail)" width="100" height="100" />
+                                    }
+                                    else
+                                    {
+                                        <p class="col-sm-10">No Image</p>
+                                    }
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.ScientificApparatu.ScientificApparatusName)
+                                    @Html.DisplayFor(modelItem => item.Activity.ActivityName)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.Content)
+                                    @Html.DisplayFor(modelItem => item.Subject.SubjectName)
                                 </td>
 
                                 <td class="project-actions text-right">
-                                    <a class="btn btn-primary btn-sm" href="~/Admin/ScientificApparatusFeedbacks/Details/@item.FeedbackID">
+                                    <a class="btn btn-primary btn-sm" href="~/Admin/Educations/Details/@item.EducationID">
                                         <i class="fas fa-folder">
                                         </i>
                                         View
                                     </a>
-
-                                    <a class="btn btn-danger btn-sm" href="~/Admin/ScientificApparatusFeedbacks/Delete/@item.FeedbackID">
+                                    <a class="btn btn-info btn-sm" href="~/Admin/Educations/Edit/@item.EducationID">
+                                        <i class="fas fa-pencil-alt">
+                                        </i>
+                                        Edit
+                                    </a>
+                                    <a class="btn btn-danger btn-sm" href="~/Admin/Educations/Delete/@item.EducationID">
                                         <i class="fas fa-trash">
                                         </i>
                                         Delete
@@ -90,16 +107,16 @@
     <script src="~/Asset/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
     <script src="~/Asset/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
     <script>
-        $("#tbl_ScientificApparatusFeedbacks").DataTable({
+        $("#tbl_Educations").DataTable({
             "responsive": true,
             "autoWidth": false,
             "aoColumns": [
                 null,
                 null,
+				null,
                 null,
-                null,
-                null,
-                { sWidth: '120px' }
+				null,
+                { width: '180px' }
             ]
         });
 

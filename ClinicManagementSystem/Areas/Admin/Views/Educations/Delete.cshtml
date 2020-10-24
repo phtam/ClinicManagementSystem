@@ -1,11 +1,12 @@
-﻿@model ClinicManagementSystem.EF.EducationFeedback
+﻿@model ClinicManagementSystem.EF.Education
 
 @{
-    ViewBag.Title = "Delete Education Feedback";
-    ViewBag.Function = "EducationFeedbacks";
-    ViewBag.ChildFunction = "Delete Education Feedback";
+    ViewBag.Title = "Delete Education";
+    ViewBag.Function = "Educations";
+    ViewBag.ChildFunction = "Delete Education";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
+
 <section class="content">
     <div class="card">
         <div class="card-header">
@@ -28,7 +29,7 @@
                 </div>
 
                 <div class="card-tools col-sm-2">
-                    <a class="btn btn-block btn-secondary float-right" href="~/Admin/EducationFeedbacks">Cancel</a>
+                    <a class="btn btn-block btn-secondary float-right" href="~/Admin/Educations">Cancel</a>
                 </div>
             </div>
         </div>
@@ -39,54 +40,75 @@
                         <div class="col-12">
                             <div class="post">
                                 <div class="col-sm-2 user-block">
-                                    <strong> @Html.DisplayNameFor(model => model.Username)</strong>:
+                                    <strong>@Html.DisplayNameFor(model => model.EducationID)</strong>:
                                 </div>
                                 <p class="col-sm-10">
-                                    @Html.DisplayFor(model => model.Username)
-                                </p>
-                            </div>
-                            <div class="post">
-                                <div class="col-sm-2 user-block">
-                                    <strong> @Html.DisplayNameFor(model => model.Customer.FullName)</strong>:
-                                </div>
-                                <p class="col-sm-10">
-                                    @Html.DisplayFor(model => model.Customer.FullName)
+                                    @Html.DisplayFor(model => model.EducationID)
                                 </p>
                             </div>
 
                             <div class="post">
                                 <div class="col-sm-2 user-block">
-                                    <strong> @Html.DisplayNameFor(model => model.CreatedDate)</strong>:
+                                    <strong>@Html.DisplayNameFor(model => model.LessonName)</strong>:
                                 </div>
                                 <p class="col-sm-10">
-                                    @Html.DisplayFor(model => model.CreatedDate)
+                                    @Html.DisplayFor(model => model.LessonName)
                                 </p>
                             </div>
 
                             <div class="post">
                                 <div class="col-sm-2 user-block">
-                                    <strong>@Html.DisplayNameFor(model => model.Education.LessonName)</strong>:
+                                    <strong>@Html.DisplayNameFor(model => model.CreateDate)</strong>:
                                 </div>
                                 <p class="col-sm-10">
-                                    @Html.DisplayFor(model => model.Education.LessonName)
+                                    @Html.DisplayFor(model => model.CreateDate)
                                 </p>
                             </div>
 
                             <div class="post">
                                 <div class="col-sm-2 user-block">
-                                    <strong> @Html.DisplayNameFor(model => model.Content)</strong>:
+                                    <strong>@Html.DisplayNameFor(model => model.Activity.ActivityName)</strong>:
+                                </div>
+                                <p class="col-sm-10">
+                                    @Html.DisplayFor(model => model.Activity.ActivityName)
+                                </p>
+                            </div>
+
+                            <div class="post">
+                                <div class="col-sm-2 user-block">
+                                    <strong>@Html.DisplayNameFor(model => model.Subject.SubjectName)</strong>:
+                                </div>
+                                <p class="col-sm-10">
+                                    @Html.DisplayFor(model => model.Subject.SubjectName)
+                                </p>
+                            </div>
+
+                            <div class="post">
+                                <div class="col-sm-2 user-block">
+                                    <strong>@Html.DisplayNameFor(model => model.Content)</strong>:
                                 </div>
                                 <p class="col-sm-10">
                                     @Html.Raw(Model.Content)
                                 </p>
                             </div>
+
+                            <div class="post">
+                                <div class="col-sm-2 user-block">
+                                    <strong>@Html.DisplayNameFor(model => model.Thumbnail)</strong>:
+                                </div>
+                                @if (!Model.Thumbnail.IsEmpty())
+                                {
+                                    <img class="col-sm-10" id="imageDetail" src="@Url.Content(Model.Thumbnail)" />
+                                }
+                                else
+                                {
+                                    <p class="col-sm-10">No Image</p>
+                                }
+                            </div>
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
 </section>
-
-
