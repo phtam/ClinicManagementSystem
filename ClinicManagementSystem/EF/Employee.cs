@@ -31,6 +31,7 @@ namespace ClinicManagementSystem.EF
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         [DisplayName("Birthday")]
         public Nullable<System.DateTime> DateOfBirth { get; set; }
+
         public Nullable<bool> Gender { get; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "Please enter phone number!")]
@@ -40,9 +41,15 @@ namespace ClinicManagementSystem.EF
         [Required(AllowEmptyStrings = false, ErrorMessage = "Please enter email!")]
         [StringLength(maximumLength: 60, MinimumLength = 6, ErrorMessage = "Email must be from 6 to 60 charaters")]
         public string Email { get; set; }
+
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Please enter Address !")]
+        [StringLength(maximumLength: 200, MinimumLength = 5, ErrorMessage = "Address must be from 5 to 200 charaters")]
         public string Address { get; set; }
+
         public string Avatar { get; set; }
+
         public Nullable<int> Position { get; set; }
+
         public Nullable<bool> Status { get; set; }
 
         public HttpPostedFileBase ImageFile { get; set; }

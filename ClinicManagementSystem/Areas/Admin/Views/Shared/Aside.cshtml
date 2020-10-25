@@ -1,6 +1,4 @@
-﻿@{
-    //var user = (Azure_Assignment.Areas.Admin.Models.UserLogin)Session["USER_SESSION"];
-}
+﻿@model ClinicManagementSystem.EF.Employee
 
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <a href="~/admin" class="brand-link">
@@ -11,10 +9,10 @@
     <div class="sidebar">
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
-                <img src="~/public/img/avatar5.png" class="img-circle elevation-2" alt="User Image" />
+                <img src="@Url.Content(Model.Avatar)" class="img-circle elevation-2" alt="User Image" />
             </div>
             <div class="info">
-                <a href="~/admin/profile" class="d-block">Tam Pham Hoang</a>
+                <a href="~/admin/profile" class="d-block">@Model.FullName</a>
             </div>
         </div>
 
@@ -43,12 +41,17 @@
                                 <p>Medicines</p>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a href="~/Admin/MedicineTypes" class="nav-link">
-                                <img src="~/public/icons/icons8-pharmacy-30.png" />
-                                <p>Medicine Types</p>
-                            </a>
-                        </li>
+
+                        @if (Model.Position == 1)
+                        {
+                            <li class="nav-item">
+                                <a href="~/Admin/MedicineTypes" class="nav-link">
+                                    <img src="~/public/icons/icons8-pharmacy-30.png" />
+                                    <p>Medicine Types</p>
+                                </a>
+                            </li>
+                        }
+
                         <li class="nav-item">
                             <a href="~/Admin/MedicineFeedbacks" class="nav-link">
                                 <img src="~/public/icons/icons8-messaging-30.png" />
@@ -79,12 +82,16 @@
                                 <p>Scientific Apparatus</p>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a href="~/Admin/ScientificApparatusTypes" class="nav-link">
-                                <img src="~/public/icons/icons8-commodity-30.png" />
-                                <p>Scientific Apparatus Types</p>
-                            </a>
-                        </li>
+                        @if (Model.Position == 1)
+                        {
+                            <li class="nav-item">
+                                <a href="~/Admin/ScientificApparatusTypes" class="nav-link">
+                                    <img src="~/public/icons/icons8-commodity-30.png" />
+                                    <p>Scientific Apparatus Types</p>
+                                </a>
+                            </li>
+                        }
+
                         <li class="nav-item">
                             <a href="~/Admin/ScientificApparatusFeedbacks" class="nav-link">
                                 <img src="~/public/icons/icons8-messaging-30.png" />
@@ -107,12 +114,16 @@
                     </a>
                 </li>
 
-                <li class="nav-item">
-                    <a href="~/Admin/Employees/" class="nav-link">
-                        <img src="~/public/icons/icons8-management-30.png" />
-                        <p>Manage Employees</p>
-                    </a>
-                </li>
+                @if (Model.Position == 1)
+                {
+                    <li class="nav-item">
+                        <a href="~/Admin/Employees/" class="nav-link">
+                            <img src="~/public/icons/icons8-management-30.png" />
+                            <p>Manage Employees</p>
+                        </a>
+                    </li>
+                }
+
 
                 <li class="nav-item">
                     <a href="#" class="nav-link">
@@ -129,18 +140,22 @@
                                 <p>Educations</p>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a href="~/Admin/Subjects" class="nav-link">
-                                <img src="~/public/icons/icons8-book-shelf-30.png" />
-                                <p>Subjects</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="~/Admin/Activities" class="nav-link">
-                                <img src="~/public/icons/icons8-science-application-30.png" />
-                                <p>Activities</p>
-                            </a>
-                        </li>
+                        @if (Model.Position == 1)
+                        {
+                            <li class="nav-item">
+                                <a href="~/Admin/Subjects" class="nav-link">
+                                    <img src="~/public/icons/icons8-book-shelf-30.png" />
+                                    <p>Subjects</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="~/Admin/Activities" class="nav-link">
+                                    <img src="~/public/icons/icons8-science-application-30.png" />
+                                    <p>Activities</p>
+                                </a>
+                            </li>
+                        }
+
                         <li class="nav-item">
                             <a href="~/Admin/EducationFeedbacks" class="nav-link">
                                 <img src="~/public/icons/icons8-messaging-30.png" />
@@ -150,28 +165,32 @@
                     </ul>
                 </li>
 
-                <li class="nav-item">
-                    <a href="~/Admin/Suppliers/" class="nav-link">
-                        <img src="~/public/icons/icons8-supplier-30.png" />
-                        <p>Manage Suppliers</p>
-                    </a>
-                </li>
+                @if (Model.Position == 1)
+                {
+                    <li class="nav-item">
+                        <a href="~/Admin/Suppliers/" class="nav-link">
+                            <img src="~/public/icons/icons8-supplier-30.png" />
+                            <p>Manage Suppliers</p>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="~/Admin/Payments/" class="nav-link">
+                            <img src="~/public/icons/icons8-visa-30.png" />
+                            <p>Manage Payments</p>
+                        </a>
+                    </li>
+                }
+
+
 
                 <li class="nav-item">
-                    <a href="~/Admin/Payments/" class="nav-link">
-                        <img src="~/public/icons/icons8-visa-30.png" />
-                        <p>Manage Payments</p>
-                    </a>
-                </li>
-
-
-                <li class="nav-item">
-                    <a href="@Url.Action("LogOut", "Login")" class="nav-link">
+                    <a href="@Url.Action("Logout", "Login")" class="nav-link">
                         <img src="~/public/icons/icons8-sign-out-30.png" />
-                        <p>Sign out</p>
+                        <p>Logout</p>
                     </a>
                 </li>
-               
+
 
             </ul>
         </nav>

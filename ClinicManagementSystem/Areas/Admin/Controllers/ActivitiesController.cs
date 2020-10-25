@@ -10,17 +10,16 @@ using ClinicManagementSystem.EF;
 
 namespace ClinicManagementSystem.Areas.Admin.Controllers
 {
+    [Authorize]
     public class ActivitiesController : Controller
     {
         private ClinicSystemData db = new ClinicSystemData();
 
-        // GET: Admin/Activities
         public ActionResult Index()
         {
             return View(db.Activities.ToList());
         }
 
-        // GET: Admin/Activities/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -35,15 +34,11 @@ namespace ClinicManagementSystem.Areas.Admin.Controllers
             return View(activity);
         }
 
-        // GET: Admin/Activities/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Admin/Activities/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ActivityID,ActivityName,Description")] Activity activity)
@@ -59,7 +54,6 @@ namespace ClinicManagementSystem.Areas.Admin.Controllers
             return View(activity);
         }
 
-        // GET: Admin/Activities/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -74,9 +68,6 @@ namespace ClinicManagementSystem.Areas.Admin.Controllers
             return View(activity);
         }
 
-        // POST: Admin/Activities/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ActivityID,ActivityName,Description")] Activity activity)
@@ -91,7 +82,6 @@ namespace ClinicManagementSystem.Areas.Admin.Controllers
             return View(activity);
         }
 
-        // GET: Admin/Activities/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -106,7 +96,6 @@ namespace ClinicManagementSystem.Areas.Admin.Controllers
             return View(activity);
         }
 
-        // POST: Admin/Activities/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)

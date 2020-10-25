@@ -26,6 +26,9 @@
                     <thead>
                         <tr>
                             <th>
+                                @Html.DisplayNameFor(model => model.Username)
+                            </th>
+                            <th>
                                 @Html.DisplayNameFor(model => model.FullName)
                             </th>
                             <th>
@@ -59,6 +62,9 @@
                         @foreach (var item in Model)
                         {
                             <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Username)
+                                </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.FullName)
                                 </td>
@@ -159,7 +165,8 @@
                     null,
                     null,
                     null,
-                    { sWidth: '80px' }
+                    null,
+                    { width: '80px' }
                 ]
             });
         });

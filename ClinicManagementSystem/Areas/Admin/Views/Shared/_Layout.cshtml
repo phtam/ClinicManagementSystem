@@ -23,7 +23,7 @@
     <div class="wrapper">
         @Html.Partial("NavBar")
 
-        @Html.Partial("Aside")
+        @{Html.RenderAction("Aside", "Home");}
 
         <div class="content-wrapper">
             <section class="content-header">

@@ -10,6 +10,7 @@ using ClinicManagementSystem.EF;
 
 namespace ClinicManagementSystem.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "1")]
     public class SubjectsController : Controller
     {
         private ClinicSystemData db = new ClinicSystemData();

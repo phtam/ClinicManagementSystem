@@ -1,0 +1,249 @@
+﻿@model ClinicManagementSystem.EF.Employee
+@{
+    ViewBag.Title = Model.FullName + " Profile";
+    ViewBag.Manage = Model.FullName + " Profile";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="card card-primary card-outline">
+                    <div class="card-body box-profile">
+                        <div class="text-center">
+                            <img class="profile-user-img img-fluid img-circle"
+                                 src="@Url.Content(Model.Avatar)"
+                                 alt="User profile picture">
+                        </div>
+
+                        <h3 class="profile-username text-center">@Model.FullName</h3>
+
+                        <p class="text-muted text-center">@Model.Username</p>
+
+                        <ul class="list-group list-group-unbordered mb-3">
+                            <li class="list-group-item">
+                                <b>Gender</b> <a class="float-right">
+                                    @{
+                                        if (Model.Gender == true)
+                                        {
+                                            <div>Male</div>
+                                        }
+                                        else
+                                        {
+                                            <div>Female</div>
+                                        }
+                                    }
+                                </a>
+                            </li>
+                            <li class="list-group-item">
+                                <b>Birthday</b> <a class="float-right">@Model.DateOfBirth.Value.ToShortDateString()</a>
+                            </li>
+                            <li class="list-group-item">
+                                <b>Phone</b> <a class="float-right">@Model.Phone</a>
+                            </li>
+                            <li class="list-group-item">
+                                <b>Email</b> <a class="float-right">@Model.Email</a>
+                            </li>
+                            <li class="list-group-item">
+                                <b>Address</b> <a class="float-right">@Model.Address</a>
+                            </li>
+                            <li class="list-group-item">
+                                <b>Position</b> <a class="float-right">
+                                    @{
+                                        if (Model.Position == 0)
+                                        {
+                                            <div>Staff</div>
+                                        }
+                                        else
+                                        {
+                                            <div>Administrator</div>
+                                        }
+                                    }
+                                </a>
+                            </li>
+                        </ul>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-9">
+                <div class="card">
+                    <div class="card-header p-2">
+                        <ul class="nav nav-pills">
+                            <li class="nav-item"><a class="nav-link active" href="#settings" data-toggle="tab">Settings</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#changepass" data-toggle="tab">Change Password</a></li>
+                        </ul>
+                    </div>
+                    <div class="card-body">
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="settings">
+                                @using (Html.BeginForm("Edit", "Profile", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    <div class="form-horizontal">
+                                        <div class="card-body">
+                                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                            @Html.HiddenFor(model => model.Username)
+                                            <div style="color:red;font-size:20px;font-weight:bold">@ViewBag.Error</div>
+                                            <div class="form-group row">
+                                                @Html.LabelFor(model => model.FullName, htmlAttributes: new { @class = "control-label col-md-2" })
+                                                <div class="col-md-10">
+                                                    @Html.EditorFor(model => model.FullName, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter FullName" } })
+                                                    @Html.ValidationMessageFor(model => model.FullName, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row">
+                                                @Html.LabelFor(model => model.DateOfBirth, htmlAttributes: new { @class = "control-label col-md-2" })
+                                                <div class="col-md-10">
+                                                    @Html.EditorFor(model => model.DateOfBirth, new { htmlAttributes = new { @class = "form-control oso", @type = "date" } })
+                                                    @Html.ValidationMessageFor(model => model.DateOfBirth, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row">
+                                                @Html.LabelFor(model => model.Gender, htmlAttributes: new { @class = "control-label col-md-2" })
+                                                <div class="col-md-10" style="width: 100%;">
+                                                    @Html.RadioButtonFor(model => model.Gender, true, new { Checked = "checked" })
+                                                    <span>Male</span>&emsp;&emsp;
+                                                    @Html.RadioButtonFor(model => model.Gender, false)
+                                                    <span>Female</span>
+                                                    @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row">
+                                                @Html.LabelFor(model => model.Phone, htmlAttributes: new { @class = "control-label col-md-2" })
+                                                <div class="col-md-10">
+                                                    @Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter Phone Number" } })
+                                                    @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row">
+                                                @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+                                                <div class="col-md-10">
+                                                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter Email" } })
+                                                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row">
+                                                @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label col-md-2" })
+                                                <div class="col-md-10">
+                                                    @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter Address" } })
+                                                    @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row">
+                                                @Html.LabelFor(model => model.Avatar, htmlAttributes: new { @class = "col-sm-2 col-form-label" })
+                                                <div class="col-sm-10">
+                                                    <div class="custom-file">
+                                                        <input type="file" class="custom-file-input" name="ImageFile" id="ImageFile">
+                                                        <label class="custom-file-label" for="customFile">Choose file</label>
+                                                        @Html.ValidationMessageFor(model => model.ImageFile, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row">
+                                                <div class="offset-sm-2 col-sm-10">
+                                                    <button type="submit" class="btn btn-success">Save</button>
+                                                </div>
+                                            </div>
+                                            <input type="hidden" name="employeeOldImage" value="@Session["OLD_PROFILE_IMAGE"]" />
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+
+                            <div class="tab-pane" id="changepass">
+                                @using (Html.BeginForm("ChangePassword", "Profile", FormMethod.Post))
+                                {
+                                    <div style="color:red">@ViewBag.Error</div>
+                                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                    @Html.Hidden("username", Model.Username)
+                                    <form class="form-horizontal">
+                                        <div class="form-group row">
+                                            <label for="inputName" class="col-sm-2 col-form-label">Current Password</label>
+                                            <div class="col-sm-10">
+                                                <input type="password" class="form-control" name="currentPass" placeholder="Current Password" required>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="inputEmail" class="col-sm-2 col-form-label">New Password</label>
+                                            <div class="col-sm-10">
+                                                <input type="password" class="form-control" name="newPass" placeholder="New Password" required>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="inputName2" class="col-sm-2 col-form-label">Confirm Password</label>
+                                            <div class="col-sm-10">
+                                                <input type="password" class="form-control" name="confirmPass" placeholder="Confirm Password" required>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <div class="offset-sm-2 col-sm-10">
+                                                <button type="submit" class="btn btn-success">Save</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                }
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+@section ScriptConfig
+{
+    <link href="~/Asset/plugins/daterangepicker/daterangepicker.css" rel="stylesheet" />
+    <script src="~/Asset/plugins/daterangepicker/daterangepicker.js"></script>
+    <script src="~/Asset/plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
+
+    @if (TempData["Password_Not_Match"] != null)
+    {
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Confirmation password does not match!',
+            })
+        </script>
+    }
+
+    @if (TempData["Current_Pass_Fail"] != null)
+    {
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Current password is incorrect!',
+            })
+        </script>
+    }
+
+    @if (TempData["Password_Incorrect_Format"] != null)
+    {
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Password must be from 8 to 200 charaters!',
+            })
+        </script>
+    }
+
+    
+}

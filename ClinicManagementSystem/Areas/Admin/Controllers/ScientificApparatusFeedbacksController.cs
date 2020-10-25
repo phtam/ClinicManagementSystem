@@ -10,6 +10,7 @@ using ClinicManagementSystem.EF;
 
 namespace ClinicManagementSystem.Areas.Admin.Controllers
 {
+    [Authorize]
     public class ScientificApparatusFeedbacksController : Controller
     {
         private ClinicSystemData db = new ClinicSystemData();

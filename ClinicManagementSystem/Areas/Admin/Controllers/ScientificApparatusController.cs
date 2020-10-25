@@ -12,6 +12,7 @@ using ClinicManagementSystem.Provider;
 
 namespace ClinicManagementSystem.Areas.Admin.Controllers
 {
+    [Authorize]
     public class ScientificApparatusController : Controller
     {
         private ClinicSystemData db = new ClinicSystemData();
