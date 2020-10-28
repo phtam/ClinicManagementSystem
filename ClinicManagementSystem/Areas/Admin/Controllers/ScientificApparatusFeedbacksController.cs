@@ -11,7 +11,7 @@ using ClinicManagementSystem.EF;
 namespace ClinicManagementSystem.Areas.Admin.Controllers
 {
     [Authorize]
-    public class ScientificApparatusFeedbacksController : Controller
+    public class ScientificApparatusFeedbacksController : BaseController
     {
         private ClinicSystemData db = new ClinicSystemData();
 

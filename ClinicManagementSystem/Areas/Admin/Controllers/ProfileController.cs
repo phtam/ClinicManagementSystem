@@ -13,7 +13,7 @@ using Scrypt;
 namespace ClinicManagementSystem.Areas.Admin.Controllers
 {
     [Authorize]
-    public class ProfileController : Controller
+    public class ProfileController : BaseController
     {
         private ClinicSystemData db = new ClinicSystemData();
 

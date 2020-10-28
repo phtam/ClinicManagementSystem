@@ -46,10 +46,12 @@ namespace ClinicManagementSystem.EF
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "Please enter phone number!")]
         [StringLength(maximumLength: 20, MinimumLength = 3, ErrorMessage = "Phone number must be from 3 to 20 charaters")]
+        [RegularExpression(@"^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$", ErrorMessage = "Incorrect phone number format !")]
         public string Phone { get; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "Please enter email!")]
         [StringLength(maximumLength: 60, MinimumLength = 6, ErrorMessage = "Email must be from 6 to 60 charaters")]
+        [RegularExpression(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$", ErrorMessage = "Incorrect email format !")]
         public string Email { get; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "Please enter address")]

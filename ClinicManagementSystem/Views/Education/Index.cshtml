@@ -1,0 +1,64 @@
+﻿@{ 
+    var education = (List<ClinicManagementSystem.EF.Education>)ViewBag.Education;
+}
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="blog_area section-padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mb-5 mb-lg-0">
+                <div class="blog_left_sidebar">
+                    @foreach (var item in education)
+                    {
+                        <article class="blog_item">
+                            <div class="blog_item_img">
+                                <img class="card-img rounded-0" src="@Url.Content(item.Thumbnail)" alt="">
+                                <a class="blog_item_date">
+                                    <h3>@item.CreateDate.Value.Day</h3>
+                                    <p>@item.CreateDate.Value.Year</p>
+                                </a>
+                            </div>
+                            <div class="blog_details">
+                                <a class="d-inline-block" href="@Url.Action("Detail", "Education", new { id = item.EducationID })">
+                                    <h2 class="blog-head" style="color: #2d2d2d;">@item.LessonName</h2>
+                                </a>
+                                <ul class="blog-info-link">
+                                    <li><a><i class="fa fa-calendar"></i> @item.CreateDate</a></li>
+                                    <li><a href="#"><i class="fa fa-comments"></i> @item.EducationFeedbacks.Count() Comment(s)</a></li>
+                                </ul>
+                            </div>
+                        </article>
+                    }
+
+
+                    <nav class="blog-pagination justify-content-center d-flex">
+                        <ul class="pagination">
+                            <li class="page-item">
+                                <a href="#" class="page-link" aria-label="Previous">
+                                    <i class="ti-angle-left"></i>
+                                </a>
+                            </li>
+                            <li class="page-item">
+                                <a href="#" class="page-link">1</a>
+                            </li>
+                            <li class="page-item active">
+                                <a href="#" class="page-link">2</a>
+                            </li>
+                            <li class="page-item">
+                                <a href="#" class="page-link" aria-label="Next">
+                                    <i class="ti-angle-right"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+            @{ Html.RenderAction("_RightSlibar", "Education"); }
+        </div>
+    </div>
+</section>
+

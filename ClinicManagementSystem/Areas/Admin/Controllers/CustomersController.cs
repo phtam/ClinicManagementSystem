@@ -14,7 +14,7 @@ using Scrypt;
 namespace ClinicManagementSystem.Areas.Admin.Controllers
 {
     [Authorize]
-    public class CustomersController : Controller
+    public class CustomersController : BaseController
     {
         private ClinicSystemData db = new ClinicSystemData();
         private ImageProvider imgProvider = new ImageProvider();

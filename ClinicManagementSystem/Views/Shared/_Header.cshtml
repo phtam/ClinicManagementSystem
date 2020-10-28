@@ -1,0 +1,98 @@
+﻿@{ 
+    var medicineType = (List<ClinicManagementSystem.EF.MedicineType>)ViewBag.MedicineType;
+    var scientificApparatusType = (List<ClinicManagementSystem.EF.ScientificApparatusType>)ViewBag.ScientificApparatusType;
+    var activity = (List<ClinicManagementSystem.EF.Activity>)ViewBag.Activity;
+}
+<header>
+    <div class="header-area">
+        <div class="main-header header-sticky">
+            <div class="container-fluid">
+                <div class="row menu-wrapper align-items-center justify-content-between">
+                    <div class="header-left d-flex align-items-center">
+                        <!-- Logo -->
+                        <div class="logo">
+                            <a href="~/home"><img src="~/Scripts/img/logo/logo.png" alt=""></a>
+                        </div>
+                        <!-- Logo-2 -->
+                        @*<div class="~/home">
+                            <a href="~/home"><img src="~/Scripts/img/logo/logo2.png" alt=""></a>
+                        </div>*@
+                        <!-- Main-menu -->
+                        <div class="main-menu  d-none d-lg-block">
+                            <nav>
+                                <ul id="navigation">
+                                    <li><a href="~/home">Home</a></li>
+                                    <li>
+                                        <a href="#">Medicines</a>
+                                        <ul class="submenu">
+                                            @{
+                                                foreach (var item in medicineType)
+                                                {
+                                                    <li><a href="@Url.Action("Index", "Medicine", new { id = item.TypeID })">@item.TypeName</a></li>
+                                                }
+                                            }
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a href="blog.html">Scientific Apparatus</a>
+                                        <ul class="submenu">
+                                            @{
+                                                foreach (var item in scientificApparatusType)
+                                                {
+                                                    <li><a href="@Url.Action("Index", "ScientificApparatus", new { id = item.TypeID })">@item.TypeName</a></li>
+                                                }
+                                            }
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a href="#">Education</a>
+                                        <ul class="submenu">
+                                            @{
+                                                foreach (var item in activity)
+                                                {
+                                                    <li><a href="@Url.Action("Index", "Education", new { id = item.ActivityID })">@item.ActivityName</a></li>
+                                                }
+                                            }
+                                        </ul>
+                                    </li>
+                                    <li><a href="about.html">About</a></li>
+                                    <li><a href="@Url.Action("Contact", "Home")">Contact</a></li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                    <div class="header-right1 d-flex align-items-center">
+                        <div class="search">
+                            <ul class="d-flex align-items-center">
+                                <li>
+                                    <!-- Search Box -->
+                                    <form action="#" class="form-box f-right ">
+                                        <input type="text" name="Search" placeholder="Search products">
+                                        <div class="search-icon">
+                                            <i class="ti-search"></i>
+                                        </div>
+                                    </form>
+                                </li>
+                                <li>
+                                    <a href="login.html" class="account-btn" target="_blank">Sign in</a>/
+                                    <a href="login.html" class="account-btn" target="_blank">Register</a>
+                                </li>
+                                <li>
+                                    <div class="card-stor">
+                                        <img src="~/Scripts/img/icon/card.svg" alt="">
+                                        <span>0</span>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- Mobile Menu -->
+                    <div class="col-12">
+                        <div class="mobile_menu d-block d-lg-none"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Header End -->
+</header>

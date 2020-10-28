@@ -9,7 +9,7 @@ using System.Web.Mvc;
 namespace ClinicManagementSystem.Areas.Admin.Controllers
 {
     [Authorize]
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         private ClinicSystemData db = new ClinicSystemData();
 
@@ -23,7 +23,6 @@ namespace ClinicManagementSystem.Areas.Admin.Controllers
         {
             var user = (EmployeeAuthentication)Session[Common.CommonConstants.EMPLOYEE_SESSION];
             var model = db.Employees.Find(user.Username);
-
             return PartialView(model);
         }
     }

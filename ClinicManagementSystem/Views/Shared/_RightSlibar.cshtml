@@ -1,0 +1,83 @@
+﻿@{ 
+    var subject = (List<ClinicManagementSystem.EF.Subject>)ViewBag.Subjects;
+    var activity = (List<ClinicManagementSystem.EF.Activity>)ViewBag.Activities;
+    var recent = (List<ClinicManagementSystem.EF.Education>)ViewBag.RecentPost;
+}
+<div class="col-lg-4">
+    <div class="blog_right_sidebar">
+        <aside class="single_sidebar_widget search_widget">
+            <form action="#">
+                <div class="form-group">
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" placeholder='Search Keyword'
+                               onfocus="this.placeholder = ''"
+                               onblur="this.placeholder = 'Search Keyword'">
+                        <div class="input-group-append">
+                            <button class="btns" type="button"><i class="ti-search"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <button class="button rounded-0 primary-bg text-white w-100 btn_1 boxed-btn"
+                        type="submit">
+                    Search
+                </button>
+            </form>
+        </aside>
+        <aside class="single_sidebar_widget post_category_widget">
+            <h4 class="widget_title" style="color: #2d2d2d;">Subjects</h4>
+            <ul class="list cat-list">
+                @foreach (var item in subject)
+                {
+                    <li>
+                        <a href="@Url.Action("SearchBySubject", "Education", new { id = item.SubjectID })" class="d-flex">
+                            <p>@item.SubjectName</p>
+                        </a>
+                    </li>
+                }
+
+            </ul>
+        </aside>
+        <aside class="single_sidebar_widget post_category_widget">
+            <h4 class="widget_title" style="color: #2d2d2d;">Activities</h4>
+            <ul class="list cat-list">
+                @foreach (var item in activity)
+                {
+                    <li>
+                        <a href="@Url.Action("Index", "Education", new { id = item.ActivityID })" class="d-flex">
+                            <p>@item.ActivityName</p>
+                        </a>
+                    </li>
+                }
+
+            </ul>
+        </aside>
+        <aside class="single_sidebar_widget popular_post_widget">
+            <h3 class="widget_title" style="color: #2d2d2d;">Recent Post</h3>
+            @foreach (var item in recent)
+            {
+                <div class="media post_item">
+                    <img src="@Url.Content(item.Thumbnail)" width="18%" alt="post">
+                    <div class="media-body">
+                        <a href="@Url.Action("Detail", "Education", new { id = item.EducationID })">
+                            <h3 style="color: #2d2d2d;">@item.LessonName</h3>
+                        </a>
+                        <p>@item.CreateDate</p>
+                    </div>
+                </div>
+            }
+        </aside>
+        <aside class="single_sidebar_widget newsletter_widget">
+            <h4 class="widget_title" style="color: #2d2d2d;">Newsletter</h4>
+            <form action="#">
+                <div class="form-group">
+                    <input type="email" class="form-control" onfocus="this.placeholder = ''"
+                           onblur="this.placeholder = 'Enter email'" placeholder='Enter email' required>
+                </div>
+                <button class="button rounded-0 primary-bg text-white w-100 btn_1 boxed-btn"
+                        type="submit">
+                    Subscribe
+                </button>
+            </form>
+        </aside>
+    </div>
+</div>

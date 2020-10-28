@@ -15,6 +15,7 @@
                 <div class="card card-green">
                     <div class="card-header">
                         <h3 class="card-title">New Customer</h3>
+
                     </div>
                     @using (Html.BeginForm("Create", "Customers", FormMethod.Post, new { enctype = "multipart/form-data" }))
                     {
@@ -25,8 +26,9 @@
                                 <div class="form-group row">
                                     @Html.LabelFor(model => model.Username, htmlAttributes: new { @class = "control-label col-md-2" })
                                     <div class="col-md-10">
-                                        @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter Username" } })
+                                        @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter Username", @id = "txtUsername" } })
                                         @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
+                                        <div style="color:red" id="notice_invalid_username"></div>
                                     </div>
                                 </div>
 
@@ -76,8 +78,9 @@
                                 <div class="form-group row">
                                     @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
                                     <div class="col-md-10">
-                                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter Email" } })
+                                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter Email", @id = "txtEmail" } })
                                         @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                                        <div style="color:red" id="notice_invalid_email"></div>
                                     </div>
                                 </div>
 
@@ -131,4 +134,6 @@
     <link href="~/Asset/plugins/daterangepicker/daterangepicker.css" rel="stylesheet" />
     <script src="~/Asset/plugins/daterangepicker/daterangepicker.js"></script>
     <script src="~/Asset/plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
+    <script src="~/Content/jsController/customerController.js"></script>
+
 }

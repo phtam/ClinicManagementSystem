@@ -13,7 +13,7 @@ using ClinicManagementSystem.Provider;
 namespace ClinicManagementSystem.Areas.Admin.Controllers
 {
     [Authorize]
-    public class EducationsController : Controller
+    public class EducationsController : BaseController
     {
         private ClinicSystemData db = new ClinicSystemData();
         private ImageProvider imgProvider = new ImageProvider();
