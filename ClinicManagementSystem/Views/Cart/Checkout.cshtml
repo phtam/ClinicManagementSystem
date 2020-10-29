@@ -1,0 +1,106 @@
+﻿@{
+    ViewBag.Title = "Checkout";
+    ViewBag.Header = "Cart";
+    ViewBag.Child = "Checkout";
+    var user = (ClinicManagementSystem.Models.CustomerAuthentication)Session["CUSTOMER_SESSION"];
+    var apparatus = (List<ClinicManagementSystem.Models.ScientificApparatusItem>)ViewBag.Apparatus;
+    var medicine = (List<ClinicManagementSystem.Models.MedicineItem>)ViewBag.Medicine;
+    var payment = (List<ClinicManagementSystem.EF.Payment>)ViewBag.Payments;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="checkout_area section-padding40">
+    <div class="container">
+        <div class="billing_details">
+            <div class="row">
+                <div class="col-lg-8">
+                    <h3>Billing Details</h3>
+                    <div style="color:red">@TempData["ErrorMess"]</div>
+                    @using (Html.BeginForm("Checkout", "Cart", FormMethod.Post, htmlAttributes: new { @class = "row contact_form" }))
+                    {
+                        <div class="col-md-6 form-group p_star">
+                            <input type="text" class="form-control" value="@user.Username" readonly />
+                        </div>
+                        <div class="col-md-6 form-group p_star">
+                            <input type="text" class="form-control" value="@user.FullName" readonly />
+                        </div>
+                        <div class="col-md-12 form-group">
+                            <input type="text" class="form-control" value="@user.Phone" readonly />
+                        </div>
+                        <div class="col-md-12 form-group">
+                            <input type="text" class="form-control" value="@user.Email" readonly />
+                        </div>
+                        <div class="col-md-12 form-group">
+                            <input type="text" class="form-control" id="address" value="@user.Address" name="address" />
+                        </div>
+                        <div class="col-md-12 form-group p_star">
+                            <select class="country_select" name="payment">
+                                @if (payment != null)
+                                {
+                                    foreach (var item in payment)
+                                    {
+                                        <option value="@item.PaymentID">@item.PaymentName</option>
+                                    }
+                                }
+                            </select>
+                        </div>
+                        <div class="col-md-12 form-group">
+                            <textarea class="form-control" name="note" id="message" rows="1" placeholder="Order Notes"></textarea>
+                        </div>
+                        <button type="submit" class="btn w-100">Proceed to Pay</button>
+                    }
+                </div>
+                <div class="col-lg-4">
+                    <div class="order_box">
+                        <h2>Your Order</h2>
+                        <ul class="list">
+                            <li>
+                                <a href="#">
+                                    Product<span>Total</span>
+                                </a>
+                            </li>
+                            @if (medicine != null)
+                            {
+                                foreach (var item in medicine)
+                                {
+                                    <li>
+                                        <a style="cursor:pointer">
+                                            @item.Medicine.MedicineName
+                                            <span class="middle">x @item.Quantity</span>
+                                            <span class="last">$
+                                            <script>document.write(@item.Medicine.UnitPrice.GetValueOrDefault()*@item.Quantity)</script></span>
+                                        </a>
+                                    </li>
+                                    }
+                                }
+
+                            @if (apparatus != null)
+                            {
+                                foreach (var item in apparatus)
+                                {
+                                    <li>
+                                        <a style="cursor:pointer">
+                                            @item.ScientificApparatus.ScientificApparatusName
+                                            <span class="middle">x @item.Quantity</span>
+                                            <span class="last">$
+                                            <script>document.write(@item.ScientificApparatus.UnitPrice.GetValueOrDefault()*@item.Quantity)</script></span>
+                                        </a>
+                                    </li>
+                                }
+                            }
+                                
+                        </ul>
+                        <ul class="list list_2">
+                            <li>
+                                <a href="#">
+                                    Total<span>$@ViewBag.Price</span>
+                                </a>
+                            </li>
+                        </ul>
+                            
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

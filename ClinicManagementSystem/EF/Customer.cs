@@ -22,11 +22,10 @@ namespace ClinicManagementSystem.EF
         {
             this.EducationFeedbacks = new HashSet<EducationFeedback>();
             this.MedicineFeedbacks = new HashSet<MedicineFeedback>();
-            this.MedicineOrders = new HashSet<MedicineOrder>();
-            this.ScientificApparatusOrders = new HashSet<ScientificApparatusOrder>();
+            this.Orders = new HashSet<Order>();
             this.ScientificApparatusFeedbacks = new HashSet<ScientificApparatusFeedback>();
         }
-    
+
         public string Username { get; set; }
 
         [StringLength(maximumLength: 200, MinimumLength = 8, ErrorMessage = "Password must be from 8 to 200 charaters")]
@@ -69,9 +68,7 @@ namespace ClinicManagementSystem.EF
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MedicineFeedback> MedicineFeedbacks { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<MedicineOrder> MedicineOrders { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ScientificApparatusOrder> ScientificApparatusOrders { get; set; }
+        public virtual ICollection<Order> Orders { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ScientificApparatusFeedback> ScientificApparatusFeedbacks { get; set; }
     }

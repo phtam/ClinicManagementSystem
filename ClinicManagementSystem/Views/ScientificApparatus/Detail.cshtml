@@ -55,7 +55,7 @@
                     <div class="card_area">
                         <div class="product_count d-inline-block">
                             <span class="inumber-decrement"> <i class="ti-minus"></i></span>
-                            <input class="input-number" type="text" value="1" min="0" max="10">
+                            <input class="input-number" id="txtQty" type="text" value="1" min="0" max="10">
                             <span class="number-increment"> <i class="ti-plus"></i></span>
                         </div>
                         <div class="add_to_cart">
@@ -162,3 +162,16 @@
         </div>
     </div>
 </section>
+@section ClientScript
+{
+    <script>
+
+        $(document).ready(function () {
+            $(".btn").click(function () {
+                var qty = $("#txtQty").val();
+                window.location = "/add-apparatus?productID=@Model.ScientificApparatusID&quantity=" + qty;
+            });
+        });
+
+    </script>
+}

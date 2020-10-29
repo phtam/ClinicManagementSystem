@@ -21,7 +21,7 @@ namespace ClinicManagementSystem.EF
         {
             this.Educations = new HashSet<Education>();
         }
-    
+
         public int ActivityID { get; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "Please enter ActivityName !")]
@@ -33,7 +33,6 @@ namespace ClinicManagementSystem.EF
         [StringLength(maximumLength: 200, MinimumLength = 5, ErrorMessage = "Description must be from 5 to 200 charaters")]
         public string Description { get; set; }
 
-    
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Education> Educations { get; set; }
     }

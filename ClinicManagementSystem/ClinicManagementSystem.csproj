@@ -147,6 +147,7 @@
     <Compile Include="Areas\Admin\Controllers\MedicineFeedbacksController.cs" />
     <Compile Include="Areas\Admin\Controllers\MedicinesController.cs" />
     <Compile Include="Areas\Admin\Controllers\MedicineTypesController.cs" />
+    <Compile Include="Areas\Admin\Controllers\OrdersController.cs" />
     <Compile Include="Areas\Admin\Controllers\PaymentsController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProfileController.cs" />
     <Compile Include="Areas\Admin\Controllers\ScientificApparatusController.cs" />
@@ -160,13 +161,19 @@
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\EducationController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\MedicineController.cs" />
+    <Compile Include="Controllers\ProfileController.cs" />
+    <Compile Include="Controllers\RegisterController.cs" />
     <Compile Include="Controllers\ScientificApparatusController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="DAO\ActivityDAO.cs" />
+    <Compile Include="DAO\CustomerDAO.cs" />
     <Compile Include="DAO\EducationDAO.cs" />
     <Compile Include="DAO\MedicineDAO.cs" />
     <Compile Include="DAO\MedicineTypeDAO.cs" />
+    <Compile Include="DAO\OrderDAO.cs" />
+    <Compile Include="DAO\PaymentDAO.cs" />
     <Compile Include="DAO\ScientificApparatusDAO.cs" />
     <Compile Include="DAO\ScientificApparatusTypeDAO.cs" />
     <Compile Include="DAO\SubjectDAO.cs" />
@@ -209,13 +216,13 @@
     <Compile Include="EF\MedicineImage.cs">
       <DependentUpon>ClinicSystemModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="EF\MedicineOrder.cs">
-      <DependentUpon>ClinicSystemModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="EF\MedicineOrderDetail.cs">
       <DependentUpon>ClinicSystemModel.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\MedicineType.cs">
+      <DependentUpon>ClinicSystemModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\Order.cs">
       <DependentUpon>ClinicSystemModel.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\Payment.cs">
@@ -230,9 +237,6 @@
     <Compile Include="EF\ScientificApparatusImage.cs">
       <DependentUpon>ClinicSystemModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="EF\ScientificApparatusOrder.cs">
-      <DependentUpon>ClinicSystemModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="EF\ScientificApparatusOrderDetail.cs">
       <DependentUpon>ClinicSystemModel.tt</DependentUpon>
     </Compile>
@@ -245,9 +249,13 @@
     <Compile Include="EF\Supplier.cs">
       <DependentUpon>ClinicSystemModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="EF\sysdiagram.cs">
+      <DependentUpon>ClinicSystemModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\CustomerAuthentication.cs" />
     <Compile Include="Models\MedicineItem.cs" />
     <Compile Include="Models\ScientificApparatusItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -2495,8 +2503,10 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="public\icons\icons8-doctors-bag-30.png" />
+    <Content Include="public\icons\icons8-minus-48.png" />
     <Content Include="public\icons\icons8-pharmacy-30.png" />
     <Content Include="public\icons\icons8-pill-30.png" />
+    <Content Include="public\icons\icons8-remove-48.png" />
     <Content Include="public\icons\icons8-science-application-30.png" />
     <Content Include="public\img\avatar5.png" />
     <Content Include="public\icons\icons8-add-30.png" />
@@ -2774,6 +2784,9 @@
     <Content Include="Scripts\fonts\themify.eot" />
     <Content Include="Scripts\fonts\themify.ttf" />
     <Content Include="Scripts\fonts\themify.woff" />
+    <Content Include="Areas\Admin\Views\Orders\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Orders\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Orders\Index.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\css\animate.min.css" />
     <Content Include="Scripts\css\animated-headline.css" />
@@ -2983,6 +2996,15 @@
     <Content Include="Views\Education\SearchBySubject.cshtml" />
     <Content Include="Views\Cart\Index.cshtml" />
     <Content Include="Views\Values\Index.cshtml" />
+    <Content Include="Views\Cart\Checkout.cshtml" />
+    <Content Include="Views\Cart\Success.cshtml" />
+    <Content Include="Views\Shared\_Layout_Login.cshtml" />
+    <Content Include="Views\Login\Index.cshtml" />
+    <Content Include="Views\Shared\_Cart.cshtml" />
+    <Content Include="Views\Register\Index.cshtml" />
+    <Content Include="Views\Profile\Index.cshtml" />
+    <Content Include="Views\Profile\ChangePassword.cshtml" />
+    <Content Include="Views\Profile\ViewOrder.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

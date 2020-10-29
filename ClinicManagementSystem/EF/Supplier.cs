@@ -13,6 +13,7 @@ namespace ClinicManagementSystem.EF
     using System.Collections.Generic;
     using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
+    using System.Web;
 
     public partial class Supplier
     {
@@ -23,7 +24,6 @@ namespace ClinicManagementSystem.EF
             this.ScientificApparatus = new HashSet<ScientificApparatu>();
         }
 
-        
         public int SupplierID { get; set; }
 
         [DisplayName("Company Name")]
@@ -49,7 +49,6 @@ namespace ClinicManagementSystem.EF
         [RegularExpression(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$", ErrorMessage = "Incorrect email format !")]
         [StringLength(maximumLength: 50, MinimumLength = 6, ErrorMessage = "Email must be from 3 to 10 charaters")]
         public string Email { get; set; }
-        
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Medicine> Medicines { get; set; }

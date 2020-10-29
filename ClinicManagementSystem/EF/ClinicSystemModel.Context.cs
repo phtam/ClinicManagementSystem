@@ -33,17 +33,17 @@ namespace ClinicManagementSystem.EF
         public virtual DbSet<Medicine> Medicines { get; set; }
         public virtual DbSet<MedicineFeedback> MedicineFeedbacks { get; set; }
         public virtual DbSet<MedicineImage> MedicineImages { get; set; }
-        public virtual DbSet<MedicineOrder> MedicineOrders { get; set; }
         public virtual DbSet<MedicineOrderDetail> MedicineOrderDetails { get; set; }
         public virtual DbSet<MedicineType> MedicineTypes { get; set; }
+        public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<Payment> Payments { get; set; }
         public virtual DbSet<ScientificApparatu> ScientificApparatus { get; set; }
         public virtual DbSet<ScientificApparatusFeedback> ScientificApparatusFeedbacks { get; set; }
         public virtual DbSet<ScientificApparatusImage> ScientificApparatusImages { get; set; }
-        public virtual DbSet<ScientificApparatusOrder> ScientificApparatusOrders { get; set; }
         public virtual DbSet<ScientificApparatusOrderDetail> ScientificApparatusOrderDetails { get; set; }
         public virtual DbSet<ScientificApparatusType> ScientificApparatusTypes { get; set; }
         public virtual DbSet<Subject> Subjects { get; set; }
         public virtual DbSet<Supplier> Suppliers { get; set; }
+        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
     }
 }

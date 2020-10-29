@@ -12,6 +12,7 @@ namespace ClinicManagementSystem.EF
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
 
     public partial class EducationFeedback
     {
@@ -22,7 +23,7 @@ namespace ClinicManagementSystem.EF
         public string Content { get; set; }
         [DisplayName("Created Date")]
         public Nullable<System.DateTime> CreatedDate { get; set; }
-    
+
         public virtual Customer Customer { get; set; }
         public virtual Education Education { get; set; }
     }

@@ -176,13 +176,23 @@
                 })
             </script>
         }
+        if (TempData["Notice_Stock_Out"] != null)
+        {
+            <script>
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'The quantity which you stock out must be less than unit in stock!',
+                })
+            </script>
+        }
     }
 
-        @RenderSection("ScriptConfig", false)
+    @RenderSection("ScriptConfig", false)
 
-        @section Scripts {
-            @Scripts.Render("~/bundles/jqueryval")
-        }
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }
 
-    </body>
+</body>
 </html>

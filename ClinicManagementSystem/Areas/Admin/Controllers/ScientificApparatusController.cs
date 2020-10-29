@@ -290,6 +290,31 @@ namespace ClinicManagementSystem.Areas.Admin.Controllers
             return RedirectToAction("Image", new { id = scientificApparatusID });
         }
 
+        [HttpPost]
+        public ActionResult StockIn(int unitInStock, int apparatusID)
+        {
+            var apparatus = db.ScientificApparatus.Find(apparatusID);
+            apparatus.UnitInStock += unitInStock;
+            if (db.SaveChanges() > 0)
+                TempData["Notice_Save_Success"] = true;
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public ActionResult StockOut(int unitInStock, int apparatusID)
+        {
+            var apparatus = db.ScientificApparatus.Find(apparatusID);
+            if (unitInStock > apparatus.UnitInStock)
+            {
+                TempData["Notice_Stock_Out"] = true;
+                return RedirectToAction("Index");
+            }
+            apparatus.UnitInStock -= unitInStock;
+            if (db.SaveChanges() > 0)
+                TempData["Notice_Save_Success"] = true;
+            return RedirectToAction("Index");
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

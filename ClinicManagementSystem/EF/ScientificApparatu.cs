@@ -20,11 +20,11 @@ namespace ClinicManagementSystem.EF
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public ScientificApparatu()
         {
-            this.ScientificApparatusOrderDetails = new HashSet<ScientificApparatusOrderDetail>();
             this.ScientificApparatusImages = new HashSet<ScientificApparatusImage>();
             this.ScientificApparatusFeedbacks = new HashSet<ScientificApparatusFeedback>();
+            this.ScientificApparatusOrderDetails = new HashSet<ScientificApparatusOrderDetail>();
         }
-    
+
         public int ScientificApparatusID { get; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "Please choice scientific apparatus type!")]
@@ -72,13 +72,13 @@ namespace ClinicManagementSystem.EF
         public Nullable<bool> Status { get; set; }
 
         public HttpPostedFileBase ImageFile { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ScientificApparatusOrderDetail> ScientificApparatusOrderDetails { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ScientificApparatusImage> ScientificApparatusImages { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ScientificApparatusFeedback> ScientificApparatusFeedbacks { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ScientificApparatusOrderDetail> ScientificApparatusOrderDetails { get; set; }
         public virtual Supplier Supplier { get; set; }
         public virtual ScientificApparatusType ScientificApparatusType { get; set; }
     }

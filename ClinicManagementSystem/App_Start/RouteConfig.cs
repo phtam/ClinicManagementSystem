@@ -33,13 +33,20 @@ namespace ClinicManagementSystem
             //    defaults: new { controller = "Cart", action = "Index", id = UrlParameter.Optional },
             //    namespaces: new[] { "ClinicManagementSystem.Controllers" }
             //);
+            
 
             routes.MapRoute(
-                name: "Add To Cart",
-                url: "add-to-cart",
-                defaults: new { controller = "Cart", action = "AddItem", id = UrlParameter.Optional },
+                name: "Add Medicine To Cart",
+                url: "add-medicine",
+                defaults: new { controller = "Cart", action = "AddMedicineItem", id = UrlParameter.Optional },
                 namespaces: new[] { "ClinicManagementSystem.Controllers" }
             );
+            routes.MapRoute(
+               name: "Add Apparatus To Cart",
+               url: "add-apparatus",
+               defaults: new { controller = "Cart", action = "AddApparatusItem", id = UrlParameter.Optional },
+               namespaces: new[] { "ClinicManagementSystem.Controllers" }
+           );
 
             //routes.MapRoute(
             //    name: "Medicine",

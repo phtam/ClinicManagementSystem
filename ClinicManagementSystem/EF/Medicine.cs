@@ -24,7 +24,7 @@ namespace ClinicManagementSystem.EF
             this.MedicineImages = new HashSet<MedicineImage>();
             this.MedicineOrderDetails = new HashSet<MedicineOrderDetail>();
         }
-    
+
         public int MedicineID { get; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "Please choice medicine type !")]

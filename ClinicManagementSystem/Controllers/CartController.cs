@@ -8,37 +8,56 @@ using ClinicManagementSystem.Models;
 using ClinicManagementSystem.DAO;
 using System.Web.Script.Serialization;
 using System.Configuration;
+using ClinicManagementSystem.EF;
 
 namespace ClinicManagementSystem.Controllers
 {
     public class CartController : Controller
     {
         private MedicineDAO medicineDAO = new MedicineDAO();
+        
         public ActionResult Index()
         {
-            var medicineCart = Session[CommonConstants.CartSession];
+            var medicineCart = Session[CommonConstants.CartMedicineSession];
+            var appararusCart = Session[CommonConstants.CartApparatusSession];
             var medicineList = new List<MedicineItem>();
+            var apparatusList = new List<ScientificApparatusItem>();
+            long price = 0;
+            long old_price = 0;
+
             if (medicineCart != null)
             {
                 medicineList = (List<MedicineItem>)medicineCart;
+                foreach (var item in medicineList)
+                {
+                    price += (long)(item.Medicine.UnitPrice * item.Quantity);
+                    old_price += (long)(item.Medicine.OldUnitPrice * item.Quantity);
+                }
             }
-            long price = 0;
-            long old_price = 0;
-            foreach (var item in medicineList)
+                
+            if (appararusCart != null)
             {
-                price += (long)(item.Medicine.UnitPrice * item.Quantity);
-                old_price += (long)(item.Medicine.OldUnitPrice * item.Quantity);
+                apparatusList = (List<ScientificApparatusItem>)appararusCart;
+                foreach (var item in apparatusList)
+                {
+                    price += (long)(item.ScientificApparatus.UnitPrice * item.Quantity);
+                    old_price += (long)(item.ScientificApparatus.OldUnitPrice * item.Quantity);
+                }
             }
+                
             ViewBag.Price = price;
             ViewBag.OldPrice = old_price;
             ViewBag.Header = "Cart";
-            return View(medicineList);
+            ViewBag.Apparatus = apparatusList;
+            ViewBag.Medicine = medicineList;
+
+            return View();
         }
 
-        public ActionResult AddItem(int productID, int quantity)
+        public ActionResult AddMedicineItem(int productID, int quantity)
         {
             var product = new MedicineDAO().Get(productID);
-            var cart = Session[CommonConstants.CartSession];
+            var cart = Session[CommonConstants.CartMedicineSession];
             if (cart != null)
             {
                 var list = (List<MedicineItem>)cart;
@@ -59,7 +78,7 @@ namespace ClinicManagementSystem.Controllers
                     item.Quantity = quantity;
                     list.Add(item);
                 }
-                Session[CommonConstants.CartSession] = list;
+                Session[CommonConstants.CartMedicineSession] = list;
             }
             else
             {
@@ -68,16 +87,65 @@ namespace ClinicManagementSystem.Controllers
                 item.Quantity = quantity;
                 var list = new List<MedicineItem>();
                 list.Add(item);
-                Session[CommonConstants.CartSession] = list;
+                Session[CommonConstants.CartMedicineSession] = list;
             }
             return RedirectToAction("Index");
         }
 
-        public JsonResult Delete(long id)
+        public ActionResult AddApparatusItem(int productID, int quantity)
         {
-            var sessionCart = (List<MedicineItem>)Session[CommonConstants.CartSession];
+            var product = new ScientificApparatusDAO().Get(productID);
+            var cart = Session[CommonConstants.CartApparatusSession];
+            if (cart != null)
+            {
+                var list = (List<ScientificApparatusItem>)cart;
+                if (list.Exists(x => x.ScientificApparatus.ScientificApparatusID == productID))
+                {
+                    foreach (var item in list)
+                    {
+                        if (item.ScientificApparatus.ScientificApparatusID == productID)
+                        {
+                            item.Quantity += quantity;
+                        }
+                    }
+                }
+                else
+                {
+                    var item = new ScientificApparatusItem();
+                    item.ScientificApparatus = product;
+                    item.Quantity = quantity;
+                    list.Add(item);
+                }
+                Session[CommonConstants.CartApparatusSession] = list;
+            }
+            else
+            {
+                var item = new ScientificApparatusItem();
+                item.ScientificApparatus = product;
+                item.Quantity = quantity;
+                var list = new List<ScientificApparatusItem>();
+                list.Add(item);
+                Session[CommonConstants.CartApparatusSession] = list;
+            }
+            return RedirectToAction("Index");
+        }
+
+        public JsonResult DeleteMedicine(long id)
+        {
+            var sessionCart = (List<MedicineItem>)Session[CommonConstants.CartMedicineSession];
             sessionCart.RemoveAll(x => x.Medicine.MedicineID == id);
-            Session[CommonConstants.CartSession] = sessionCart;
+            Session[CommonConstants.CartMedicineSession] = sessionCart;
+            return Json(new
+            {
+                status = true
+            });
+        }
+
+        public JsonResult DeleteApparatus(long id)
+        {
+            var sessionCart = (List<ScientificApparatusItem>)Session[CommonConstants.CartApparatusSession];
+            sessionCart.RemoveAll(x => x.ScientificApparatus.ScientificApparatusID == id);
+            Session[CommonConstants.CartApparatusSession] = sessionCart;
             return Json(new
             {
                 status = true
@@ -86,117 +154,166 @@ namespace ClinicManagementSystem.Controllers
 
         public JsonResult DeleteAll()
         {
-            Session[CommonConstants.CartSession] = null;
+            Session[CommonConstants.CartApparatusSession] = null;
+            Session[CommonConstants.CartMedicineSession] = null;
             return Json(new
             {
                 status = true
             });
         }
 
-        public JsonResult Update(string cartModel)
+        public JsonResult Update(string medicineModel, string apparatusModel)
         {
-            var jsonCart = new JavaScriptSerializer().Deserialize<List<MedicineItem>>(cartModel);
-            var sessionCart = (List<MedicineItem>)Session[CommonConstants.CartSession];
-
-            foreach (var item in sessionCart)
+            var jsonCart = new JavaScriptSerializer().Deserialize<List<MedicineItem>>(medicineModel);
+            var sessionCart = (List<MedicineItem>)Session[CommonConstants.CartMedicineSession];
+            if (sessionCart != null)
             {
-                var jsonItem = jsonCart.SingleOrDefault(x => x.Medicine.MedicineID == item.Medicine.MedicineID);
-                if (jsonItem != null)
+                foreach (var item in sessionCart)
                 {
-                    item.Quantity = jsonItem.Quantity;
+                    var jsonItem = jsonCart.SingleOrDefault(x => x.Medicine.MedicineID == item.Medicine.MedicineID);
+                    if (jsonItem != null)
+                    {
+                        item.Quantity = jsonItem.Quantity;
+                    }
+                    if (item.Quantity == 0)
+                    {
+                        sessionCart.Remove(item);
+                    }
                 }
-                if (item.Quantity == 0)
+                Session[CommonConstants.CartMedicineSession] = sessionCart;
+            }
+            
+
+            var jsonCart2 = new JavaScriptSerializer().Deserialize<List<ScientificApparatusItem>>(apparatusModel);
+            var sessionCart2 = (List<ScientificApparatusItem>)Session[CommonConstants.CartApparatusSession];
+
+            if (sessionCart2 != null)
+            {
+                foreach (var item in sessionCart2)
                 {
-                    sessionCart.Remove(item);
+                    var jsonItem2 = jsonCart2.SingleOrDefault(x => x.ScientificApparatus.ScientificApparatusID == item.ScientificApparatus.ScientificApparatusID);
+                    if (jsonItem2 != null)
+                    {
+                        item.Quantity = jsonItem2.Quantity;
+                    }
+                    if (item.Quantity == 0)
+                    {
+                        sessionCart2.Remove(item);
+                    }
+                }
+                Session[CommonConstants.CartApparatusSession] = sessionCart2;
+            }
+            
+            return Json(new
+            {
+                status = true
+            });
+        }
+
+        public ActionResult Checkout()
+        {
+            if (Session[Common.CommonConstants.CUSTOMER_SESSION] == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
+
+            var medicineCart = Session[CommonConstants.CartMedicineSession];
+            var appararusCart = Session[CommonConstants.CartApparatusSession];
+            var medicineList = new List<MedicineItem>();
+            var apparatusList = new List<ScientificApparatusItem>();
+            long price = 0;
+            if (medicineCart != null)
+            {
+                medicineList = (List<MedicineItem>)medicineCart;
+                foreach (var item in medicineList)
+                {
+                    price += (long)(item.Medicine.UnitPrice * item.Quantity);
                 }
             }
-            Session[CommonConstants.CartSession] = sessionCart;
-            return Json(new
+
+            if (appararusCart != null)
             {
-                status = true
-            });
+                apparatusList = (List<ScientificApparatusItem>)appararusCart;
+                foreach (var item in apparatusList)
+                {
+                    price += (long)(item.ScientificApparatus.UnitPrice * item.Quantity);
+                }
+            }
+
+            ViewBag.Price = price;
+            ViewBag.Apparatus = apparatusList;
+            ViewBag.Medicine = medicineList;
+            ViewBag.Payments = new PaymentDAO().GetAll();
+
+            return View();
         }
 
-        //public ActionResult Checkout()
-        //{
-        //    if (Session[Common.CommonConstants.CLIENT_SESSION] == null)
-        //    {
-        //        return RedirectToAction("Index", "Login");
-        //    }
-        //    var cart = Session[CommonConstants.CartSession];
+        [HttpPost]
+        public ActionResult Checkout(string address, int payment, string note)
+        {
+            if (address.Trim().Length == 0)
+            {
+                TempData["ErrorMess"] = "Please enter your address.";
+                return RedirectToAction("Checkout");
+            }
+            if (payment.ToString().Length == 0)
+            {
+                TempData["ErrorMess"] = "Please choose your form of payment!";
+                return RedirectToAction("Checkout");
+            }
 
-        //    var list = new List<CartItem>();
-        //    if (cart != null)
-        //    {
-        //        list = (List<CartItem>)cart;
-        //    }
+            //is in stock less than the quantity you ordered. Please reduce the quantity!
 
-        //    ViewBag.Payments = new PaymentDAO().GetAll();
-        //    return View(list);
-        //}
+            Order order = new Order();
+            var user = (ClinicManagementSystem.Models.CustomerAuthentication)Session[Common.CommonConstants.CUSTOMER_SESSION];
 
-        //[HttpPost]
-        //public ActionResult Checkout(string username, string address, string note, int? payment)
-        //{
-        //    if (address.Trim().Length == 0)
-        //    {
-        //        TempData["ErrorMess"] = "Please enter your address.";
-        //        return RedirectToAction("Checkout");
-        //    }
-        //    if (payment.ToString().Length == 0)
-        //    {
-        //        TempData["ErrorMess"] = "Please choose your form of payment!";
-        //        return RedirectToAction("Checkout");
-        //    }
+            order.Username = user.Username;
+            order.DeliveredAddress = address;
+            order.Note = note;
+            order.PaymentID = payment;
+            order.CreateDate = DateTime.Now;
+            order.Status = 0;
 
-        //    var order = new Orders();
-        //    order.Username = username;
-        //    order.ShippedAddress = address;
-        //    order.Note = note;
-        //    order.PaymentID = payment;
-        //    order.CreationDate = DateTime.Now;
-        //    order.Status = 0;
+            var orderDAO = new OrderDAO();
+            var id = orderDAO.Create(order);
+            var medicineCart = (List<MedicineItem>)Session[CommonConstants.CartMedicineSession];
+            var apparatusCart = (List<ScientificApparatusItem>)Session[CommonConstants.CartApparatusSession];
 
-        //    var orderDAO = new OrderDAO();
-        //    var productDAO = new ProductDAO();
-        //    var orderDetailDAO = new OrderDetailDAO();
-        //    try
-        //    {
-        //        var id = orderDAO.Insert(order);
-        //        var cart = (List<CartItem>)Session[CommonConstants.CartSession];
-        //        foreach (var item in cart)
-        //        {
-        //            var orderDetail = new OrderDetails();
-        //            orderDetail.OrderID = (int)id;
-        //            orderDetail.ProductID = item.Product.ProductID;
-        //            orderDetail.UnitPrice = item.Product.UnitPrice;
-        //            orderDetail.Quantity = item.Quantity;
+            if (medicineCart != null)
+            {
+                foreach (var item in medicineCart)
+                {
+                    MedicineOrderDetail medicineOrderDetail = new MedicineOrderDetail();
+                    medicineOrderDetail.OrderID = id;
+                    medicineOrderDetail.MedicineID = item.Medicine.MedicineID;
+                    medicineOrderDetail.Quantity = item.Quantity;
+                    orderDAO.AddMedicine(medicineOrderDetail);
+                    orderDAO.UpdateMedicineUnitOnOrder(item.Medicine.MedicineID, item.Quantity);
+                }
+            }
 
-        //            if (!productDAO.ValidateCheckOut(orderDetail.ProductID, orderDetail.Quantity.GetValueOrDefault(0)))
-        //            {
-        //                TempData["ErrorMess"] = orderDetail.Products.ProductName + "is in stock less than the quantity you ordered. Please reduce the quantity!";
-        //                return RedirectToAction("Checkout");
-        //            }
+            if (apparatusCart != null)
+            {
+                foreach (var item in apparatusCart)
+                {
+                    ScientificApparatusOrderDetail scientificApparatusOrderDetail = new ScientificApparatusOrderDetail();
+                    scientificApparatusOrderDetail.OrderID = id;
+                    scientificApparatusOrderDetail.ScientificApparatusID = item.ScientificApparatus.ScientificApparatusID;
+                    scientificApparatusOrderDetail.Quantity = item.Quantity;
+                    orderDAO.AddApparatus(scientificApparatusOrderDetail);
+                    orderDAO.UpdateApparatusUnitOnOrder(item.ScientificApparatus.ScientificApparatusID, item.Quantity);
+                }
+            }
 
-        //            orderDetailDAO.Insert(orderDetail);
-        //            var isSuccess = new ProductDAO().UpdateUnitOnOder(orderDetail.ProductID, orderDetail.Quantity.GetValueOrDefault(0));
-        //            if (!isSuccess)
-        //            {
-        //                return RedirectToAction("Error");
-        //            }
-        //        }
-        //    }
-        //    catch (Exception)
-        //    {
-        //        return Redirect("cart");
-        //    }
-        //    Session[CommonConstants.CartSession] = null;
-        //    return RedirectToAction("Success");
-        //}
+            Session[CommonConstants.CartMedicineSession] = null;
+            Session[CommonConstants.CartApparatusSession] = null;
 
-        //public ActionResult Success()
-        //{
-        //    return View();
-        //}
+            return RedirectToAction("Success");
+        }
+
+        public ActionResult Success()
+        {
+            return View();
+        }
     }
 }

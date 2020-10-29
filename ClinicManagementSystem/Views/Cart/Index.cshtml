@@ -1,14 +1,17 @@
-﻿@model List<ClinicManagementSystem.Models.MedicineItem>
-
-@{
+﻿@{
     ViewBag.Title = "Cart";
     Layout = "~/Views/Shared/_Layout.cshtml";
-
+    var apparatus = (List<ClinicManagementSystem.Models.ScientificApparatusItem>)ViewBag.Apparatus;
+    var medicine = (List<ClinicManagementSystem.Models.MedicineItem>)ViewBag.Medicine;
 }
 
 <section class="cart_area section-padding40">
     <div class="container">
-        @if (Model.Count > 0)
+        @if (apparatus.Count == 0 && medicine.Count == 0)
+        {
+            <div class="alert alert-warning" style="font-size:large">Your shopping cart does not contain any products!</div>
+        }
+        else
         {
             <div class="cart_inner">
                 <div class="table-responsive">
@@ -19,36 +22,82 @@
                                 <th scope="col">Price</th>
                                 <th scope="col">Quantity</th>
                                 <th scope="col">Total</th>
+                                <th scope="col">Delete</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach (var item in Model)
+                            @if (medicine != null)
                             {
-                                <tr>
-                                    <td>
-                                        <div class="media">
-                                            <div class="d-flex">
-                                                <img src="@Url.Content(item.Medicine.Thumbnail)" width="50%" alt="" />
+                                foreach (var item in medicine)
+                                {
+                                    <tr>
+                                        <td>
+                                            <div class="media">
+                                                <div class="d-flex">
+                                                    <img src="@Url.Content(item.Medicine.Thumbnail)" width="50%" alt="" />
+                                                </div>
+                                                <div class="media-body">
+                                                    <p>@item.Medicine.MedicineName</p>
+                                                </div>
                                             </div>
-                                            <div class="media-body">
-                                                <p>@item.Medicine.MedicineName</p>
+                                        </td>
+                                        <td>
+                                            <h5>$@item.Medicine.UnitPrice.GetValueOrDefault()</h5>
+                                        </td>
+                                        <td>
+                                            <div class="product_count">
+                                                <input class="txtMedicineQuantity" id="txtMedicineQuantity" data-id="@item.Medicine.MedicineID" type="number" value="@item.Quantity" min="1" max="1000">
                                             </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <h5>$@item.Medicine.UnitPrice.GetValueOrDefault()</h5>
-                                    </td>
-                                    <td>
-                                        <div class="product_count">
-                                            <input class="txtQuantity" id="txtQuantity" data-id="@item.Medicine.MedicineID" type="number" value="@item.Quantity" min="1" max="1000">
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <h5>$
-                                        <script>document.write(@item.Medicine.UnitPrice.GetValueOrDefault()*@item.Quantity)</script></h5>
-                                    </td>
-                                </tr>
+                                        </td>
+                                        <td>
+                                            <h5>
+                                                $
+                                                <script>document.write(@item.Medicine.UnitPrice.GetValueOrDefault()*@item.Quantity)</script>
+                                            </h5>
+                                        </td>
+                                        <td>
+                                            <a class="btnDelete-medicine" style="cursor:pointer" data-id="@item.Medicine.MedicineID"><img src="~/public/icons/icons8-minus-48.png" width="50%" /></a>
+                                        </td>
+                                    </tr>
+                                }
                             }
+
+                            @if (apparatus != null)
+                            {
+                                foreach (var item in apparatus)
+                                {
+                                    <tr>
+                                        <td>
+                                            <div class="media">
+                                                <div class="d-flex">
+                                                    <img src="@Url.Content(item.ScientificApparatus.Thumbnail)" width="50%" alt="" />
+                                                </div>
+                                                <div class="media-body">
+                                                    <p>@item.ScientificApparatus.ScientificApparatusName</p>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <h5>$@item.ScientificApparatus.UnitPrice.GetValueOrDefault()</h5>
+                                        </td>
+                                        <td>
+                                            <div class="product_count">
+                                                <input class="txtApparatusQuantity" id="txtApparatusQuantity" data-id="@item.ScientificApparatus.ScientificApparatusID" type="number" value="@item.Quantity" min="1" max="1000">
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <h5>
+                                                $
+                                                <script>document.write(@item.ScientificApparatus.UnitPrice.GetValueOrDefault()*@item.Quantity)</script>
+                                            </h5>
+                                        </td>
+                                        <td>
+                                            <a class="btnDelete-apparatus" style="cursor:pointer" data-id="@item.ScientificApparatus.ScientificApparatusID"><img src="~/public/icons/icons8-minus-48.png" width="50%" /></a>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+
 
                             <tr class="bottom_button">
                                 <td>
@@ -56,79 +105,44 @@
                                 </td>
                                 <td></td>
                                 <td></td>
+                                <td></td>
                                 <td>
                                     <div class="cupon_text float-right">
-                                        <a class="btn" id="btnDeleteAll" style="cursor:pointer;color:white">Delete</a>
+                                        <a class="btn" id="btnDeleteAll" style="cursor:pointer;color:white">Delete Cart</a>
                                     </div>
                                 </td>
                             </tr>
                             <tr>
                                 <td></td>
                                 <td></td>
-                                <td>
-                                    <h5>Subtotal</h5>
-                                </td>
-                                <td>
-                                    <h5>$2160.00</h5>
-                                </td>
-                            </tr>
-                            <tr class="shipping_area">
-                                <td></td>
                                 <td></td>
                                 <td>
-                                    <h5>Shipping</h5>
+                                    <h5>Old Price</h5>
                                 </td>
                                 <td>
-                                    <div class="shipping_box">
-                                        <ul class="list">
-                                            <li>
-                                                Flat Rate: $5.00
-                                                <input type="radio" aria-label="Radio button for following text input">
-                                            </li>
-                                            <li>
-                                                Free Shipping
-                                                <input type="radio" aria-label="Radio button for following text input">
-                                            </li>
-                                            <li>
-                                                Flat Rate: $10.00
-                                                <input type="radio" aria-label="Radio button for following text input">
-                                            </li>
-                                            <li class="active">
-                                                Local Delivery: $2.00
-                                                <input type="radio" aria-label="Radio button for following text input">
-                                            </li>
-                                        </ul>
-                                        <h6>
-                                            Calculate Shipping
-                                            <i class="fa fa-caret-down" aria-hidden="true"></i>
-                                        </h6>
-                                        <select class="shipping_select">
-                                            <option value="1">Bangladesh</option>
-                                            <option value="2">India</option>
-                                            <option value="4">Pakistan</option>
-                                        </select>
-                                        <select class="shipping_select section_bg">
-                                            <option value="1">Select a State</option>
-                                            <option value="2">Select a State</option>
-                                            <option value="4">Select a State</option>
-                                        </select>
-                                        <input class="post_code" type="text" placeholder="Postcode/Zipcode" />
-                                        <a class="btn" href="#">Update Details</a>
-                                    </div>
+                                    <h5 style="text-decoration: line-through;">$@ViewBag.OldPrice</h5>
                                 </td>
                             </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                    <h5>New Price</h5>
+                                </td>
+                                <td>
+                                    <h5>$@ViewBag.Price</h5>
+                                </td>
+                            </tr>
+
                         </tbody>
                     </table>
                     <div class="checkout_btn_inner float-right">
-                        <a class="btn" id="btnContinue" href="#">Continue Shopping</a>
-                        <a class="btn checkout_btn" href="#">Proceed to checkout</a>
+                        <a class="btn" id="btnContinue" style="cursor:pointer;color:white">Continue Shopping</a>
+                        <a class="btn checkout_btn" href="@Url.Action("Checkout", "Cart")">Proceed to checkout</a>
                     </div>
                 </div>
             </div>
-        }
-        else
-        {
-            <div class="alert alert-warning" style="font-size:large">Your shopping cart does not contain any products!</div>
         }
 
 
@@ -136,72 +150,5 @@
 </section>
 
 @section ClientScript{
-    <script>
-        var cart = {
-            init: function () {
-                cart.regEvents();
-            },
-            regEvents: function () {
-                $('#btnContinue').off('click').on('click', function () {
-                    window.location.href = "~/home";
-                });
-                $('#btnUpdate-cart').off('click').on('click', function () {
-                    var listProduct = $('.txtQuantity');
-                    var cartList = [];
-                    $.each(listProduct, function (i, item) {
-                        cartList.push({
-                            Quantity: $(item).val(),
-                            Medicine: {
-                                MedicineID: $(item).data('id')
-                            }
-                        });
-                    });
-                    
-                    $.ajax({
-                        url: '/Cart/Update',
-                        data: { cartModel: JSON.stringify(cartList) },
-                        dataType: 'json',
-                        type: 'POST',
-                        success: function (res) {
-                            if (res.status == true) {
-                                window.location.href = "/cart";
-                            }
-                        }
-                    })
-                });
-
-                $('#btnDeleteAll').off('click').on('click', function () {
-                    alert("hahah")
-                    $.ajax({
-                        url: '/Cart/DeleteAll',
-                        dataType: 'json',
-                        type: 'POST',
-                        success: function (res) {
-                            if (res.status == true) {
-                                window.location.href = "/cart";
-                            }
-                        }
-                    })
-                });
-
-                $('.btnDelete-item').off('click').on('click', function (e) {
-                    e.preventDefault();
-                    $.ajax({
-                        data: { id: $(this).data('id') },
-                        url: '/Cart/Delete',
-                        dataType: 'json',
-                        type: 'POST',
-                        success: function (res) {
-                            if (res.status == true) {
-                                window.location.href = "/cart";
-                            }
-                        }
-                    })
-                });
-            }
-        }
-        cart.init();
-
-    </script>
-    @*<script src="~/Content/jsController/cartController.js"></script>*@
+    <script src="~/Content/jsController/cartController.js"></script>
 }

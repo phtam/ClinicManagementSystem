@@ -165,11 +165,10 @@
 @section ClientScript
 {
     <script>
-
         $(document).ready(function () {
             $(".btn").click(function () {
                 var qty = $("#txtQty").val();
-                window.location = "/add-to-cart?productID=@Model.MedicineID&quantity=" + qty;
+                window.location = "/add-medicine?productID=@Model.MedicineID&quantity=" + qty;
             });
         });
 

@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="ClinicSystemDataContext.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="ClinicSystemDataContext.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Activity">
           <Key>
             <PropertyRef Name="ActivityID" />
@@ -102,19 +102,6 @@
           <Property Name="FileName" Type="nvarchar" MaxLength="200" />
           <Property Name="MedicineID" Type="int" />
         </EntityType>
-        <EntityType Name="MedicineOrder">
-          <Key>
-            <PropertyRef Name="OrderID" />
-          </Key>
-          <Property Name="OrderID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Username" Type="nvarchar" MaxLength="50" />
-          <Property Name="CrearedDate" Type="datetime" />
-          <Property Name="DeliveredDate" Type="datetime" />
-          <Property Name="DeliveredAddress" Type="nvarchar" MaxLength="200" />
-          <Property Name="PaymentID" Type="int" />
-          <Property Name="Status" Type="int" />
-          <Property Name="Note" Type="nvarchar" MaxLength="200" />
-        </EntityType>
         <EntityType Name="MedicineOrderDetail">
           <Key>
             <PropertyRef Name="OrderID" />
@@ -131,6 +118,19 @@
           <Property Name="TypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="TypeName" Type="nvarchar" MaxLength="60" />
           <Property Name="Description" Type="nvarchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="OrderID" />
+          </Key>
+          <Property Name="OrderID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Username" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreateDate" Type="datetime" />
+          <Property Name="DeliveredDate" Type="datetime" />
+          <Property Name="DeliveredAddress" Type="nvarchar" MaxLength="200" />
+          <Property Name="PaymentID" Type="int" />
+          <Property Name="Status" Type="int" />
+          <Property Name="Note" Type="nvarchar" MaxLength="200" />
         </EntityType>
         <EntityType Name="Payment">
           <Key>
@@ -175,19 +175,6 @@
           <Property Name="FileName" Type="nvarchar" MaxLength="200" />
           <Property Name="ScientificApparatusID" Type="int" />
         </EntityType>
-        <EntityType Name="ScientificApparatusOrder">
-          <Key>
-            <PropertyRef Name="OrderID" />
-          </Key>
-          <Property Name="OrderID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Username" Type="nvarchar" MaxLength="50" />
-          <Property Name="CreateDate" Type="datetime" />
-          <Property Name="DeliveredDate" Type="datetime" />
-          <Property Name="DeliveredAddress" Type="nvarchar" MaxLength="200" />
-          <Property Name="PaymentID" Type="int" />
-          <Property Name="Status" Type="int" />
-          <Property Name="Note" Type="nvarchar" MaxLength="200" />
-        </EntityType>
         <EntityType Name="ScientificApparatusOrderDetail">
           <Key>
             <PropertyRef Name="OrderID" />
@@ -224,6 +211,16 @@
           <Property Name="Phone" Type="nvarchar" MaxLength="10" />
           <Property Name="Email" Type="nvarchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
         <Association Name="FK__Education__Activ__4AB81AF0">
           <End Role="Activity" Type="Self.Activity" Multiplicity="0..1" />
           <End Role="Education" Type="Self.Education" Multiplicity="*" />
@@ -332,7 +329,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__MedicineO__Medic__3C69FB99">
+        <Association Name="FK__MedicineO__Medic__787EE5A0">
           <End Role="Medicine" Type="Self.Medicine" Multiplicity="1" />
           <End Role="MedicineOrderDetail" Type="Self.MedicineOrderDetail" Multiplicity="*" />
           <ReferentialConstraint>
@@ -344,11 +341,11 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__MedicineO__Order__3B75D760">
-          <End Role="MedicineOrder" Type="Self.MedicineOrder" Multiplicity="1" />
+        <Association Name="FK__MedicineO__Order__778AC167">
+          <End Role="Order" Type="Self.Order" Multiplicity="1" />
           <End Role="MedicineOrderDetail" Type="Self.MedicineOrderDetail" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="MedicineOrder">
+            <Principal Role="Order">
               <PropertyRef Name="OrderID" />
             </Principal>
             <Dependent Role="MedicineOrderDetail">
@@ -356,63 +353,39 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__MedicineO__Payme__38996AB5">
+        <Association Name="FK__Order__PaymentID__70DDC3D8">
           <End Role="Payment" Type="Self.Payment" Multiplicity="0..1" />
-          <End Role="MedicineOrder" Type="Self.MedicineOrder" Multiplicity="*" />
+          <End Role="Order" Type="Self.Order" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Payment">
               <PropertyRef Name="PaymentID" />
             </Principal>
-            <Dependent Role="MedicineOrder">
+            <Dependent Role="Order">
               <PropertyRef Name="PaymentID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__MedicineO__Usern__37A5467C">
+        <Association Name="FK__Order__Username__6FE99F9F">
           <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
-          <End Role="MedicineOrder" Type="Self.MedicineOrder" Multiplicity="*" />
+          <End Role="Order" Type="Self.Order" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Customer">
               <PropertyRef Name="Username" />
             </Principal>
-            <Dependent Role="MedicineOrder">
+            <Dependent Role="Order">
               <PropertyRef Name="Username" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Scientifi__Order__4316F928">
-          <End Role="ScientificApparatusOrder" Type="Self.ScientificApparatusOrder" Multiplicity="1" />
+        <Association Name="FK__Scientifi__Order__73BA3083">
+          <End Role="Order" Type="Self.Order" Multiplicity="1" />
           <End Role="ScientificApparatusOrderDetail" Type="Self.ScientificApparatusOrderDetail" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="ScientificApparatusOrder">
+            <Principal Role="Order">
               <PropertyRef Name="OrderID" />
             </Principal>
             <Dependent Role="ScientificApparatusOrderDetail">
               <PropertyRef Name="OrderID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Scientifi__Payme__403A8C7D">
-          <End Role="Payment" Type="Self.Payment" Multiplicity="0..1" />
-          <End Role="ScientificApparatusOrder" Type="Self.ScientificApparatusOrder" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Payment">
-              <PropertyRef Name="PaymentID" />
-            </Principal>
-            <Dependent Role="ScientificApparatusOrder">
-              <PropertyRef Name="PaymentID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Scientifi__Scien__440B1D61">
-          <End Role="ScientificApparatus" Type="Self.ScientificApparatus" Multiplicity="1" />
-          <End Role="ScientificApparatusOrderDetail" Type="Self.ScientificApparatusOrderDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ScientificApparatus">
-              <PropertyRef Name="ScientificApparatusID" />
-            </Principal>
-            <Dependent Role="ScientificApparatusOrderDetail">
-              <PropertyRef Name="ScientificApparatusID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -436,6 +409,18 @@
               <PropertyRef Name="ScientificApparatusID" />
             </Principal>
             <Dependent Role="ScientificApparatusFeedback">
+              <PropertyRef Name="ScientificApparatusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Scientifi__Scien__74AE54BC">
+          <End Role="ScientificApparatus" Type="Self.ScientificApparatus" Multiplicity="1" />
+          <End Role="ScientificApparatusOrderDetail" Type="Self.ScientificApparatusOrderDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ScientificApparatus">
+              <PropertyRef Name="ScientificApparatusID" />
+            </Principal>
+            <Dependent Role="ScientificApparatusOrderDetail">
               <PropertyRef Name="ScientificApparatusID" />
             </Dependent>
           </ReferentialConstraint>
@@ -464,18 +449,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Scientifi__Usern__3F466844">
-          <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
-          <End Role="ScientificApparatusOrder" Type="Self.ScientificApparatusOrder" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Customer">
-              <PropertyRef Name="Username" />
-            </Principal>
-            <Dependent Role="ScientificApparatusOrder">
-              <PropertyRef Name="Username" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__Scientifi__Usern__5441852A">
           <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
           <End Role="ScientificApparatusFeedback" Type="Self.ScientificApparatusFeedback" Multiplicity="*" />
@@ -497,18 +470,18 @@
           <EntitySet Name="Medicine" EntityType="Self.Medicine" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MedicineFeedback" EntityType="Self.MedicineFeedback" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MedicineImage" EntityType="Self.MedicineImage" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="MedicineOrder" EntityType="Self.MedicineOrder" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MedicineOrderDetail" EntityType="Self.MedicineOrderDetail" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MedicineType" EntityType="Self.MedicineType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Payment" EntityType="Self.Payment" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ScientificApparatus" EntityType="Self.ScientificApparatus" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ScientificApparatusFeedback" EntityType="Self.ScientificApparatusFeedback" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ScientificApparatusImage" EntityType="Self.ScientificApparatusImage" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="ScientificApparatusOrder" EntityType="Self.ScientificApparatusOrder" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ScientificApparatusOrderDetail" EntityType="Self.ScientificApparatusOrderDetail" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ScientificApparatusType" EntityType="Self.ScientificApparatusType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Subject" EntityType="Self.Subject" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Supplier" EntityType="Self.Supplier" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK__Education__Activ__4AB81AF0" Association="Self.FK__Education__Activ__4AB81AF0">
             <End Role="Activity" EntitySet="Activity" />
             <End Role="Education" EntitySet="Education" />
@@ -545,32 +518,24 @@
             <End Role="Medicine" EntitySet="Medicine" />
             <End Role="MedicineImage" EntitySet="MedicineImage" />
           </AssociationSet>
-          <AssociationSet Name="FK__MedicineO__Medic__3C69FB99" Association="Self.FK__MedicineO__Medic__3C69FB99">
+          <AssociationSet Name="FK__MedicineO__Medic__787EE5A0" Association="Self.FK__MedicineO__Medic__787EE5A0">
             <End Role="Medicine" EntitySet="Medicine" />
             <End Role="MedicineOrderDetail" EntitySet="MedicineOrderDetail" />
           </AssociationSet>
-          <AssociationSet Name="FK__MedicineO__Order__3B75D760" Association="Self.FK__MedicineO__Order__3B75D760">
-            <End Role="MedicineOrder" EntitySet="MedicineOrder" />
+          <AssociationSet Name="FK__MedicineO__Order__778AC167" Association="Self.FK__MedicineO__Order__778AC167">
+            <End Role="Order" EntitySet="Order" />
             <End Role="MedicineOrderDetail" EntitySet="MedicineOrderDetail" />
           </AssociationSet>
-          <AssociationSet Name="FK__MedicineO__Payme__38996AB5" Association="Self.FK__MedicineO__Payme__38996AB5">
+          <AssociationSet Name="FK__Order__PaymentID__70DDC3D8" Association="Self.FK__Order__PaymentID__70DDC3D8">
             <End Role="Payment" EntitySet="Payment" />
-            <End Role="MedicineOrder" EntitySet="MedicineOrder" />
+            <End Role="Order" EntitySet="Order" />
           </AssociationSet>
-          <AssociationSet Name="FK__MedicineO__Usern__37A5467C" Association="Self.FK__MedicineO__Usern__37A5467C">
+          <AssociationSet Name="FK__Order__Username__6FE99F9F" Association="Self.FK__Order__Username__6FE99F9F">
             <End Role="Customer" EntitySet="Customer" />
-            <End Role="MedicineOrder" EntitySet="MedicineOrder" />
+            <End Role="Order" EntitySet="Order" />
           </AssociationSet>
-          <AssociationSet Name="FK__Scientifi__Order__4316F928" Association="Self.FK__Scientifi__Order__4316F928">
-            <End Role="ScientificApparatusOrder" EntitySet="ScientificApparatusOrder" />
-            <End Role="ScientificApparatusOrderDetail" EntitySet="ScientificApparatusOrderDetail" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Scientifi__Payme__403A8C7D" Association="Self.FK__Scientifi__Payme__403A8C7D">
-            <End Role="Payment" EntitySet="Payment" />
-            <End Role="ScientificApparatusOrder" EntitySet="ScientificApparatusOrder" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Scientifi__Scien__440B1D61" Association="Self.FK__Scientifi__Scien__440B1D61">
-            <End Role="ScientificApparatus" EntitySet="ScientificApparatus" />
+          <AssociationSet Name="FK__Scientifi__Order__73BA3083" Association="Self.FK__Scientifi__Order__73BA3083">
+            <End Role="Order" EntitySet="Order" />
             <End Role="ScientificApparatusOrderDetail" EntitySet="ScientificApparatusOrderDetail" />
           </AssociationSet>
           <AssociationSet Name="FK__Scientifi__Scien__5165187F" Association="Self.FK__Scientifi__Scien__5165187F">
@@ -581,6 +546,10 @@
             <End Role="ScientificApparatus" EntitySet="ScientificApparatus" />
             <End Role="ScientificApparatusFeedback" EntitySet="ScientificApparatusFeedback" />
           </AssociationSet>
+          <AssociationSet Name="FK__Scientifi__Scien__74AE54BC" Association="Self.FK__Scientifi__Scien__74AE54BC">
+            <End Role="ScientificApparatus" EntitySet="ScientificApparatus" />
+            <End Role="ScientificApparatusOrderDetail" EntitySet="ScientificApparatusOrderDetail" />
+          </AssociationSet>
           <AssociationSet Name="FK__Scientifi__Suppl__29572725" Association="Self.FK__Scientifi__Suppl__29572725">
             <End Role="Supplier" EntitySet="Supplier" />
             <End Role="ScientificApparatus" EntitySet="ScientificApparatus" />
@@ -589,20 +558,117 @@
             <End Role="ScientificApparatusType" EntitySet="ScientificApparatusType" />
             <End Role="ScientificApparatus" EntitySet="ScientificApparatus" />
           </AssociationSet>
-          <AssociationSet Name="FK__Scientifi__Usern__3F466844" Association="Self.FK__Scientifi__Usern__3F466844">
-            <End Role="Customer" EntitySet="Customer" />
-            <End Role="ScientificApparatusOrder" EntitySet="ScientificApparatusOrder" />
-          </AssociationSet>
           <AssociationSet Name="FK__Scientifi__Usern__5441852A" Association="Self.FK__Scientifi__Usern__5441852A">
             <End Role="Customer" EntitySet="Customer" />
             <End Role="ScientificApparatusFeedback" EntitySet="ScientificApparatusFeedback" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ClinicSystemDataContext" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="ClinicSystemData" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Activities" EntityType="ClinicSystemDataContext.Activity" />
+          <EntitySet Name="Customers" EntityType="ClinicSystemDataContext.Customer" />
+          <EntitySet Name="Educations" EntityType="ClinicSystemDataContext.Education" />
+          <EntitySet Name="EducationFeedbacks" EntityType="ClinicSystemDataContext.EducationFeedback" />
+          <EntitySet Name="Employees" EntityType="ClinicSystemDataContext.Employee" />
+          <EntitySet Name="Medicines" EntityType="ClinicSystemDataContext.Medicine" />
+          <EntitySet Name="MedicineFeedbacks" EntityType="ClinicSystemDataContext.MedicineFeedback" />
+          <EntitySet Name="MedicineImages" EntityType="ClinicSystemDataContext.MedicineImage" />
+          <EntitySet Name="MedicineOrderDetails" EntityType="ClinicSystemDataContext.MedicineOrderDetail" />
+          <EntitySet Name="MedicineTypes" EntityType="ClinicSystemDataContext.MedicineType" />
+          <EntitySet Name="Orders" EntityType="ClinicSystemDataContext.Order" />
+          <EntitySet Name="Payments" EntityType="ClinicSystemDataContext.Payment" />
+          <EntitySet Name="ScientificApparatus" EntityType="ClinicSystemDataContext.ScientificApparatu" />
+          <EntitySet Name="ScientificApparatusFeedbacks" EntityType="ClinicSystemDataContext.ScientificApparatusFeedback" />
+          <EntitySet Name="ScientificApparatusImages" EntityType="ClinicSystemDataContext.ScientificApparatusImage" />
+          <EntitySet Name="ScientificApparatusOrderDetails" EntityType="ClinicSystemDataContext.ScientificApparatusOrderDetail" />
+          <EntitySet Name="ScientificApparatusTypes" EntityType="ClinicSystemDataContext.ScientificApparatusType" />
+          <EntitySet Name="Subjects" EntityType="ClinicSystemDataContext.Subject" />
+          <EntitySet Name="Suppliers" EntityType="ClinicSystemDataContext.Supplier" />
+          <EntitySet Name="sysdiagrams" EntityType="ClinicSystemDataContext.sysdiagram" />
+          <AssociationSet Name="FK__Education__Activ__4AB81AF0" Association="ClinicSystemDataContext.FK__Education__Activ__4AB81AF0">
+            <End Role="Activity" EntitySet="Activities" />
+            <End Role="Education" EntitySet="Educations" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Education__Usern__5BE2A6F2" Association="ClinicSystemDataContext.FK__Education__Usern__5BE2A6F2">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="EducationFeedback" EntitySet="EducationFeedbacks" />
+          </AssociationSet>
+          <AssociationSet Name="FK__MedicineF__Usern__5812160E" Association="ClinicSystemDataContext.FK__MedicineF__Usern__5812160E">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="MedicineFeedback" EntitySet="MedicineFeedbacks" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Order__Username__6FE99F9F" Association="ClinicSystemDataContext.FK__Order__Username__6FE99F9F">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="Order" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Scientifi__Usern__5441852A" Association="ClinicSystemDataContext.FK__Scientifi__Usern__5441852A">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="ScientificApparatusFeedback" EntitySet="ScientificApparatusFeedbacks" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Education__Educa__5CD6CB2B" Association="ClinicSystemDataContext.FK__Education__Educa__5CD6CB2B">
+            <End Role="Education" EntitySet="Educations" />
+            <End Role="EducationFeedback" EntitySet="EducationFeedbacks" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Education__Subje__4BAC3F29" Association="ClinicSystemDataContext.FK__Education__Subje__4BAC3F29">
+            <End Role="Subject" EntitySet="Subjects" />
+            <End Role="Education" EntitySet="Educations" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Medicine__Suppli__34C8D9D1" Association="ClinicSystemDataContext.FK__Medicine__Suppli__34C8D9D1">
+            <End Role="Supplier" EntitySet="Suppliers" />
+            <End Role="Medicine" EntitySet="Medicines" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Medicine__TypeID__33D4B598" Association="ClinicSystemDataContext.FK__Medicine__TypeID__33D4B598">
+            <End Role="MedicineType" EntitySet="MedicineTypes" />
+            <End Role="Medicine" EntitySet="Medicines" />
+          </AssociationSet>
+          <AssociationSet Name="FK__MedicineF__Medic__59063A47" Association="ClinicSystemDataContext.FK__MedicineF__Medic__59063A47">
+            <End Role="Medicine" EntitySet="Medicines" />
+            <End Role="MedicineFeedback" EntitySet="MedicineFeedbacks" />
+          </AssociationSet>
+          <AssociationSet Name="FK__MedicineI__Medic__4E88ABD4" Association="ClinicSystemDataContext.FK__MedicineI__Medic__4E88ABD4">
+            <End Role="Medicine" EntitySet="Medicines" />
+            <End Role="MedicineImage" EntitySet="MedicineImages" />
+          </AssociationSet>
+          <AssociationSet Name="FK__MedicineO__Medic__787EE5A0" Association="ClinicSystemDataContext.FK__MedicineO__Medic__787EE5A0">
+            <End Role="Medicine" EntitySet="Medicines" />
+            <End Role="MedicineOrderDetail" EntitySet="MedicineOrderDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__MedicineO__Order__778AC167" Association="ClinicSystemDataContext.FK__MedicineO__Order__778AC167">
+            <End Role="Order" EntitySet="Orders" />
+            <End Role="MedicineOrderDetail" EntitySet="MedicineOrderDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Order__PaymentID__70DDC3D8" Association="ClinicSystemDataContext.FK__Order__PaymentID__70DDC3D8">
+            <End Role="Payment" EntitySet="Payments" />
+            <End Role="Order" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Scientifi__Order__73BA3083" Association="ClinicSystemDataContext.FK__Scientifi__Order__73BA3083">
+            <End Role="Order" EntitySet="Orders" />
+            <End Role="ScientificApparatusOrderDetail" EntitySet="ScientificApparatusOrderDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Scientifi__Scien__5165187F" Association="ClinicSystemDataContext.FK__Scientifi__Scien__5165187F">
+            <End Role="ScientificApparatu" EntitySet="ScientificApparatus" />
+            <End Role="ScientificApparatusImage" EntitySet="ScientificApparatusImages" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Scientifi__Scien__5535A963" Association="ClinicSystemDataContext.FK__Scientifi__Scien__5535A963">
+            <End Role="ScientificApparatu" EntitySet="ScientificApparatus" />
+            <End Role="ScientificApparatusFeedback" EntitySet="ScientificApparatusFeedbacks" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Scientifi__Scien__74AE54BC" Association="ClinicSystemDataContext.FK__Scientifi__Scien__74AE54BC">
+            <End Role="ScientificApparatu" EntitySet="ScientificApparatus" />
+            <End Role="ScientificApparatusOrderDetail" EntitySet="ScientificApparatusOrderDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Scientifi__Suppl__29572725" Association="ClinicSystemDataContext.FK__Scientifi__Suppl__29572725">
+            <End Role="Supplier" EntitySet="Suppliers" />
+            <End Role="ScientificApparatu" EntitySet="ScientificApparatus" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Scientifi__TypeI__286302EC" Association="ClinicSystemDataContext.FK__Scientifi__TypeI__286302EC">
+            <End Role="ScientificApparatusType" EntitySet="ScientificApparatusTypes" />
+            <End Role="ScientificApparatu" EntitySet="ScientificApparatus" />
+          </AssociationSet>
+        </EntityContainer>
         <EntityType Name="Activity">
           <Key>
             <PropertyRef Name="ActivityID" />
@@ -610,13 +676,13 @@
           <Property Name="ActivityID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ActivityName" Type="String" MaxLength="60" FixedLength="false" Unicode="true" />
           <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Educations" Relationship="Self.FK__Education__Activ__4AB81AF0" FromRole="Activity" ToRole="Education" />
+          <NavigationProperty Name="Educations" Relationship="ClinicSystemDataContext.FK__Education__Activ__4AB81AF0" FromRole="Activity" ToRole="Education" />
         </EntityType>
         <EntityType Name="Customer">
           <Key>
             <PropertyRef Name="Username" />
           </Key>
-          <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Username" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Password" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="FullName" Type="String" MaxLength="60" FixedLength="false" Unicode="true" />
           <Property Name="DateOfBirth" Type="DateTime" Precision="0" />
@@ -626,11 +692,10 @@
           <Property Name="Address" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="Avatar" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="Status" Type="Boolean" />
-          <NavigationProperty Name="EducationFeedbacks" Relationship="Self.FK__Education__Usern__5BE2A6F2" FromRole="Customer" ToRole="EducationFeedback" />
-          <NavigationProperty Name="MedicineFeedbacks" Relationship="Self.FK__MedicineF__Usern__5812160E" FromRole="Customer" ToRole="MedicineFeedback" />
-          <NavigationProperty Name="MedicineOrders" Relationship="Self.FK__MedicineO__Usern__37A5467C" FromRole="Customer" ToRole="MedicineOrder" />
-          <NavigationProperty Name="ScientificApparatusOrders" Relationship="Self.FK__Scientifi__Usern__3F466844" FromRole="Customer" ToRole="ScientificApparatusOrder" />
-          <NavigationProperty Name="ScientificApparatusFeedbacks" Relationship="Self.FK__Scientifi__Usern__5441852A" FromRole="Customer" ToRole="ScientificApparatusFeedback" />
+          <NavigationProperty Name="EducationFeedbacks" Relationship="ClinicSystemDataContext.FK__Education__Usern__5BE2A6F2" FromRole="Customer" ToRole="EducationFeedback" />
+          <NavigationProperty Name="MedicineFeedbacks" Relationship="ClinicSystemDataContext.FK__MedicineF__Usern__5812160E" FromRole="Customer" ToRole="MedicineFeedback" />
+          <NavigationProperty Name="Orders" Relationship="ClinicSystemDataContext.FK__Order__Username__6FE99F9F" FromRole="Customer" ToRole="Order" />
+          <NavigationProperty Name="ScientificApparatusFeedbacks" Relationship="ClinicSystemDataContext.FK__Scientifi__Usern__5441852A" FromRole="Customer" ToRole="ScientificApparatusFeedback" />
         </EntityType>
         <EntityType Name="Education">
           <Key>
@@ -643,9 +708,9 @@
           <Property Name="CreateDate" Type="DateTime" Precision="3" />
           <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="Thumbnail" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Activity" Relationship="Self.FK__Education__Activ__4AB81AF0" FromRole="Education" ToRole="Activity" />
-          <NavigationProperty Name="EducationFeedbacks" Relationship="Self.FK__Education__Educa__5CD6CB2B" FromRole="Education" ToRole="EducationFeedback" />
-          <NavigationProperty Name="Subject" Relationship="Self.FK__Education__Subje__4BAC3F29" FromRole="Education" ToRole="Subject" />
+          <NavigationProperty Name="Activity" Relationship="ClinicSystemDataContext.FK__Education__Activ__4AB81AF0" FromRole="Education" ToRole="Activity" />
+          <NavigationProperty Name="EducationFeedbacks" Relationship="ClinicSystemDataContext.FK__Education__Educa__5CD6CB2B" FromRole="Education" ToRole="EducationFeedback" />
+          <NavigationProperty Name="Subject" Relationship="ClinicSystemDataContext.FK__Education__Subje__4BAC3F29" FromRole="Education" ToRole="Subject" />
         </EntityType>
         <EntityType Name="EducationFeedback">
           <Key>
@@ -656,14 +721,14 @@
           <Property Name="EducationID" Type="Int32" />
           <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="CreatedDate" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Customer" Relationship="Self.FK__Education__Usern__5BE2A6F2" FromRole="EducationFeedback" ToRole="Customer" />
-          <NavigationProperty Name="Education" Relationship="Self.FK__Education__Educa__5CD6CB2B" FromRole="EducationFeedback" ToRole="Education" />
+          <NavigationProperty Name="Customer" Relationship="ClinicSystemDataContext.FK__Education__Usern__5BE2A6F2" FromRole="EducationFeedback" ToRole="Customer" />
+          <NavigationProperty Name="Education" Relationship="ClinicSystemDataContext.FK__Education__Educa__5CD6CB2B" FromRole="EducationFeedback" ToRole="Education" />
         </EntityType>
         <EntityType Name="Employee">
           <Key>
             <PropertyRef Name="Username" />
           </Key>
-          <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Username" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Password" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="FullName" Type="String" MaxLength="60" FixedLength="false" Unicode="true" />
           <Property Name="DateOfBirth" Type="DateTime" Precision="0" />
@@ -692,11 +757,11 @@
           <Property Name="UnitPrice" Type="Int32" />
           <Property Name="Thumbnail" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
           <Property Name="Status" Type="Boolean" />
-          <NavigationProperty Name="Supplier" Relationship="Self.FK__Medicine__Suppli__34C8D9D1" FromRole="Medicine" ToRole="Supplier" />
-          <NavigationProperty Name="MedicineType" Relationship="Self.FK__Medicine__TypeID__33D4B598" FromRole="Medicine" ToRole="MedicineType" />
-          <NavigationProperty Name="MedicineFeedbacks" Relationship="Self.FK__MedicineF__Medic__59063A47" FromRole="Medicine" ToRole="MedicineFeedback" />
-          <NavigationProperty Name="MedicineImages" Relationship="Self.FK__MedicineI__Medic__4E88ABD4" FromRole="Medicine" ToRole="MedicineImage" />
-          <NavigationProperty Name="MedicineOrderDetails" Relationship="Self.FK__MedicineO__Medic__3C69FB99" FromRole="Medicine" ToRole="MedicineOrderDetail" />
+          <NavigationProperty Name="Supplier" Relationship="ClinicSystemDataContext.FK__Medicine__Suppli__34C8D9D1" FromRole="Medicine" ToRole="Supplier" />
+          <NavigationProperty Name="MedicineType" Relationship="ClinicSystemDataContext.FK__Medicine__TypeID__33D4B598" FromRole="Medicine" ToRole="MedicineType" />
+          <NavigationProperty Name="MedicineFeedbacks" Relationship="ClinicSystemDataContext.FK__MedicineF__Medic__59063A47" FromRole="Medicine" ToRole="MedicineFeedback" />
+          <NavigationProperty Name="MedicineImages" Relationship="ClinicSystemDataContext.FK__MedicineI__Medic__4E88ABD4" FromRole="Medicine" ToRole="MedicineImage" />
+          <NavigationProperty Name="MedicineOrderDetails" Relationship="ClinicSystemDataContext.FK__MedicineO__Medic__787EE5A0" FromRole="Medicine" ToRole="MedicineOrderDetail" />
         </EntityType>
         <EntityType Name="MedicineFeedback">
           <Key>
@@ -707,8 +772,8 @@
           <Property Name="MedicineID" Type="Int32" />
           <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="CreatedDate" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Customer" Relationship="Self.FK__MedicineF__Usern__5812160E" FromRole="MedicineFeedback" ToRole="Customer" />
-          <NavigationProperty Name="Medicine" Relationship="Self.FK__MedicineF__Medic__59063A47" FromRole="MedicineFeedback" ToRole="Medicine" />
+          <NavigationProperty Name="Customer" Relationship="ClinicSystemDataContext.FK__MedicineF__Usern__5812160E" FromRole="MedicineFeedback" ToRole="Customer" />
+          <NavigationProperty Name="Medicine" Relationship="ClinicSystemDataContext.FK__MedicineF__Medic__59063A47" FromRole="MedicineFeedback" ToRole="Medicine" />
         </EntityType>
         <EntityType Name="MedicineImage">
           <Key>
@@ -717,23 +782,7 @@
           <Property Name="ImageID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FileName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="MedicineID" Type="Int32" />
-          <NavigationProperty Name="Medicine" Relationship="Self.FK__MedicineI__Medic__4E88ABD4" FromRole="MedicineImage" ToRole="Medicine" />
-        </EntityType>
-        <EntityType Name="MedicineOrder">
-          <Key>
-            <PropertyRef Name="OrderID" />
-          </Key>
-          <Property Name="OrderID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CrearedDate" Type="DateTime" Precision="3" />
-          <Property Name="DeliveredDate" Type="DateTime" Precision="3" />
-          <Property Name="DeliveredAddress" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="PaymentID" Type="Int32" />
-          <Property Name="Status" Type="Int32" />
-          <Property Name="Note" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Customer" Relationship="Self.FK__MedicineO__Usern__37A5467C" FromRole="MedicineOrder" ToRole="Customer" />
-          <NavigationProperty Name="MedicineOrderDetails" Relationship="Self.FK__MedicineO__Order__3B75D760" FromRole="MedicineOrder" ToRole="MedicineOrderDetail" />
-          <NavigationProperty Name="Payment" Relationship="Self.FK__MedicineO__Payme__38996AB5" FromRole="MedicineOrder" ToRole="Payment" />
+          <NavigationProperty Name="Medicine" Relationship="ClinicSystemDataContext.FK__MedicineI__Medic__4E88ABD4" FromRole="MedicineImage" ToRole="Medicine" />
         </EntityType>
         <EntityType Name="MedicineOrderDetail">
           <Key>
@@ -743,8 +792,8 @@
           <Property Name="OrderID" Type="Int32" Nullable="false" />
           <Property Name="MedicineID" Type="Int32" Nullable="false" />
           <Property Name="Quantity" Type="Int32" />
-          <NavigationProperty Name="Medicine" Relationship="Self.FK__MedicineO__Medic__3C69FB99" FromRole="MedicineOrderDetail" ToRole="Medicine" />
-          <NavigationProperty Name="MedicineOrder" Relationship="Self.FK__MedicineO__Order__3B75D760" FromRole="MedicineOrderDetail" ToRole="MedicineOrder" />
+          <NavigationProperty Name="Medicine" Relationship="ClinicSystemDataContext.FK__MedicineO__Medic__787EE5A0" FromRole="MedicineOrderDetail" ToRole="Medicine" />
+          <NavigationProperty Name="Order" Relationship="ClinicSystemDataContext.FK__MedicineO__Order__778AC167" FromRole="MedicineOrderDetail" ToRole="Order" />
         </EntityType>
         <EntityType Name="MedicineType">
           <Key>
@@ -753,7 +802,24 @@
           <Property Name="TypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="TypeName" Type="String" MaxLength="60" FixedLength="false" Unicode="true" />
           <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Medicines" Relationship="Self.FK__Medicine__TypeID__33D4B598" FromRole="MedicineType" ToRole="Medicine" />
+          <NavigationProperty Name="Medicines" Relationship="ClinicSystemDataContext.FK__Medicine__TypeID__33D4B598" FromRole="MedicineType" ToRole="Medicine" />
+        </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="OrderID" />
+          </Key>
+          <Property Name="OrderID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreateDate" Type="DateTime" Precision="3" />
+          <Property Name="DeliveredDate" Type="DateTime" Precision="3" />
+          <Property Name="DeliveredAddress" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="PaymentID" Type="Int32" />
+          <Property Name="Status" Type="Int32" />
+          <Property Name="Note" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Customer" Relationship="ClinicSystemDataContext.FK__Order__Username__6FE99F9F" FromRole="Order" ToRole="Customer" />
+          <NavigationProperty Name="MedicineOrderDetails" Relationship="ClinicSystemDataContext.FK__MedicineO__Order__778AC167" FromRole="Order" ToRole="MedicineOrderDetail" />
+          <NavigationProperty Name="Payment" Relationship="ClinicSystemDataContext.FK__Order__PaymentID__70DDC3D8" FromRole="Order" ToRole="Payment" />
+          <NavigationProperty Name="ScientificApparatusOrderDetails" Relationship="ClinicSystemDataContext.FK__Scientifi__Order__73BA3083" FromRole="Order" ToRole="ScientificApparatusOrderDetail" />
         </EntityType>
         <EntityType Name="Payment">
           <Key>
@@ -761,8 +827,7 @@
           </Key>
           <Property Name="PaymentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="PaymentName" Type="String" MaxLength="60" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="MedicineOrders" Relationship="Self.FK__MedicineO__Payme__38996AB5" FromRole="Payment" ToRole="MedicineOrder" />
-          <NavigationProperty Name="ScientificApparatusOrders" Relationship="Self.FK__Scientifi__Payme__403A8C7D" FromRole="Payment" ToRole="ScientificApparatusOrder" />
+          <NavigationProperty Name="Orders" Relationship="ClinicSystemDataContext.FK__Order__PaymentID__70DDC3D8" FromRole="Payment" ToRole="Order" />
         </EntityType>
         <EntityType Name="ScientificApparatu">
           <Key>
@@ -781,11 +846,11 @@
           <Property Name="UnitPrice" Type="Int32" />
           <Property Name="Thumbnail" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
           <Property Name="Status" Type="Boolean" />
-          <NavigationProperty Name="ScientificApparatusOrderDetails" Relationship="Self.FK__Scientifi__Scien__440B1D61" FromRole="ScientificApparatus" ToRole="ScientificApparatusOrderDetail" />
-          <NavigationProperty Name="ScientificApparatusImages" Relationship="Self.FK__Scientifi__Scien__5165187F" FromRole="ScientificApparatus" ToRole="ScientificApparatusImage" />
-          <NavigationProperty Name="ScientificApparatusFeedbacks" Relationship="Self.FK__Scientifi__Scien__5535A963" FromRole="ScientificApparatus" ToRole="ScientificApparatusFeedback" />
-          <NavigationProperty Name="Supplier" Relationship="Self.FK__Scientifi__Suppl__29572725" FromRole="ScientificApparatus" ToRole="Supplier" />
-          <NavigationProperty Name="ScientificApparatusType" Relationship="Self.FK__Scientifi__TypeI__286302EC" FromRole="ScientificApparatus" ToRole="ScientificApparatusType" />
+          <NavigationProperty Name="ScientificApparatusImages" Relationship="ClinicSystemDataContext.FK__Scientifi__Scien__5165187F" FromRole="ScientificApparatu" ToRole="ScientificApparatusImage" />
+          <NavigationProperty Name="ScientificApparatusFeedbacks" Relationship="ClinicSystemDataContext.FK__Scientifi__Scien__5535A963" FromRole="ScientificApparatu" ToRole="ScientificApparatusFeedback" />
+          <NavigationProperty Name="ScientificApparatusOrderDetails" Relationship="ClinicSystemDataContext.FK__Scientifi__Scien__74AE54BC" FromRole="ScientificApparatu" ToRole="ScientificApparatusOrderDetail" />
+          <NavigationProperty Name="Supplier" Relationship="ClinicSystemDataContext.FK__Scientifi__Suppl__29572725" FromRole="ScientificApparatu" ToRole="Supplier" />
+          <NavigationProperty Name="ScientificApparatusType" Relationship="ClinicSystemDataContext.FK__Scientifi__TypeI__286302EC" FromRole="ScientificApparatu" ToRole="ScientificApparatusType" />
         </EntityType>
         <EntityType Name="ScientificApparatusFeedback">
           <Key>
@@ -796,8 +861,8 @@
           <Property Name="ScientificApparatusID" Type="Int32" />
           <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="CreatedDate" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Customer" Relationship="Self.FK__Scientifi__Usern__5441852A" FromRole="ScientificApparatusFeedback" ToRole="Customer" />
-          <NavigationProperty Name="ScientificApparatu" Relationship="Self.FK__Scientifi__Scien__5535A963" FromRole="ScientificApparatusFeedback" ToRole="ScientificApparatus" />
+          <NavigationProperty Name="Customer" Relationship="ClinicSystemDataContext.FK__Scientifi__Usern__5441852A" FromRole="ScientificApparatusFeedback" ToRole="Customer" />
+          <NavigationProperty Name="ScientificApparatu" Relationship="ClinicSystemDataContext.FK__Scientifi__Scien__5535A963" FromRole="ScientificApparatusFeedback" ToRole="ScientificApparatu" />
         </EntityType>
         <EntityType Name="ScientificApparatusImage">
           <Key>
@@ -806,23 +871,7 @@
           <Property Name="ImageID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FileName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="ScientificApparatusID" Type="Int32" />
-          <NavigationProperty Name="ScientificApparatu" Relationship="Self.FK__Scientifi__Scien__5165187F" FromRole="ScientificApparatusImage" ToRole="ScientificApparatus" />
-        </EntityType>
-        <EntityType Name="ScientificApparatusOrder">
-          <Key>
-            <PropertyRef Name="OrderID" />
-          </Key>
-          <Property Name="OrderID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CreateDate" Type="DateTime" Precision="3" />
-          <Property Name="DeliveredDate" Type="DateTime" Precision="3" />
-          <Property Name="DeliveredAddress" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="PaymentID" Type="Int32" />
-          <Property Name="Status" Type="Int32" />
-          <Property Name="Note" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Customer" Relationship="Self.FK__Scientifi__Usern__3F466844" FromRole="ScientificApparatusOrder" ToRole="Customer" />
-          <NavigationProperty Name="Payment" Relationship="Self.FK__Scientifi__Payme__403A8C7D" FromRole="ScientificApparatusOrder" ToRole="Payment" />
-          <NavigationProperty Name="ScientificApparatusOrderDetails" Relationship="Self.FK__Scientifi__Order__4316F928" FromRole="ScientificApparatusOrder" ToRole="ScientificApparatusOrderDetail" />
+          <NavigationProperty Name="ScientificApparatu" Relationship="ClinicSystemDataContext.FK__Scientifi__Scien__5165187F" FromRole="ScientificApparatusImage" ToRole="ScientificApparatu" />
         </EntityType>
         <EntityType Name="ScientificApparatusOrderDetail">
           <Key>
@@ -832,8 +881,8 @@
           <Property Name="OrderID" Type="Int32" Nullable="false" />
           <Property Name="ScientificApparatusID" Type="Int32" Nullable="false" />
           <Property Name="Quantity" Type="Int32" />
-          <NavigationProperty Name="ScientificApparatu" Relationship="Self.FK__Scientifi__Scien__440B1D61" FromRole="ScientificApparatusOrderDetail" ToRole="ScientificApparatus" />
-          <NavigationProperty Name="ScientificApparatusOrder" Relationship="Self.FK__Scientifi__Order__4316F928" FromRole="ScientificApparatusOrderDetail" ToRole="ScientificApparatusOrder" />
+          <NavigationProperty Name="Order" Relationship="ClinicSystemDataContext.FK__Scientifi__Order__73BA3083" FromRole="ScientificApparatusOrderDetail" ToRole="Order" />
+          <NavigationProperty Name="ScientificApparatu" Relationship="ClinicSystemDataContext.FK__Scientifi__Scien__74AE54BC" FromRole="ScientificApparatusOrderDetail" ToRole="ScientificApparatu" />
         </EntityType>
         <EntityType Name="ScientificApparatusType">
           <Key>
@@ -842,7 +891,7 @@
           <Property Name="TypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="TypeName" Type="String" MaxLength="60" FixedLength="false" Unicode="true" />
           <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="ScientificApparatus" Relationship="Self.FK__Scientifi__TypeI__286302EC" FromRole="ScientificApparatusType" ToRole="ScientificApparatus" />
+          <NavigationProperty Name="ScientificApparatus" Relationship="ClinicSystemDataContext.FK__Scientifi__TypeI__286302EC" FromRole="ScientificApparatusType" ToRole="ScientificApparatu" />
         </EntityType>
         <EntityType Name="Subject">
           <Key>
@@ -851,7 +900,7 @@
           <Property Name="SubjectID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="SubjectName" Type="String" MaxLength="60" FixedLength="false" Unicode="true" />
           <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Educations" Relationship="Self.FK__Education__Subje__4BAC3F29" FromRole="Subject" ToRole="Education" />
+          <NavigationProperty Name="Educations" Relationship="ClinicSystemDataContext.FK__Education__Subje__4BAC3F29" FromRole="Subject" ToRole="Education" />
         </EntityType>
         <EntityType Name="Supplier">
           <Key>
@@ -863,12 +912,22 @@
           <Property Name="Address" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="Phone" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Medicines" Relationship="Self.FK__Medicine__Suppli__34C8D9D1" FromRole="Supplier" ToRole="Medicine" />
-          <NavigationProperty Name="ScientificApparatus" Relationship="Self.FK__Scientifi__Suppl__29572725" FromRole="Supplier" ToRole="ScientificApparatus" />
+          <NavigationProperty Name="Medicines" Relationship="ClinicSystemDataContext.FK__Medicine__Suppli__34C8D9D1" FromRole="Supplier" ToRole="Medicine" />
+          <NavigationProperty Name="ScientificApparatus" Relationship="ClinicSystemDataContext.FK__Scientifi__Suppl__29572725" FromRole="Supplier" ToRole="ScientificApparatu" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
         <Association Name="FK__Education__Activ__4AB81AF0">
-          <End Role="Activity" Type="Self.Activity" Multiplicity="0..1" />
-          <End Role="Education" Type="Self.Education" Multiplicity="*" />
+          <End Type="ClinicSystemDataContext.Activity" Role="Activity" Multiplicity="0..1" />
+          <End Type="ClinicSystemDataContext.Education" Role="Education" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Activity">
               <PropertyRef Name="ActivityID" />
@@ -879,8 +938,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__Education__Usern__5BE2A6F2">
-          <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
-          <End Role="EducationFeedback" Type="Self.EducationFeedback" Multiplicity="*" />
+          <End Type="ClinicSystemDataContext.Customer" Role="Customer" Multiplicity="0..1" />
+          <End Type="ClinicSystemDataContext.EducationFeedback" Role="EducationFeedback" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Customer">
               <PropertyRef Name="Username" />
@@ -891,8 +950,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__MedicineF__Usern__5812160E">
-          <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
-          <End Role="MedicineFeedback" Type="Self.MedicineFeedback" Multiplicity="*" />
+          <End Type="ClinicSystemDataContext.Customer" Role="Customer" Multiplicity="0..1" />
+          <End Type="ClinicSystemDataContext.MedicineFeedback" Role="MedicineFeedback" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Customer">
               <PropertyRef Name="Username" />
@@ -902,33 +961,21 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__MedicineO__Usern__37A5467C">
-          <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
-          <End Role="MedicineOrder" Type="Self.MedicineOrder" Multiplicity="*" />
+        <Association Name="FK__Order__Username__6FE99F9F">
+          <End Type="ClinicSystemDataContext.Customer" Role="Customer" Multiplicity="0..1" />
+          <End Type="ClinicSystemDataContext.Order" Role="Order" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Customer">
               <PropertyRef Name="Username" />
             </Principal>
-            <Dependent Role="MedicineOrder">
-              <PropertyRef Name="Username" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Scientifi__Usern__3F466844">
-          <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
-          <End Role="ScientificApparatusOrder" Type="Self.ScientificApparatusOrder" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Customer">
-              <PropertyRef Name="Username" />
-            </Principal>
-            <Dependent Role="ScientificApparatusOrder">
+            <Dependent Role="Order">
               <PropertyRef Name="Username" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__Scientifi__Usern__5441852A">
-          <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
-          <End Role="ScientificApparatusFeedback" Type="Self.ScientificApparatusFeedback" Multiplicity="*" />
+          <End Type="ClinicSystemDataContext.Customer" Role="Customer" Multiplicity="0..1" />
+          <End Type="ClinicSystemDataContext.ScientificApparatusFeedback" Role="ScientificApparatusFeedback" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Customer">
               <PropertyRef Name="Username" />
@@ -939,8 +986,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__Education__Educa__5CD6CB2B">
-          <End Role="Education" Type="Self.Education" Multiplicity="0..1" />
-          <End Role="EducationFeedback" Type="Self.EducationFeedback" Multiplicity="*" />
+          <End Type="ClinicSystemDataContext.Education" Role="Education" Multiplicity="0..1" />
+          <End Type="ClinicSystemDataContext.EducationFeedback" Role="EducationFeedback" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Education">
               <PropertyRef Name="EducationID" />
@@ -951,8 +998,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__Education__Subje__4BAC3F29">
-          <End Role="Subject" Type="Self.Subject" Multiplicity="0..1" />
-          <End Role="Education" Type="Self.Education" Multiplicity="*" />
+          <End Type="ClinicSystemDataContext.Subject" Role="Subject" Multiplicity="0..1" />
+          <End Type="ClinicSystemDataContext.Education" Role="Education" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Subject">
               <PropertyRef Name="SubjectID" />
@@ -963,8 +1010,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__Medicine__Suppli__34C8D9D1">
-          <End Role="Supplier" Type="Self.Supplier" Multiplicity="0..1" />
-          <End Role="Medicine" Type="Self.Medicine" Multiplicity="*" />
+          <End Type="ClinicSystemDataContext.Supplier" Role="Supplier" Multiplicity="0..1" />
+          <End Type="ClinicSystemDataContext.Medicine" Role="Medicine" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Supplier">
               <PropertyRef Name="SupplierID" />
@@ -975,8 +1022,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__Medicine__TypeID__33D4B598">
-          <End Role="MedicineType" Type="Self.MedicineType" Multiplicity="0..1" />
-          <End Role="Medicine" Type="Self.Medicine" Multiplicity="*" />
+          <End Type="ClinicSystemDataContext.MedicineType" Role="MedicineType" Multiplicity="0..1" />
+          <End Type="ClinicSystemDataContext.Medicine" Role="Medicine" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="MedicineType">
               <PropertyRef Name="TypeID" />
@@ -987,8 +1034,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__MedicineF__Medic__59063A47">
-          <End Role="Medicine" Type="Self.Medicine" Multiplicity="0..1" />
-          <End Role="MedicineFeedback" Type="Self.MedicineFeedback" Multiplicity="*" />
+          <End Type="ClinicSystemDataContext.Medicine" Role="Medicine" Multiplicity="0..1" />
+          <End Type="ClinicSystemDataContext.MedicineFeedback" Role="MedicineFeedback" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Medicine">
               <PropertyRef Name="MedicineID" />
@@ -999,8 +1046,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__MedicineI__Medic__4E88ABD4">
-          <End Role="Medicine" Type="Self.Medicine" Multiplicity="0..1" />
-          <End Role="MedicineImage" Type="Self.MedicineImage" Multiplicity="*" />
+          <End Type="ClinicSystemDataContext.Medicine" Role="Medicine" Multiplicity="0..1" />
+          <End Type="ClinicSystemDataContext.MedicineImage" Role="MedicineImage" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Medicine">
               <PropertyRef Name="MedicineID" />
@@ -1010,9 +1057,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__MedicineO__Medic__3C69FB99">
-          <End Role="Medicine" Type="Self.Medicine" Multiplicity="1" />
-          <End Role="MedicineOrderDetail" Type="Self.MedicineOrderDetail" Multiplicity="*" />
+        <Association Name="FK__MedicineO__Medic__787EE5A0">
+          <End Type="ClinicSystemDataContext.Medicine" Role="Medicine" Multiplicity="1" />
+          <End Type="ClinicSystemDataContext.MedicineOrderDetail" Role="MedicineOrderDetail" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Medicine">
               <PropertyRef Name="MedicineID" />
@@ -1022,11 +1069,11 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__MedicineO__Order__3B75D760">
-          <End Role="MedicineOrder" Type="Self.MedicineOrder" Multiplicity="1" />
-          <End Role="MedicineOrderDetail" Type="Self.MedicineOrderDetail" Multiplicity="*" />
+        <Association Name="FK__MedicineO__Order__778AC167">
+          <End Type="ClinicSystemDataContext.Order" Role="Order" Multiplicity="1" />
+          <End Type="ClinicSystemDataContext.MedicineOrderDetail" Role="MedicineOrderDetail" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="MedicineOrder">
+            <Principal Role="Order">
               <PropertyRef Name="OrderID" />
             </Principal>
             <Dependent Role="MedicineOrderDetail">
@@ -1034,47 +1081,35 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__MedicineO__Payme__38996AB5">
-          <End Role="Payment" Type="Self.Payment" Multiplicity="0..1" />
-          <End Role="MedicineOrder" Type="Self.MedicineOrder" Multiplicity="*" />
+        <Association Name="FK__Order__PaymentID__70DDC3D8">
+          <End Type="ClinicSystemDataContext.Payment" Role="Payment" Multiplicity="0..1" />
+          <End Type="ClinicSystemDataContext.Order" Role="Order" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Payment">
               <PropertyRef Name="PaymentID" />
             </Principal>
-            <Dependent Role="MedicineOrder">
+            <Dependent Role="Order">
               <PropertyRef Name="PaymentID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Scientifi__Payme__403A8C7D">
-          <End Role="Payment" Type="Self.Payment" Multiplicity="0..1" />
-          <End Role="ScientificApparatusOrder" Type="Self.ScientificApparatusOrder" Multiplicity="*" />
+        <Association Name="FK__Scientifi__Order__73BA3083">
+          <End Type="ClinicSystemDataContext.Order" Role="Order" Multiplicity="1" />
+          <End Type="ClinicSystemDataContext.ScientificApparatusOrderDetail" Role="ScientificApparatusOrderDetail" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Payment">
-              <PropertyRef Name="PaymentID" />
-            </Principal>
-            <Dependent Role="ScientificApparatusOrder">
-              <PropertyRef Name="PaymentID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Scientifi__Scien__440B1D61">
-          <End Role="ScientificApparatus" Type="Self.ScientificApparatu" Multiplicity="1" />
-          <End Role="ScientificApparatusOrderDetail" Type="Self.ScientificApparatusOrderDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ScientificApparatus">
-              <PropertyRef Name="ScientificApparatusID" />
+            <Principal Role="Order">
+              <PropertyRef Name="OrderID" />
             </Principal>
             <Dependent Role="ScientificApparatusOrderDetail">
-              <PropertyRef Name="ScientificApparatusID" />
+              <PropertyRef Name="OrderID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__Scientifi__Scien__5165187F">
-          <End Role="ScientificApparatus" Type="Self.ScientificApparatu" Multiplicity="0..1" />
-          <End Role="ScientificApparatusImage" Type="Self.ScientificApparatusImage" Multiplicity="*" />
+          <End Type="ClinicSystemDataContext.ScientificApparatu" Role="ScientificApparatu" Multiplicity="0..1" />
+          <End Type="ClinicSystemDataContext.ScientificApparatusImage" Role="ScientificApparatusImage" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="ScientificApparatus">
+            <Principal Role="ScientificApparatu">
               <PropertyRef Name="ScientificApparatusID" />
             </Principal>
             <Dependent Role="ScientificApparatusImage">
@@ -1083,10 +1118,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__Scientifi__Scien__5535A963">
-          <End Role="ScientificApparatus" Type="Self.ScientificApparatu" Multiplicity="0..1" />
-          <End Role="ScientificApparatusFeedback" Type="Self.ScientificApparatusFeedback" Multiplicity="*" />
+          <End Type="ClinicSystemDataContext.ScientificApparatu" Role="ScientificApparatu" Multiplicity="0..1" />
+          <End Type="ClinicSystemDataContext.ScientificApparatusFeedback" Role="ScientificApparatusFeedback" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="ScientificApparatus">
+            <Principal Role="ScientificApparatu">
               <PropertyRef Name="ScientificApparatusID" />
             </Principal>
             <Dependent Role="ScientificApparatusFeedback">
@@ -1094,152 +1129,42 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__Scientifi__Scien__74AE54BC">
+          <End Type="ClinicSystemDataContext.ScientificApparatu" Role="ScientificApparatu" Multiplicity="1" />
+          <End Type="ClinicSystemDataContext.ScientificApparatusOrderDetail" Role="ScientificApparatusOrderDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ScientificApparatu">
+              <PropertyRef Name="ScientificApparatusID" />
+            </Principal>
+            <Dependent Role="ScientificApparatusOrderDetail">
+              <PropertyRef Name="ScientificApparatusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__Scientifi__Suppl__29572725">
-          <End Role="Supplier" Type="Self.Supplier" Multiplicity="0..1" />
-          <End Role="ScientificApparatus" Type="Self.ScientificApparatu" Multiplicity="*" />
+          <End Type="ClinicSystemDataContext.Supplier" Role="Supplier" Multiplicity="0..1" />
+          <End Type="ClinicSystemDataContext.ScientificApparatu" Role="ScientificApparatu" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Supplier">
               <PropertyRef Name="SupplierID" />
             </Principal>
-            <Dependent Role="ScientificApparatus">
+            <Dependent Role="ScientificApparatu">
               <PropertyRef Name="SupplierID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__Scientifi__TypeI__286302EC">
-          <End Role="ScientificApparatusType" Type="Self.ScientificApparatusType" Multiplicity="0..1" />
-          <End Role="ScientificApparatus" Type="Self.ScientificApparatu" Multiplicity="*" />
+          <End Type="ClinicSystemDataContext.ScientificApparatusType" Role="ScientificApparatusType" Multiplicity="0..1" />
+          <End Type="ClinicSystemDataContext.ScientificApparatu" Role="ScientificApparatu" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="ScientificApparatusType">
               <PropertyRef Name="TypeID" />
             </Principal>
-            <Dependent Role="ScientificApparatus">
+            <Dependent Role="ScientificApparatu">
               <PropertyRef Name="TypeID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Scientifi__Order__4316F928">
-          <End Role="ScientificApparatusOrder" Type="Self.ScientificApparatusOrder" Multiplicity="1" />
-          <End Role="ScientificApparatusOrderDetail" Type="Self.ScientificApparatusOrderDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ScientificApparatusOrder">
-              <PropertyRef Name="OrderID" />
-            </Principal>
-            <Dependent Role="ScientificApparatusOrderDetail">
-              <PropertyRef Name="OrderID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityContainer Name="ClinicSystemData" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Activities" EntityType="Self.Activity" />
-          <EntitySet Name="Customers" EntityType="Self.Customer" />
-          <EntitySet Name="Educations" EntityType="Self.Education" />
-          <EntitySet Name="EducationFeedbacks" EntityType="Self.EducationFeedback" />
-          <EntitySet Name="Employees" EntityType="Self.Employee" />
-          <EntitySet Name="Medicines" EntityType="Self.Medicine" />
-          <EntitySet Name="MedicineFeedbacks" EntityType="Self.MedicineFeedback" />
-          <EntitySet Name="MedicineImages" EntityType="Self.MedicineImage" />
-          <EntitySet Name="MedicineOrders" EntityType="Self.MedicineOrder" />
-          <EntitySet Name="MedicineOrderDetails" EntityType="Self.MedicineOrderDetail" />
-          <EntitySet Name="MedicineTypes" EntityType="Self.MedicineType" />
-          <EntitySet Name="Payments" EntityType="Self.Payment" />
-          <EntitySet Name="ScientificApparatus" EntityType="Self.ScientificApparatu" />
-          <EntitySet Name="ScientificApparatusFeedbacks" EntityType="Self.ScientificApparatusFeedback" />
-          <EntitySet Name="ScientificApparatusImages" EntityType="Self.ScientificApparatusImage" />
-          <EntitySet Name="ScientificApparatusOrders" EntityType="Self.ScientificApparatusOrder" />
-          <EntitySet Name="ScientificApparatusOrderDetails" EntityType="Self.ScientificApparatusOrderDetail" />
-          <EntitySet Name="ScientificApparatusTypes" EntityType="Self.ScientificApparatusType" />
-          <EntitySet Name="Subjects" EntityType="Self.Subject" />
-          <EntitySet Name="Suppliers" EntityType="Self.Supplier" />
-          <AssociationSet Name="FK__Education__Activ__4AB81AF0" Association="Self.FK__Education__Activ__4AB81AF0">
-            <End Role="Activity" EntitySet="Activities" />
-            <End Role="Education" EntitySet="Educations" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Education__Usern__5BE2A6F2" Association="Self.FK__Education__Usern__5BE2A6F2">
-            <End Role="Customer" EntitySet="Customers" />
-            <End Role="EducationFeedback" EntitySet="EducationFeedbacks" />
-          </AssociationSet>
-          <AssociationSet Name="FK__MedicineF__Usern__5812160E" Association="Self.FK__MedicineF__Usern__5812160E">
-            <End Role="Customer" EntitySet="Customers" />
-            <End Role="MedicineFeedback" EntitySet="MedicineFeedbacks" />
-          </AssociationSet>
-          <AssociationSet Name="FK__MedicineO__Usern__37A5467C" Association="Self.FK__MedicineO__Usern__37A5467C">
-            <End Role="Customer" EntitySet="Customers" />
-            <End Role="MedicineOrder" EntitySet="MedicineOrders" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Scientifi__Usern__3F466844" Association="Self.FK__Scientifi__Usern__3F466844">
-            <End Role="Customer" EntitySet="Customers" />
-            <End Role="ScientificApparatusOrder" EntitySet="ScientificApparatusOrders" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Scientifi__Usern__5441852A" Association="Self.FK__Scientifi__Usern__5441852A">
-            <End Role="Customer" EntitySet="Customers" />
-            <End Role="ScientificApparatusFeedback" EntitySet="ScientificApparatusFeedbacks" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Education__Educa__5CD6CB2B" Association="Self.FK__Education__Educa__5CD6CB2B">
-            <End Role="Education" EntitySet="Educations" />
-            <End Role="EducationFeedback" EntitySet="EducationFeedbacks" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Education__Subje__4BAC3F29" Association="Self.FK__Education__Subje__4BAC3F29">
-            <End Role="Subject" EntitySet="Subjects" />
-            <End Role="Education" EntitySet="Educations" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Medicine__Suppli__34C8D9D1" Association="Self.FK__Medicine__Suppli__34C8D9D1">
-            <End Role="Supplier" EntitySet="Suppliers" />
-            <End Role="Medicine" EntitySet="Medicines" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Medicine__TypeID__33D4B598" Association="Self.FK__Medicine__TypeID__33D4B598">
-            <End Role="MedicineType" EntitySet="MedicineTypes" />
-            <End Role="Medicine" EntitySet="Medicines" />
-          </AssociationSet>
-          <AssociationSet Name="FK__MedicineF__Medic__59063A47" Association="Self.FK__MedicineF__Medic__59063A47">
-            <End Role="Medicine" EntitySet="Medicines" />
-            <End Role="MedicineFeedback" EntitySet="MedicineFeedbacks" />
-          </AssociationSet>
-          <AssociationSet Name="FK__MedicineI__Medic__4E88ABD4" Association="Self.FK__MedicineI__Medic__4E88ABD4">
-            <End Role="Medicine" EntitySet="Medicines" />
-            <End Role="MedicineImage" EntitySet="MedicineImages" />
-          </AssociationSet>
-          <AssociationSet Name="FK__MedicineO__Medic__3C69FB99" Association="Self.FK__MedicineO__Medic__3C69FB99">
-            <End Role="Medicine" EntitySet="Medicines" />
-            <End Role="MedicineOrderDetail" EntitySet="MedicineOrderDetails" />
-          </AssociationSet>
-          <AssociationSet Name="FK__MedicineO__Order__3B75D760" Association="Self.FK__MedicineO__Order__3B75D760">
-            <End Role="MedicineOrder" EntitySet="MedicineOrders" />
-            <End Role="MedicineOrderDetail" EntitySet="MedicineOrderDetails" />
-          </AssociationSet>
-          <AssociationSet Name="FK__MedicineO__Payme__38996AB5" Association="Self.FK__MedicineO__Payme__38996AB5">
-            <End Role="Payment" EntitySet="Payments" />
-            <End Role="MedicineOrder" EntitySet="MedicineOrders" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Scientifi__Payme__403A8C7D" Association="Self.FK__Scientifi__Payme__403A8C7D">
-            <End Role="Payment" EntitySet="Payments" />
-            <End Role="ScientificApparatusOrder" EntitySet="ScientificApparatusOrders" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Scientifi__Scien__440B1D61" Association="Self.FK__Scientifi__Scien__440B1D61">
-            <End Role="ScientificApparatus" EntitySet="ScientificApparatus" />
-            <End Role="ScientificApparatusOrderDetail" EntitySet="ScientificApparatusOrderDetails" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Scientifi__Scien__5165187F" Association="Self.FK__Scientifi__Scien__5165187F">
-            <End Role="ScientificApparatus" EntitySet="ScientificApparatus" />
-            <End Role="ScientificApparatusImage" EntitySet="ScientificApparatusImages" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Scientifi__Scien__5535A963" Association="Self.FK__Scientifi__Scien__5535A963">
-            <End Role="ScientificApparatus" EntitySet="ScientificApparatus" />
-            <End Role="ScientificApparatusFeedback" EntitySet="ScientificApparatusFeedbacks" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Scientifi__Suppl__29572725" Association="Self.FK__Scientifi__Suppl__29572725">
-            <End Role="Supplier" EntitySet="Suppliers" />
-            <End Role="ScientificApparatus" EntitySet="ScientificApparatus" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Scientifi__TypeI__286302EC" Association="Self.FK__Scientifi__TypeI__286302EC">
-            <End Role="ScientificApparatusType" EntitySet="ScientificApparatusTypes" />
-            <End Role="ScientificApparatus" EntitySet="ScientificApparatus" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Scientifi__Order__4316F928" Association="Self.FK__Scientifi__Order__4316F928">
-            <End Role="ScientificApparatusOrder" EntitySet="ScientificApparatusOrders" />
-            <End Role="ScientificApparatusOrderDetail" EntitySet="ScientificApparatusOrderDetails" />
-          </AssociationSet>
-        </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1249,237 +1174,234 @@
           <EntitySetMapping Name="Activities">
             <EntityTypeMapping TypeName="ClinicSystemDataContext.Activity">
               <MappingFragment StoreEntitySet="Activity">
-                <ScalarProperty Name="ActivityID" ColumnName="ActivityID" />
-                <ScalarProperty Name="ActivityName" ColumnName="ActivityName" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="ActivityName" ColumnName="ActivityName" />
+                <ScalarProperty Name="ActivityID" ColumnName="ActivityID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Customers">
             <EntityTypeMapping TypeName="ClinicSystemDataContext.Customer">
               <MappingFragment StoreEntitySet="Customer">
-                <ScalarProperty Name="Username" ColumnName="Username" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="FullName" ColumnName="FullName" />
-                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
-                <ScalarProperty Name="Gender" ColumnName="Gender" />
-                <ScalarProperty Name="Phone" ColumnName="Phone" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="Avatar" ColumnName="Avatar" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Avatar" ColumnName="Avatar" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Educations">
             <EntityTypeMapping TypeName="ClinicSystemDataContext.Education">
               <MappingFragment StoreEntitySet="Education">
-                <ScalarProperty Name="EducationID" ColumnName="EducationID" />
-                <ScalarProperty Name="LessonName" ColumnName="LessonName" />
-                <ScalarProperty Name="ActivityID" ColumnName="ActivityID" />
-                <ScalarProperty Name="SubjectID" ColumnName="SubjectID" />
-                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
-                <ScalarProperty Name="Content" ColumnName="Content" />
                 <ScalarProperty Name="Thumbnail" ColumnName="Thumbnail" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="SubjectID" ColumnName="SubjectID" />
+                <ScalarProperty Name="ActivityID" ColumnName="ActivityID" />
+                <ScalarProperty Name="LessonName" ColumnName="LessonName" />
+                <ScalarProperty Name="EducationID" ColumnName="EducationID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="EducationFeedbacks">
             <EntityTypeMapping TypeName="ClinicSystemDataContext.EducationFeedback">
               <MappingFragment StoreEntitySet="EducationFeedback">
-                <ScalarProperty Name="FeedbackID" ColumnName="FeedbackID" />
-                <ScalarProperty Name="Username" ColumnName="Username" />
-                <ScalarProperty Name="EducationID" ColumnName="EducationID" />
-                <ScalarProperty Name="Content" ColumnName="Content" />
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="EducationID" ColumnName="EducationID" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="FeedbackID" ColumnName="FeedbackID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Employees">
             <EntityTypeMapping TypeName="ClinicSystemDataContext.Employee">
               <MappingFragment StoreEntitySet="Employee">
-                <ScalarProperty Name="Username" ColumnName="Username" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="FullName" ColumnName="FullName" />
-                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
-                <ScalarProperty Name="Gender" ColumnName="Gender" />
-                <ScalarProperty Name="Phone" ColumnName="Phone" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="Avatar" ColumnName="Avatar" />
-                <ScalarProperty Name="Position" ColumnName="Position" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Position" ColumnName="Position" />
+                <ScalarProperty Name="Avatar" ColumnName="Avatar" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Medicines">
             <EntityTypeMapping TypeName="ClinicSystemDataContext.Medicine">
               <MappingFragment StoreEntitySet="Medicine">
-                <ScalarProperty Name="MedicineID" ColumnName="MedicineID" />
-                <ScalarProperty Name="TypeID" ColumnName="TypeID" />
-                <ScalarProperty Name="SupplierID" ColumnName="SupplierID" />
-                <ScalarProperty Name="MedicineName" ColumnName="MedicineName" />
-                <ScalarProperty Name="ShortDescription" ColumnName="ShortDescription" />
-                <ScalarProperty Name="Composition" ColumnName="Composition" />
-                <ScalarProperty Name="Usage" ColumnName="Usage" />
-                <ScalarProperty Name="UnitInStock" ColumnName="UnitInStock" />
-                <ScalarProperty Name="UnitOnOrder" ColumnName="UnitOnOrder" />
-                <ScalarProperty Name="OldUnitPrice" ColumnName="OldUnitPrice" />
-                <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
-                <ScalarProperty Name="Thumbnail" ColumnName="Thumbnail" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Thumbnail" ColumnName="Thumbnail" />
+                <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
+                <ScalarProperty Name="OldUnitPrice" ColumnName="OldUnitPrice" />
+                <ScalarProperty Name="UnitOnOrder" ColumnName="UnitOnOrder" />
+                <ScalarProperty Name="UnitInStock" ColumnName="UnitInStock" />
+                <ScalarProperty Name="Usage" ColumnName="Usage" />
+                <ScalarProperty Name="Composition" ColumnName="Composition" />
+                <ScalarProperty Name="ShortDescription" ColumnName="ShortDescription" />
+                <ScalarProperty Name="MedicineName" ColumnName="MedicineName" />
+                <ScalarProperty Name="SupplierID" ColumnName="SupplierID" />
+                <ScalarProperty Name="TypeID" ColumnName="TypeID" />
+                <ScalarProperty Name="MedicineID" ColumnName="MedicineID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="MedicineFeedbacks">
             <EntityTypeMapping TypeName="ClinicSystemDataContext.MedicineFeedback">
               <MappingFragment StoreEntitySet="MedicineFeedback">
-                <ScalarProperty Name="FeedbackID" ColumnName="FeedbackID" />
-                <ScalarProperty Name="Username" ColumnName="Username" />
-                <ScalarProperty Name="MedicineID" ColumnName="MedicineID" />
-                <ScalarProperty Name="Content" ColumnName="Content" />
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="MedicineID" ColumnName="MedicineID" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="FeedbackID" ColumnName="FeedbackID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="MedicineImages">
             <EntityTypeMapping TypeName="ClinicSystemDataContext.MedicineImage">
               <MappingFragment StoreEntitySet="MedicineImage">
-                <ScalarProperty Name="ImageID" ColumnName="ImageID" />
-                <ScalarProperty Name="FileName" ColumnName="FileName" />
                 <ScalarProperty Name="MedicineID" ColumnName="MedicineID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="MedicineOrders">
-            <EntityTypeMapping TypeName="ClinicSystemDataContext.MedicineOrder">
-              <MappingFragment StoreEntitySet="MedicineOrder">
-                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
-                <ScalarProperty Name="Username" ColumnName="Username" />
-                <ScalarProperty Name="CrearedDate" ColumnName="CrearedDate" />
-                <ScalarProperty Name="DeliveredDate" ColumnName="DeliveredDate" />
-                <ScalarProperty Name="DeliveredAddress" ColumnName="DeliveredAddress" />
-                <ScalarProperty Name="PaymentID" ColumnName="PaymentID" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="FileName" ColumnName="FileName" />
+                <ScalarProperty Name="ImageID" ColumnName="ImageID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="MedicineOrderDetails">
             <EntityTypeMapping TypeName="ClinicSystemDataContext.MedicineOrderDetail">
               <MappingFragment StoreEntitySet="MedicineOrderDetail">
-                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
-                <ScalarProperty Name="MedicineID" ColumnName="MedicineID" />
                 <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="MedicineID" ColumnName="MedicineID" />
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="MedicineTypes">
             <EntityTypeMapping TypeName="ClinicSystemDataContext.MedicineType">
               <MappingFragment StoreEntitySet="MedicineType">
-                <ScalarProperty Name="TypeID" ColumnName="TypeID" />
-                <ScalarProperty Name="TypeName" ColumnName="TypeName" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="TypeName" ColumnName="TypeName" />
+                <ScalarProperty Name="TypeID" ColumnName="TypeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Orders">
+            <EntityTypeMapping TypeName="ClinicSystemDataContext.Order">
+              <MappingFragment StoreEntitySet="Order">
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="PaymentID" ColumnName="PaymentID" />
+                <ScalarProperty Name="DeliveredAddress" ColumnName="DeliveredAddress" />
+                <ScalarProperty Name="DeliveredDate" ColumnName="DeliveredDate" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Payments">
             <EntityTypeMapping TypeName="ClinicSystemDataContext.Payment">
               <MappingFragment StoreEntitySet="Payment">
-                <ScalarProperty Name="PaymentID" ColumnName="PaymentID" />
                 <ScalarProperty Name="PaymentName" ColumnName="PaymentName" />
+                <ScalarProperty Name="PaymentID" ColumnName="PaymentID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ScientificApparatus">
             <EntityTypeMapping TypeName="ClinicSystemDataContext.ScientificApparatu">
               <MappingFragment StoreEntitySet="ScientificApparatus">
-                <ScalarProperty Name="ScientificApparatusID" ColumnName="ScientificApparatusID" />
-                <ScalarProperty Name="TypeID" ColumnName="TypeID" />
-                <ScalarProperty Name="SupplierID" ColumnName="SupplierID" />
-                <ScalarProperty Name="ScientificApparatusName" ColumnName="ScientificApparatusName" />
-                <ScalarProperty Name="ShortDescription" ColumnName="ShortDescription" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="Specification" ColumnName="Specification" />
-                <ScalarProperty Name="UnitInStock" ColumnName="UnitInStock" />
-                <ScalarProperty Name="UnitOnOrder" ColumnName="UnitOnOrder" />
-                <ScalarProperty Name="OldUnitPrice" ColumnName="OldUnitPrice" />
-                <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
-                <ScalarProperty Name="Thumbnail" ColumnName="Thumbnail" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Thumbnail" ColumnName="Thumbnail" />
+                <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
+                <ScalarProperty Name="OldUnitPrice" ColumnName="OldUnitPrice" />
+                <ScalarProperty Name="UnitOnOrder" ColumnName="UnitOnOrder" />
+                <ScalarProperty Name="UnitInStock" ColumnName="UnitInStock" />
+                <ScalarProperty Name="Specification" ColumnName="Specification" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="ShortDescription" ColumnName="ShortDescription" />
+                <ScalarProperty Name="ScientificApparatusName" ColumnName="ScientificApparatusName" />
+                <ScalarProperty Name="SupplierID" ColumnName="SupplierID" />
+                <ScalarProperty Name="TypeID" ColumnName="TypeID" />
+                <ScalarProperty Name="ScientificApparatusID" ColumnName="ScientificApparatusID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ScientificApparatusFeedbacks">
             <EntityTypeMapping TypeName="ClinicSystemDataContext.ScientificApparatusFeedback">
               <MappingFragment StoreEntitySet="ScientificApparatusFeedback">
-                <ScalarProperty Name="FeedbackID" ColumnName="FeedbackID" />
-                <ScalarProperty Name="Username" ColumnName="Username" />
-                <ScalarProperty Name="ScientificApparatusID" ColumnName="ScientificApparatusID" />
-                <ScalarProperty Name="Content" ColumnName="Content" />
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="ScientificApparatusID" ColumnName="ScientificApparatusID" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="FeedbackID" ColumnName="FeedbackID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ScientificApparatusImages">
             <EntityTypeMapping TypeName="ClinicSystemDataContext.ScientificApparatusImage">
               <MappingFragment StoreEntitySet="ScientificApparatusImage">
-                <ScalarProperty Name="ImageID" ColumnName="ImageID" />
-                <ScalarProperty Name="FileName" ColumnName="FileName" />
                 <ScalarProperty Name="ScientificApparatusID" ColumnName="ScientificApparatusID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ScientificApparatusOrders">
-            <EntityTypeMapping TypeName="ClinicSystemDataContext.ScientificApparatusOrder">
-              <MappingFragment StoreEntitySet="ScientificApparatusOrder">
-                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
-                <ScalarProperty Name="Username" ColumnName="Username" />
-                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
-                <ScalarProperty Name="DeliveredDate" ColumnName="DeliveredDate" />
-                <ScalarProperty Name="DeliveredAddress" ColumnName="DeliveredAddress" />
-                <ScalarProperty Name="PaymentID" ColumnName="PaymentID" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="FileName" ColumnName="FileName" />
+                <ScalarProperty Name="ImageID" ColumnName="ImageID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ScientificApparatusOrderDetails">
             <EntityTypeMapping TypeName="ClinicSystemDataContext.ScientificApparatusOrderDetail">
               <MappingFragment StoreEntitySet="ScientificApparatusOrderDetail">
-                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
-                <ScalarProperty Name="ScientificApparatusID" ColumnName="ScientificApparatusID" />
                 <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="ScientificApparatusID" ColumnName="ScientificApparatusID" />
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ScientificApparatusTypes">
             <EntityTypeMapping TypeName="ClinicSystemDataContext.ScientificApparatusType">
               <MappingFragment StoreEntitySet="ScientificApparatusType">
-                <ScalarProperty Name="TypeID" ColumnName="TypeID" />
-                <ScalarProperty Name="TypeName" ColumnName="TypeName" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="TypeName" ColumnName="TypeName" />
+                <ScalarProperty Name="TypeID" ColumnName="TypeID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Subjects">
             <EntityTypeMapping TypeName="ClinicSystemDataContext.Subject">
               <MappingFragment StoreEntitySet="Subject">
-                <ScalarProperty Name="SubjectID" ColumnName="SubjectID" />
-                <ScalarProperty Name="SubjectName" ColumnName="SubjectName" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="SubjectName" ColumnName="SubjectName" />
+                <ScalarProperty Name="SubjectID" ColumnName="SubjectID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Suppliers">
             <EntityTypeMapping TypeName="ClinicSystemDataContext.Supplier">
               <MappingFragment StoreEntitySet="Supplier">
-                <ScalarProperty Name="SupplierID" ColumnName="SupplierID" />
-                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
-                <ScalarProperty Name="ContactName" ColumnName="ContactName" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="Phone" ColumnName="Phone" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="ContactName" ColumnName="ContactName" />
+                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+                <ScalarProperty Name="SupplierID" ColumnName="SupplierID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="ClinicSystemDataContext.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

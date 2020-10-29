@@ -1,0 +1,96 @@
+﻿
+<!doctype html>
+<html class="no-js" lang="zxx">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Clinic | @ViewBag.Title</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="manifest" href="site.webmanifest">
+    <link rel="shortcut icon" type="image/x-icon" href="~/Scripts/img/favicon.ico">
+
+    <link rel="stylesheet" href="~/Scripts/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/Scripts/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="~/Scripts/css/slicknav.css">
+    <link rel="stylesheet" href="~/Scripts/css/flaticon.css">
+    <link rel="stylesheet" href="~/Scripts/css/progressbar_barfiller.css">
+    <link rel="stylesheet" href="~/Scripts/css/lightslider.min.css">
+    <link rel="stylesheet" href="~/Scripts/css/price_rangs.css">
+    <link rel="stylesheet" href="~/Scripts/css/gijgo.css">
+    <link rel="stylesheet" href="~/Scripts/css/animate.min.css">
+    <link rel="stylesheet" href="~/Scripts/css/animated-headline.css">
+    <link rel="stylesheet" href="~/Scripts/css/magnific-popup.css">
+    <link rel="stylesheet" href="~/Scripts/css/fontawesome-all.min.css">
+    <link rel="stylesheet" href="~/Scripts/css/themify-icons.css">
+    <link rel="stylesheet" href="~/Scripts/css/slick.css">
+    <link rel="stylesheet" href="~/Scripts/css/nice-select.css">
+    <link rel="stylesheet" href="~/Scripts/css/style.css">
+
+</head>
+<body>
+    <!-- ? Preloader Start -->
+    <div id="preloader-active">
+        <div class="preloader d-flex align-items-center justify-content-center">
+            <div class="preloader-inner position-relative">
+                <div class="preloader-circle"></div>
+                <div class="preloader-img pere-text">
+                    <img src="~/Scripts/img/logo/loder.png" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    @RenderBody();
+
+    <!-- Scroll Up -->
+    <div id="back-top">
+        <a title="Go to Top" href="#"> <i class="fas fa-level-up-alt"></i></a>
+    </div>
+
+    <!-- JS here -->
+    <!-- Jquery, Popper, Bootstrap -->
+    <script src="~/Scripts/js/vendor/modernizr-3.5.0.min.js"></script>
+    <script src="~/Scripts/js/vendor/jquery-1.12.4.min.js"></script>
+    <script src="~/Scripts/js/popper.min.js"></script>
+    <script src="~/Scripts/js/bootstrap.min.js"></script>
+
+    <!-- Slick-slider , Owl-Carousel ,slick-nav -->
+    <script src="~/Scripts/js/owl.carousel.min.js"></script>
+    <script src="~/Scripts/js/slick.min.js"></script>
+    <script src="~/Scripts/js/jquery.slicknav.min.js"></script>
+
+    <!-- One Page, Animated-HeadLin, Date Picker , price, light-slider -->
+    <script src="~/Scripts/js/wow.min.js"></script>
+    <script src="~/Scripts/js/animated.headline.js"></script>
+    <script src="~/Scripts/js/jquery.magnific-popup.js"></script>
+    <script src="~/Scripts/js/gijgo.min.js"></script>
+    <script src="~/Scripts/js/lightslider.min.js"></script>
+    <script src="~/Scripts/js/price_rangs.js"></script>
+
+    <!-- Nice-select, sticky,Progress -->
+    <script src="~/Scripts/js/jquery.nice-select.min.js"></script>
+    <script src="~/Scripts/js/jquery.sticky.js"></script>
+    <script src="~/Scripts/js/jquery.barfiller.js"></script>
+
+    <!-- counter , waypoint,Hover Direction -->
+    <script src="~/Scripts/js/jquery.counterup.min.js"></script>
+    <script src="~/Scripts/js/waypoints.min.js"></script>
+    <script src="~/Scripts/js/jquery.countdown.min.js"></script>
+    <script src="~/Scripts/js/hover-direction-snake.min.js"></script>
+
+    <!-- contact js -->
+    <script src="~/Scripts/js/contact.js"></script>
+    <script src="~/Scripts/js/jquery.form.js"></script>
+    <script src="~/Scripts/js/jquery.validate.min.js"></script>
+    <script src="~/Scripts/js/mail-script.js"></script>
+    <script src="~/Scripts/js/jquery.ajaxchimp.min.js"></script>
+
+    <!-- Jquery Plugins, main Jquery -->
+    <script src="~/Scripts/js/plugins.js"></script>
+    <script src="~/Scripts/js/main.js"></script>
+    @RenderSection("ClientScript", false)
+
+</body>
+</html>

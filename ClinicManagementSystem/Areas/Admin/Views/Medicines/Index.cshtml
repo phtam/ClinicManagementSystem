@@ -174,11 +174,39 @@
                         <button type="submit" class="btn btn-success">Confirm</button>
                     </div>
                 }
-                </div>
+            </div>
         </div>
     </div>
-    }
 }
+
+@foreach (var item in Model)
+{
+    <div class="modal fade" id="modal-default-2-@item.MedicineID">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">@item.MedicineName</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                @using (Html.BeginForm("StockOut", "Medicines", FormMethod.Post))
+                {
+                    <div class="modal-body">
+                        <h4>Enter Quantity of @item.MedicineName which you stock out:</h4>
+                        @Html.TextBox("unitInStock", "", htmlAttributes: new { @class = "form-control", @type = "number" })
+                        @Html.Hidden("medicineID", item.MedicineID)
+                    </div>
+                    <div class="modal-footer justify-content-between">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-success">Confirm</button>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+}
+
 
 @section ScriptConfig
 {

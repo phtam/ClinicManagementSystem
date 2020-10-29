@@ -13,6 +13,7 @@ namespace ClinicManagementSystem.EF
     using System.Collections.Generic;
     using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
+    using System.Web;
 
     public partial class ScientificApparatusType
     {
@@ -21,7 +22,7 @@ namespace ClinicManagementSystem.EF
         {
             this.ScientificApparatus = new HashSet<ScientificApparatu>();
         }
-    
+
         public int TypeID { get; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "Please enter medicine type name !")]
@@ -32,7 +33,6 @@ namespace ClinicManagementSystem.EF
         [Required(ErrorMessage = "Please enter Description !")]
         [StringLength(maximumLength: 200, MinimumLength = 5, ErrorMessage = "Description must be from 5 to 200 charaters")]
         public string Description { get; set; }
-    
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ScientificApparatu> ScientificApparatus { get; set; }

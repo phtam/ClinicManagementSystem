@@ -1,7 +1,8 @@
-﻿@{ 
+﻿@{
     var medicineType = (List<ClinicManagementSystem.EF.MedicineType>)ViewBag.MedicineType;
     var scientificApparatusType = (List<ClinicManagementSystem.EF.ScientificApparatusType>)ViewBag.ScientificApparatusType;
     var activity = (List<ClinicManagementSystem.EF.Activity>)ViewBag.Activity;
+    var user = (ClinicManagementSystem.Models.CustomerAuthentication)Session["CUSTOMER_SESSION"];
 }
 <header>
     <div class="header-area">
@@ -15,15 +16,15 @@
                         </div>
                         <!-- Logo-2 -->
                         @*<div class="~/home">
-                            <a href="~/home"><img src="~/Scripts/img/logo/logo2.png" alt=""></a>
-                        </div>*@
+                                <a href="~/home"><img src="~/Scripts/img/logo/logo2.png" alt=""></a>
+                            </div>*@
                         <!-- Main-menu -->
                         <div class="main-menu  d-none d-lg-block">
                             <nav>
                                 <ul id="navigation">
                                     <li><a href="~/home">Home</a></li>
                                     <li>
-                                        <a href="#">Medicines</a>
+                                        <a href="@Url.Action("Index", "Medicine")">Medicines</a>
                                         <ul class="submenu">
                                             @{
                                                 foreach (var item in medicineType)
@@ -34,7 +35,7 @@
                                         </ul>
                                     </li>
                                     <li>
-                                        <a href="blog.html">Scientific Apparatus</a>
+                                        <a href="@Url.Action("Index", "ScientificApparatus")">Scientific Apparatus</a>
                                         <ul class="submenu">
                                             @{
                                                 foreach (var item in scientificApparatusType)
@@ -45,7 +46,7 @@
                                         </ul>
                                     </li>
                                     <li>
-                                        <a href="#">Education</a>
+                                        <a href="@Url.Action("Index", "Education")">Education</a>
                                         <ul class="submenu">
                                             @{
                                                 foreach (var item in activity)
@@ -73,16 +74,28 @@
                                         </div>
                                     </form>
                                 </li>
-                                <li>
-                                    <a href="login.html" class="account-btn" target="_blank">Sign in</a>/
-                                    <a href="login.html" class="account-btn" target="_blank">Register</a>
-                                </li>
-                                <li>
-                                    <div class="card-stor">
-                                        <img src="~/Scripts/img/icon/card.svg" alt="">
-                                        <span>0</span>
-                                    </div>
-                                </li>
+                                @if (user != null)
+                                {
+                                    <li>
+                                        <div class="dropdown">
+                                            <a class="dropbtn" onclick="largeDropdown()" >Hi, @user.FullName</a>
+                                            <div id="myDropdown" class="dropdown-content">
+                                                <a href="@Url.Action("Index", "Profile")">Profile</a>
+                                                <a href="~/userprofile/MyOrder">My Order</a>
+                                                <a href="@Url.Action("ChangePassword", "Profile")">Password</a>
+                                                <a href="@Url.Action("Logout", "Login")">Logout</a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                }
+                                else
+                                {
+                                    <li>
+                                        <a href="@Url.Action("Index", "Login")" class="account-btn">Log in</a>/
+                                        <a href="@Url.Action("Index", "Register")" class="account-btn">Register</a>
+                                    </li>
+                                }
+                                @{ Html.RenderAction("_Cart", "Home"); }
                             </ul>
                         </div>
                     </div>
@@ -96,3 +109,75 @@
     </div>
     <!-- Header End -->
 </header>
+<style>
+    .dropbtn {
+        cursor: pointer;
+        color: black;
+        background-color: transparent;
+        box-sizing: border-box;
+        padding: 0 32px;
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: 600;
+        outline: medium none;
+        display: block;
+    }
+
+
+    .dropdown {
+        position: relative;
+        display: inline-block;
+    }
+
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        width: 170px;
+        background: #fff;
+        left: 0;
+        box-shadow: 0 0 10px 3px rgba(0,0,0,0.05);
+        padding: 17px 0;
+        border-top: 3px solid #FD8F5F;
+        transition: .3s;
+        border-radius: 5px 5px 0 0;
+
+        min-width: 160px;
+        overflow: auto;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 1;
+    }
+
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+    .dropdown a:hover {
+        background-color: #ddd;
+    }
+    
+
+    .show {
+        display: block;
+    }
+</style>
+
+<script>
+    function largeDropdown() {
+        document.getElementById("myDropdown").classList.toggle("show");
+    }
+    window.onclick = function (event) {
+        if (!event.target.matches('.dropbtn')) {
+            var dropdowns = document.getElementsByClassName("dropdown-content");
+            var i;
+            for (i = 0; i < dropdowns.length; i++) {
+                var openDropdown = dropdowns[i];
+                if (openDropdown.classList.contains('show')) {
+                    openDropdown.classList.remove('show');
+                }
+            }
+        }
+    }
+</script>

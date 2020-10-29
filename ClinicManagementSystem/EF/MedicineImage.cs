@@ -21,7 +21,6 @@ namespace ClinicManagementSystem.EF
 
         public HttpPostedFileBase ImageFile { get; set; }
 
-
         public virtual Medicine Medicine { get; set; }
     }
 }

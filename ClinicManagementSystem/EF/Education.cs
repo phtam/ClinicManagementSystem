@@ -22,7 +22,7 @@ namespace ClinicManagementSystem.EF
         {
             this.EducationFeedbacks = new HashSet<EducationFeedback>();
         }
-    
+
         public int EducationID { get; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "Please enter lesson name !")]
@@ -49,7 +49,7 @@ namespace ClinicManagementSystem.EF
         public string Thumbnail { get; set; }
 
         public HttpPostedFileBase ImageFile { get; set; }
-    
+
         public virtual Activity Activity { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<EducationFeedback> EducationFeedbacks { get; set; }

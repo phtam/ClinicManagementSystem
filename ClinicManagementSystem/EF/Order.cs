@@ -12,11 +12,12 @@ namespace ClinicManagementSystem.EF
     using System;
     using System.Collections.Generic;
     
-    public partial class ScientificApparatusOrder
+    public partial class Order
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public ScientificApparatusOrder()
+        public Order()
         {
+            this.MedicineOrderDetails = new HashSet<MedicineOrderDetail>();
             this.ScientificApparatusOrderDetails = new HashSet<ScientificApparatusOrderDetail>();
         }
     
@@ -30,6 +31,8 @@ namespace ClinicManagementSystem.EF
         public string Note { get; set; }
     
         public virtual Customer Customer { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<MedicineOrderDetail> MedicineOrderDetails { get; set; }
         public virtual Payment Payment { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ScientificApparatusOrderDetail> ScientificApparatusOrderDetails { get; set; }

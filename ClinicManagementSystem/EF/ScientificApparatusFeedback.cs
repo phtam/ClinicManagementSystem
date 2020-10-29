@@ -11,16 +11,13 @@ namespace ClinicManagementSystem.EF
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
-
+    
     public partial class ScientificApparatusFeedback
     {
         public int FeedbackID { get; set; }
-        [DisplayName("User Name")]
         public string Username { get; set; }
         public Nullable<int> ScientificApparatusID { get; set; }
         public string Content { get; set; }
-        [DisplayName("Create Date")]
         public Nullable<System.DateTime> CreatedDate { get; set; }
     
         public virtual Customer Customer { get; set; }

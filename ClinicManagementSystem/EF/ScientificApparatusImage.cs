@@ -20,7 +20,7 @@ namespace ClinicManagementSystem.EF
         public Nullable<int> ScientificApparatusID { get; set; }
 
         public HttpPostedFileBase ImageFile { get; set; }
-    
+
         public virtual ScientificApparatu ScientificApparatu { get; set; }
     }
 }

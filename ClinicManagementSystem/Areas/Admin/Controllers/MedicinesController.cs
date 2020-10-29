@@ -303,6 +303,21 @@ namespace ClinicManagementSystem.Areas.Admin.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpPost]
+        public ActionResult StockOut(int unitInStock, int medicineID)
+        {
+            var medicine = db.Medicines.Find(medicineID);
+            if (unitInStock > medicine.UnitInStock)
+            {
+                TempData["Notice_Stock_Out"]= true;
+                return RedirectToAction("Index");
+            }
+            medicine.UnitInStock -= unitInStock;
+            if (db.SaveChanges() > 0)
+                TempData["Notice_Save_Success"] = true;
+            return RedirectToAction("Index");
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

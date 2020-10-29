@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using ClinicManagementSystem.Common;
 using ClinicManagementSystem.DAO;
+using ClinicManagementSystem.Models;
 
 namespace ClinicManagementSystem.Controllers
 {
@@ -37,6 +39,36 @@ namespace ClinicManagementSystem.Controllers
         public ActionResult _Filter()
         {
             ViewBag.TypeList = medicineTypeDAO.GetAll().ToList();
+            return PartialView();
+        }
+
+        [ChildActionOnly]
+        public ActionResult _Cart()
+        {
+            var medicineCart = Session[CommonConstants.CartMedicineSession];
+            var appararusCart = Session[CommonConstants.CartApparatusSession];
+            var medicineList = new List<MedicineItem>();
+            var apparatusList = new List<ScientificApparatusItem>();
+            long qty = 0;
+
+            if (medicineCart != null)
+            {
+                medicineList = (List<MedicineItem>)medicineCart;
+                foreach (var item in medicineList)
+                {
+                    qty += (int)item.Quantity;
+                }
+            }
+
+            if (appararusCart != null)
+            {
+                apparatusList = (List<ScientificApparatusItem>)appararusCart;
+                foreach (var item in apparatusList)
+                {
+                    qty += (int)item.Quantity;
+                }
+            }
+            ViewBag.Qty = qty;
             return PartialView();
         }
 

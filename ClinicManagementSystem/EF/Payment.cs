@@ -19,20 +19,17 @@ namespace ClinicManagementSystem.EF
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Payment()
         {
-            this.MedicineOrders = new HashSet<MedicineOrder>();
-            this.ScientificApparatusOrders = new HashSet<ScientificApparatusOrder>();
+            this.Orders = new HashSet<Order>();
         }
-    
+
         public int PaymentID { get; set; }
 
         [DisplayName("Payment Name")]
         [Required(AllowEmptyStrings = false, ErrorMessage = "Please enter payment name !")]
         [StringLength(maximumLength: 60, MinimumLength = 5, ErrorMessage = "Payment name must be from 5 to 60 charaters")]
         public string PaymentName { get; set; }
-    
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<MedicineOrder> MedicineOrders { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ScientificApparatusOrder> ScientificApparatusOrders { get; set; }
+        public virtual ICollection<Order> Orders { get; set; }
     }
 }

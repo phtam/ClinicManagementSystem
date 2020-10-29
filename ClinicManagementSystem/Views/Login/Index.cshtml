@@ -1,0 +1,45 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout_Login.cshtml";
+}
+
+<main class="login-bg">
+    <div class="login-form-area">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-xl-7 col-lg-8">
+                    @using (Html.BeginForm("Index", "Login", FormMethod.Post))
+                    {
+                        <div class="login-form">
+                            <div class="login-heading">
+                                <span>Login</span>
+                                <p>Enter Login details to get access</p>
+                            </div>
+                            <div class="input-box">
+                                <div class="single-input-fields">
+                                    <label>Username</label>
+                                    <input type="text" placeholder="Enter Username" name="username">
+                                    <div style="color:red">@ViewBag.ErrorLogin</div>
+                                </div>
+                                <div class="single-input-fields">
+                                    <label>Password</label>
+                                    <input type="password" placeholder="Enter Password" name="password">
+                                </div>
+                                <div class="single-input-fields login-check">
+                                    <a href="#" class="f-right">Forgot Password?</a>
+                                </div>
+                            </div>
+                            <div class="login-footer">
+                                <p>Don’t have an account? <a href="@Url.Action("Index", "Register")">Sign Up</a>  here</p>
+                                <button type="submit" class="submit-btn3">Login</button>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+

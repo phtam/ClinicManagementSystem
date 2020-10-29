@@ -18,7 +18,7 @@ namespace ClinicManagementSystem.EF
         public int ScientificApparatusID { get; set; }
         public Nullable<int> Quantity { get; set; }
     
+        public virtual Order Order { get; set; }
         public virtual ScientificApparatu ScientificApparatu { get; set; }
-        public virtual ScientificApparatusOrder ScientificApparatusOrder { get; set; }
     }
 }

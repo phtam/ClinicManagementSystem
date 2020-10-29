@@ -19,6 +19,6 @@ namespace ClinicManagementSystem.EF
         public Nullable<int> Quantity { get; set; }
     
         public virtual Medicine Medicine { get; set; }
-        public virtual MedicineOrder MedicineOrder { get; set; }
+        public virtual Order Order { get; set; }
     }
 }
