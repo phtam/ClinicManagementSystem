@@ -1,10 +1,11 @@
-﻿
+﻿@model PagedList.IPagedList<ClinicManagementSystem.EF.Medicine>
+@using PagedList.Mvc;
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Medicines";
+    var currentId = ViewBag.ID;
     Layout = "~/Views/Shared/_Layout.cshtml";
 
     var medicineType = (List<ClinicManagementSystem.EF.Medicine>)ViewBag.MedicineType;
-    var medicine = (List<ClinicManagementSystem.EF.Medicine>)ViewBag.Medicine;
 }
 
 <div class="category-area">
@@ -13,7 +14,7 @@
             <div class="col-xl-7 col-lg-8 col-md-10">
                 <div class="section-tittle mb-50">
                     <h2>Shop with us</h2>
-                    <p>Browse from @medicine.Count() latest items</p>
+                    <p>Browse from @Model.Count() latest items</p>
                 </div>
             </div>
         </div>
@@ -41,14 +42,14 @@
                         <div class="count-job mb-35">
                             <span></span>
                             <div class="select-cat">
-                                <span>@medicine.Count() Product(s)</span>
+                                <span>@Model.Count() Product(s)</span>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="new-arrival new-arrival3">
                     <div class="row">
-                        @foreach (var item in medicine)
+                        @foreach (var item in Model)
                         {
                             <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6">
                                 <div class="single-new-arrival mb-50 text-center">
@@ -69,11 +70,20 @@
                         }
 
                     </div>
-                    <div class="row justify-content-center">
-                        <div class="room-btn mt-20">
-                            <a href="catagori.html" class="border-btn">Browse More</a>
-                        </div>
-                    </div>
+                    <nav class="blog-pagination justify-content-center d-flex">
+                        <ul class="pagination">
+                            <li class="page-item">
+                                @if (currentId != null)
+                                {
+                                    @Html.PagedListPager(Model, page => Url.Action("Index", new { id = currentId, page }))
+                                }
+                                else
+                                {
+                                    @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+                                }
+                            </li>
+                        </ul>
+                    </nav>
                 </div>
             </div>
         </div>
@@ -81,3 +91,22 @@
 </div>
 
 
+<style>
+    .page-item a {
+        text-decoration: none;
+        transition: .4s;
+        font-size: 14px;
+        position: relative;
+        display: block;
+        padding: 0;
+        text-align: center;
+        margin-left: -1px;
+        line-height: 45px;
+        width: 45px;
+        height: 45px;
+        border-radius: 0 !important;
+        color: #8a8a8a;
+        border: 1px solid #f0e9ff;
+        margin-right: 10px;
+    }
+</style>

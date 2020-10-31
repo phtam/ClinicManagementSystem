@@ -15,7 +15,8 @@ namespace ClinicManagementSystem.Controllers
     public class CartController : Controller
     {
         private MedicineDAO medicineDAO = new MedicineDAO();
-        
+        private ScientificApparatusDAO apparatusDAO = new ScientificApparatusDAO();
+
         public ActionResult Index()
         {
             var medicineCart = Session[CommonConstants.CartMedicineSession];
@@ -56,6 +57,11 @@ namespace ClinicManagementSystem.Controllers
 
         public ActionResult AddMedicineItem(int productID, int quantity)
         {
+            if (!medicineDAO.CheckMedicineUnitInStock(productID, quantity))
+            {
+                TempData["Notice_In_Stock"] = true;
+                return RedirectToAction("Index");
+            }
             var product = new MedicineDAO().Get(productID);
             var cart = Session[CommonConstants.CartMedicineSession];
             if (cart != null)
@@ -94,6 +100,11 @@ namespace ClinicManagementSystem.Controllers
 
         public ActionResult AddApparatusItem(int productID, int quantity)
         {
+            if (!apparatusDAO.CheckApparatusUnitInStock(productID, quantity))
+            {
+                TempData["Notice_In_Stock"] = true;
+                return RedirectToAction("Index");
+            }
             var product = new ScientificApparatusDAO().Get(productID);
             var cart = Session[CommonConstants.CartApparatusSession];
             if (cart != null)
@@ -262,7 +273,7 @@ namespace ClinicManagementSystem.Controllers
                 return RedirectToAction("Checkout");
             }
 
-            //is in stock less than the quantity you ordered. Please reduce the quantity!
+            
 
             Order order = new Order();
             var user = (ClinicManagementSystem.Models.CustomerAuthentication)Session[Common.CommonConstants.CUSTOMER_SESSION];

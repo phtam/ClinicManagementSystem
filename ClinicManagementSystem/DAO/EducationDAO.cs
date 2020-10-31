@@ -15,6 +15,16 @@ namespace ClinicManagementSystem.DAO
             return db.Educations.ToList();
         }
 
+        public List<Education> Show()
+        {
+            return db.Educations.OrderByDescending(o=>o.EducationID).Take(1).ToList();
+        }
+
+        public List<Education> ShowMore()
+        {
+            return db.Educations.Take(2).ToList();
+        }
+
         public Education Get(int? id)
         {
             if (id == null)

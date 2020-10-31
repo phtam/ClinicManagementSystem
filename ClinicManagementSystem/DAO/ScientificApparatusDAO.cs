@@ -16,6 +16,16 @@ namespace ClinicManagementSystem.DAO
             return db.ScientificApparatus.ToList();
         }
 
+        public List<ScientificApparatu> Show()
+        {
+            return db.ScientificApparatus.OrderByDescending(s=>s.ScientificApparatusID).Take(6).ToList();
+        }
+
+        public List<ScientificApparatu> ShowTopPick()
+        {
+            return db.ScientificApparatus.OrderByDescending(s => s.UnitOnOrder).Take(6).ToList();
+        }
+
         public ScientificApparatu Get(int? id)
         {
             if (id == null)
@@ -23,6 +33,19 @@ namespace ClinicManagementSystem.DAO
             else
             {
                 return db.ScientificApparatus.Find(id);
+            }
+        }
+
+        public bool CheckApparatusUnitInStock(int? id, int quantity)
+        {
+            var apparatu = db.ScientificApparatus.Find(id);
+            if (apparatu.UnitInStock < quantity)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
             }
         }
 

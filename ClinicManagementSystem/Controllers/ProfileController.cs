@@ -136,8 +136,6 @@ namespace ClinicManagementSystem.Controllers
                 return View();
             }
 
-            
-
             account.Password = encoder.Encode(password);
             db.SaveChanges();
 
@@ -153,6 +151,30 @@ namespace ClinicManagementSystem.Controllers
             }
             var order = db.Orders.Where(o => o.Username == user.Username);
             return View(order.ToList());
+        }
+
+        public ActionResult OrderDetail(int? id)
+        {
+            if (id == null)
+            {
+                RedirectToAction("Index", "Home");
+            }
+            var user = (CustomerAuthentication)Session[Common.CommonConstants.CUSTOMER_SESSION];
+            if (user.Username == null)
+            {
+                RedirectToAction("Index", "Login");
+            }
+            var order = db.Orders.SingleOrDefault(o => o.OrderID == id && o.Username == user.Username);
+            if (order == null)
+            {
+                RedirectToAction("Index", "Home");
+            }
+
+            ViewBag.MedicineOrder = db.MedicineOrderDetails.Where(m => m.OrderID == id).ToList();
+            ViewBag.ApparatusOrder = db.ScientificApparatusOrderDetails.Where(a => a.OrderID == id).ToList();
+
+            return View(order);
+
         }
     }
 }

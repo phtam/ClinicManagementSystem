@@ -15,6 +15,11 @@ namespace ClinicManagementSystem.DAO
             return db.Medicines.ToList();
         }
 
+        public List<Medicine> Show()
+        {
+            return db.Medicines.OrderByDescending(m=>m.MedicineID).Take(6).ToList();
+        }
+
         public Medicine Get(int? id)
         {
             if (id == null)
@@ -22,6 +27,19 @@ namespace ClinicManagementSystem.DAO
             else
             {
                 return db.Medicines.Find(id);
+            }
+        }
+
+        public bool CheckMedicineUnitInStock(int? id, int quantity)
+        {
+            var medicine = db.Medicines.Find(id);
+            if (medicine.UnitInStock < quantity)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
             }
         }
 

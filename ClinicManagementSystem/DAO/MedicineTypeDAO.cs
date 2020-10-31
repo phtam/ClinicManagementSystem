@@ -15,6 +15,7 @@ namespace ClinicManagementSystem.DAO
             return db.MedicineTypes.ToList();
         }
 
+        
         public MedicineType Get(int? id)
         {
             if (id == null)

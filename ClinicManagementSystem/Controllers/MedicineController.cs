@@ -1,4 +1,5 @@
 ﻿using ClinicManagementSystem.DAO;
+using PagedList;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,23 +13,28 @@ namespace ClinicManagementSystem.Controllers
         private MedicineTypeDAO medicineTypeDAO = new MedicineTypeDAO();
         private MedicineDAO medicineDAO = new MedicineDAO();
 
-        public ActionResult Index(int? id)
+        public ActionResult Index(int? id, int? page)
         {
-            if (id != null)
-            {
-                ViewBag.Medicine = medicineDAO.SortByType(id);
-                ViewBag.Child = medicineTypeDAO.Get(id).TypeName;
-            }
-            else
-            {
-                ViewBag.Medicine = medicineDAO.GetAll();
-            }
-            
+            if (page == null) page = 1;
+            int pageSize = 9;
+            int pageNumber = (page ?? 1);
             var medicineList = medicineDAO.GetAll();
             ViewBag.MedicineType = medicineList;
             ViewBag.Header = "Medicine";
 
-            return View();
+            if (id != null)
+            {
+                var model = medicineDAO.SortByType(id).ToPagedList(pageNumber, pageSize);
+                ViewBag.ID = id;
+                ViewBag.Child = medicineTypeDAO.Get(id).TypeName;
+                return View(model);
+            }
+            else
+            {
+                var model = medicineDAO.GetAll().ToPagedList(pageNumber, pageSize);
+                return View(model);
+            }
+
         }
 
         public ActionResult Detail(int? id)

@@ -1,4 +1,5 @@
 ﻿using ClinicManagementSystem.DAO;
+using PagedList;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,22 +13,27 @@ namespace ClinicManagementSystem.Controllers
         private ScientificApparatusTypeDAO scientificApparatusTypeDAO = new ScientificApparatusTypeDAO();
         private ScientificApparatusDAO scientificApparatusDAO = new ScientificApparatusDAO();
 
-        public ActionResult Index(int? id)
+        public ActionResult Index(int? id, int? page)
         {
-            if (id != null)
-            {
-                ViewBag.ScientificApparatus = scientificApparatusDAO.SortByType(id);
-                ViewBag.Child = scientificApparatusTypeDAO.Get(id).TypeName;
-            }
-            else
-            {
-                ViewBag.ScientificApparatus = scientificApparatusDAO.GetAll();
-            }
+            if (page == null) page = 1;
+            int pageSize = 9;
+            int pageNumber = (page ?? 1);
             var scientificApparatusTypeList = scientificApparatusTypeDAO.GetAll();
             ViewBag.ScientificApparatusType = scientificApparatusTypeList;
             ViewBag.Header = "Scientific Apparatus";
-            
-            return View();
+
+            if (id != null)
+            {
+                var model = scientificApparatusDAO.SortByType(id).ToPagedList(pageNumber, pageSize);
+                ViewBag.Child = scientificApparatusTypeDAO.Get(id).TypeName;
+                return View(model);
+            }
+            else
+            {
+                var model = scientificApparatusDAO.GetAll().ToPagedList(pageNumber, pageSize);
+                return View(model);
+            }
+
         }
 
         public ActionResult Detail(int? id)

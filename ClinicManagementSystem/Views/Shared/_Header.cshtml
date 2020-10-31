@@ -17,7 +17,7 @@
                         <!-- Logo-2 -->
                         @*<div class="~/home">
                                 <a href="~/home"><img src="~/Scripts/img/logo/logo2.png" alt=""></a>
-                            </div>*@
+                        </div>*@
                         <!-- Main-menu -->
                         <div class="main-menu  d-none d-lg-block">
                             <nav>
@@ -56,7 +56,7 @@
                                             }
                                         </ul>
                                     </li>
-                                    <li><a href="about.html">About</a></li>
+                                    <li><a href="@Url.Action("About", "Home")">About</a></li>
                                     <li><a href="@Url.Action("Contact", "Home")">Contact</a></li>
                                 </ul>
                             </nav>
@@ -81,7 +81,7 @@
                                             <a class="dropbtn" onclick="largeDropdown()" >Hi, @user.FullName</a>
                                             <div id="myDropdown" class="dropdown-content">
                                                 <a href="@Url.Action("Index", "Profile")">Profile</a>
-                                                <a href="~/userprofile/MyOrder">My Order</a>
+                                                <a href="@Url.Action("ViewOrder", "Profile")">My Order</a>
                                                 <a href="@Url.Action("ChangePassword", "Profile")">Password</a>
                                                 <a href="@Url.Action("Logout", "Login")">Logout</a>
                                             </div>

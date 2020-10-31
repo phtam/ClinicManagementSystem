@@ -1,6 +1,8 @@
-﻿@{
-    var education = (List<ClinicManagementSystem.EF.Education>)ViewBag.Education;
+﻿@model PagedList.IPagedList<ClinicManagementSystem.EF.Education>
+@using PagedList.Mvc;
+@{
     ViewBag.Title = "Index";
+    var currentId = ViewBag.ID;
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -10,7 +12,7 @@
         <div class="row">
             <div class="col-lg-8 mb-5 mb-lg-0">
                 <div class="blog_left_sidebar">
-                    @foreach (var item in education)
+                    @foreach (var item in Model)
                     {
                         <article class="blog_item">
                             <div class="blog_item_img">
@@ -32,27 +34,21 @@
                         </article>
                     }
 
+                <nav class="blog-pagination justify-content-center d-flex">
+                    <ul class="pagination">
+                        <li class="page-item">
+                            @if (currentId != null)
+                            {
+                                @Html.PagedListPager(Model, page => Url.Action("Index", new { id = currentId, page }))
+                            }
+                            else
+                            {
+                                @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+                            }
+                        </li>
+                    </ul>
+                </nav>
 
-                    <nav class="blog-pagination justify-content-center d-flex">
-                        <ul class="pagination">
-                            <li class="page-item">
-                                <a href="#" class="page-link" aria-label="Previous">
-                                    <i class="ti-angle-left"></i>
-                                </a>
-                            </li>
-                            <li class="page-item">
-                                <a href="#" class="page-link">1</a>
-                            </li>
-                            <li class="page-item active">
-                                <a href="#" class="page-link">2</a>
-                            </li>
-                            <li class="page-item">
-                                <a href="#" class="page-link" aria-label="Next">
-                                    <i class="ti-angle-right"></i>
-                                </a>
-                            </li>
-                        </ul>
-                    </nav>
                 </div>
             </div>
             @{ Html.RenderAction("_RightSlibar", "Education"); }
@@ -60,3 +56,22 @@
     </div>
 </section>
 
+<style>
+    .page-item a {
+        text-decoration: none;
+        transition: .4s;
+        font-size: 14px;
+        position: relative;
+        display: block;
+        padding: 0;
+        text-align: center;
+        margin-left: -1px;
+        line-height: 45px;
+        width: 45px;
+        height: 45px;
+        border-radius: 0 !important;
+        color: #8a8a8a;
+        border: 1px solid #f0e9ff;
+        margin-right: 10px;
+    }
+</style>

@@ -14,13 +14,19 @@ namespace ClinicManagementSystem.Controllers
         private MedicineTypeDAO medicineTypeDAO = new MedicineTypeDAO();
         private ScientificApparatusTypeDAO scientificApparatusTypeDAO = new ScientificApparatusTypeDAO();
         private ActivityDAO activityDAO = new ActivityDAO();
+        private MedicineDAO medicineDAO = new MedicineDAO();
+        private ScientificApparatusDAO apparatusDAO = new ScientificApparatusDAO();
+        private EducationDAO educationDAO = new EducationDAO();
 
         public ActionResult Index()
         {
             ViewBag.Slider = true;
-            ViewBag.MedicineType = medicineTypeDAO.GetAll();
-            var scientificApparatusTypeList = scientificApparatusTypeDAO.GetAll();
-            ViewBag.ScientificApparatusType = scientificApparatusTypeList;
+
+            ViewBag.Medicine = medicineDAO.Show();
+            ViewBag.Apparatus = apparatusDAO.Show();
+            ViewBag.Education = educationDAO.Show();
+            ViewBag.MoreEducation = educationDAO.ShowMore();
+            ViewBag.TopPick = apparatusDAO.ShowTopPick();
 
             return View();
         }
@@ -74,15 +80,13 @@ namespace ClinicManagementSystem.Controllers
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
-
+            ViewBag.Header = "About";
             return View();
         }
 
         public ActionResult Contact()
         {
             ViewBag.Header = "Contact";
-
             return View();
         }
     }

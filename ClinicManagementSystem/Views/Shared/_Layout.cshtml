@@ -7,8 +7,7 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="manifest" href="site.webmanifest">
-    <link rel="shortcut icon" type="image/x-icon" href="~/Scripts/img/favicon.ico">
-
+    <link rel="shortcut icon" type="image/x-icon" href="~/Scripts/img/logo-in-title.png">
     <link rel="stylesheet" href="~/Scripts/css/bootstrap.min.css">
     <link rel="stylesheet" href="~/Scripts/css/owl.carousel.min.css">
     <link rel="stylesheet" href="~/Scripts/css/slicknav.css">
@@ -25,6 +24,7 @@
     <link rel="stylesheet" href="~/Scripts/css/slick.css">
     <link rel="stylesheet" href="~/Scripts/css/nice-select.css">
     <link rel="stylesheet" href="~/Scripts/css/style.css">
+    <link href="~/Asset/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css" rel="stylesheet" />
 
 </head>
 <body>
@@ -106,7 +106,21 @@
     <!-- Jquery Plugins, main Jquery -->
     <script src="~/Scripts/js/plugins.js"></script>
     <script src="~/Scripts/js/main.js"></script>
+    <script src="~/Asset/plugins/sweetalert2/sweetalert2.min.js"></script>
     @RenderSection("ClientScript", false)
+
+    @{
+        if (TempData["Notice_In_Stock"] != null)
+        {
+            <script>
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Sorry...',
+                    text: 'The unit in stock less than the quantity you ordered. Please reduce the quantity!!',
+                })
+            </script>
+        }
+    }
 
 </body>
 </html>

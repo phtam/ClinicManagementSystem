@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using ClinicManagementSystem.DAO;
+using PagedList;
 
 namespace ClinicManagementSystem.Controllers
 {
@@ -13,34 +14,46 @@ namespace ClinicManagementSystem.Controllers
         private SubjectDAO subjectDAO = new SubjectDAO();
         private ActivityDAO activityDAO = new ActivityDAO();
 
-        public ActionResult Index(int? id)
+        public ActionResult Index(int? id, int? page)
         {
+            if (page == null) page = 1;
+            int pageSize = 5;
+            int pageNumber = (page ?? 1);
+            ViewBag.Header = "Education";
+
             if (id != null)
             {
                 ViewBag.Child = activityDAO.Get(id).ActivityName;
-                ViewBag.Education = educationDAO.SortByActivity(id);
+                ViewBag.ID = id;
+                var model = educationDAO.SortByActivity(id).ToPagedList(pageNumber, pageSize);
+                return View(model);
             }
             else
             {
-                ViewBag.Education = educationDAO.GetAll();
+                var model = educationDAO.GetAll().ToPagedList(pageNumber, pageSize);
+                return View(model);
             }
-            ViewBag.Header = "Education";
-            return View();
         }
 
-        public ActionResult SearchBySubject(int? id)
+        public ActionResult SearchBySubject(int? id, int? page)
         {
+            if (page == null) page = 1;
+            int pageSize = 5;
+            int pageNumber = (page ?? 1);
+            ViewBag.Header = "Education";
+
             if (id != null)
             {
                 ViewBag.Child = subjectDAO.Get(id).SubjectName;
-                ViewBag.Education = educationDAO.SortBySubject(id);
+                ViewBag.ID = id;
+                var model = educationDAO.SortBySubject(id).ToPagedList(pageNumber, pageSize);
+                return View(model);
             }
             else
             {
-                ViewBag.Education = educationDAO.GetAll();
+                var model = educationDAO.GetAll().ToPagedList(pageNumber, pageSize);
+                return View(model);
             }
-            ViewBag.Header = "Education";
-            return View();
         }
 
         public ActionResult Detail(int? id)

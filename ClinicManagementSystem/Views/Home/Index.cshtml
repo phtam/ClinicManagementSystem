@@ -1,12 +1,15 @@
 ﻿@{
-    var medicineType = (List<ClinicManagementSystem.EF.MedicineType>)ViewBag.MedicineType;
-    var scientificApparatusType = (List<ClinicManagementSystem.EF.ScientificApparatusType>)ViewBag.ScientificApparatusType;
+    ViewBag.Title = "Home";
+    var medicine = (List<ClinicManagementSystem.EF.Medicine>)ViewBag.Medicine;
+    var apparatus = (List<ClinicManagementSystem.EF.ScientificApparatu>)ViewBag.Apparatus;
+    var topPick = (List<ClinicManagementSystem.EF.ScientificApparatu>)ViewBag.TopPick;
+    var education = (List<ClinicManagementSystem.EF.Education>)ViewBag.Education;
+    var moreEducation = (List<ClinicManagementSystem.EF.Education>)ViewBag.MoreEducation;
 }
 
 
 <section class="properties new-arrival fix">
     <div class="container">
-        <!-- Section tittle -->
         <div class="row justify-content-center">
             <div class="col-xl-7 col-lg-8 col-md-10">
                 <div class="section-tittle mb-60 text-center wow fadeInUp" data-wow-duration="1s" data-wow-delay=".2s">
@@ -17,285 +20,66 @@
         </div>
         <div class="row">
             <div class="col-xl-12">
-                <div class="properties__button text-center">
-                    <nav>
-                        <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                            @{
-                                foreach (var item in scientificApparatusType)
-                                {
-                                    <a class="nav-item nav-link" id="nav-@item.TypeID-tab" data-toggle="tab" href="#nav-@item.TypeID" role="tab" aria-controls="nav-@item.TypeID" aria-selected="false">@item.TypeName</a>
-                                }
-                            }
-                           @* <a class="nav-item nav-link active" id="nav-Sofa-tab" data-toggle="tab" href="#nav-Sofa" role="tab" aria-controls="nav-Sofa" aria-selected="true">Sofa</a>*@
-
-                        </div>
-                    </nav>
+                <div class="properties__button text-center">  
                 </div>
             </div>
         </div>
         <div class="row">
-            <!-- Nav Card -->
             <div class="tab-content" id="nav-tabContent">
-                <!-- card one -->
                 <div class="tab-pane fade show active" id="nav-Sofa" role="tabpanel" aria-labelledby="nav-Sofa-tab">
                     <div class="row">
-                        <div class="col-lg-4 col-md-6 col-sm-6">
-                            <div class="single-new-arrival mb-50 text-center">
-                                <div class="popular-img">
-                                    <img src="~/Scripts/img/gallery/popular1.png" alt="">
+                        @if (apparatus != null)
+                        {
+                            foreach (var item in apparatus)
+                            {
+                                <div class="col-lg-4 col-md-6 col-sm-6">
+                                    <div class="single-new-arrival mb-50 text-center">
+                                        <div class="popular-img">
+                                            <img src="@Url.Content(item.Thumbnail)" alt="">
+                                        </div>
+                                        <div class="popular-caption">
+                                            <h3><a href="@Url.Action("Detail", "ScientificApparatus", new { id = item.ScientificApparatusID })">@item.ScientificApparatusName</a></h3>
+                                            <span>$@item.UnitPrice</span>
+                                            <div style="text-decoration: line-through; font-size:small">
+                                                $@item.OldUnitPrice
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="popular-caption">
-                                    <h3><a href="product_details.html">Bly Microfiber / Microsuede 56" Armless Loveseat</a></h3>
-                                    <span>$367</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-6 col-sm-6">
-                            <div class="single-new-arrival mb-50 text-center">
-                                <div class="popular-img">
-                                    <img src="~/Scripts/img/gallery/popular2.png" alt="">
-                                </div>
-                                <div class="popular-caption">
-                                    <h3><a href="product_details.html">Bly Microfiber / Microsuede 56" Armless Loveseat</a></h3>
-                                    <span>$367</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-6 col-sm-6">
-                            <div class="single-new-arrival mb-50 text-center">
-                                <div class="popular-img">
-                                    <img src="~/Scripts/img/gallery/popular3.png" alt="">
-                                </div>
-                                <div class="popular-caption">
-                                    <h3><a href="product_details.html">Bly Microfiber / Microsuede 56" Armless Loveseat</a></h3>
-                                    <span>$367</span>
-                                </div>
-                            </div>
-                        </div>
+                            }
+                        }
                     </div>
-                </div>
-                <!-- Card two -->
-                <div class="tab-pane fade" id="nav-Table" role="tabpanel" aria-labelledby="nav-Table-tab">
-                    <div class="row">
-                        <div class="col-lg-4 col-md-6 col-sm-6">
-                            <div class="single-new-arrival mb-50 text-center">
-                                <div class="popular-img">
-                                    <img src="~/Scripts/img/gallery/popular1.png" alt="">
-                                </div>
-                                <div class="popular-caption">
-                                    <h3><a href="product_details.html">Bly Microfiber / Microsuede 56" Armless Loveseat</a></h3>
-                                    <span>$367</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-6 col-sm-6">
-                            <div class="single-new-arrival mb-50 text-center">
-                                <div class="popular-img">
-                                    <img src="~/Scripts/img/gallery/popular2.png" alt="">
-                                </div>
-                                <div class="popular-caption">
-                                    <h3><a href="product_details.html">Bly Microfiber / Microsuede 56" Armless Loveseat</a></h3>
-                                    <span>$367</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-6 col-sm-6">
-                            <div class="single-new-arrival mb-50 text-center">
-                                <div class="popular-img">
-                                    <img src="~/Scripts/img/gallery/popular3.png" alt="">
-                                </div>
-                                <div class="popular-caption">
-                                    <h3><a href="product_details.html">Bly Microfiber / Microsuede 56" Armless Loveseat</a></h3>
-                                    <span>$367</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Card three -->
-                <div class="tab-pane fade" id="nav-Chair" role="tabpanel" aria-labelledby="nav-Chair-tab">
-                    <div class="row">
-                        <div class="col-lg-4 col-md-6 col-sm-6">
-                            <div class="single-new-arrival mb-50 text-center">
-                                <div class="popular-img">
-                                    <img src="~/Scripts/img/gallery/popular1.png" alt="">
-                                </div>
-                                <div class="popular-caption">
-                                    <h3><a href="product_details.html">Bly Microfiber / Microsuede 56" Armless Loveseat</a></h3>
-                                    <span>$367</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-6 col-sm-6">
-                            <div class="single-new-arrival mb-50 text-center">
-                                <div class="popular-img">
-                                    <img src="~/Scripts/img/gallery/popular2.png" alt="">
-                                </div>
-                                <div class="popular-caption">
-                                    <h3><a href="product_details.html">Bly Microfiber / Microsuede 56" Armless Loveseat</a></h3>
-                                    <span>$367</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-6 col-sm-6">
-                            <div class="single-new-arrival mb-50 text-center">
-                                <div class="popular-img">
-                                    <img src="~/Scripts/img/gallery/popular3.png" alt="">
-                                </div>
-                                <div class="popular-caption">
-                                    <h3><a href="product_details.html">Bly Microfiber / Microsuede 56" Armless Loveseat</a></h3>
-                                    <span>$367</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Card FOUR -->
-                <div class="tab-pane fade" id="nav-Bed" role="tabpanel" aria-labelledby="nav-Bed-tab">
-                    <div class="row">
-                        <div class="col-lg-4 col-md-6 col-sm-6">
-                            <div class="single-new-arrival mb-50 text-center">
-                                <div class="popular-img">
-                                    <img src="~/Scripts/img/gallery/popular1.png" alt="">
-                                </div>
-                                <div class="popular-caption">
-                                    <h3><a href="product_details.html">Bly Microfiber / Microsuede 56" Armless Loveseat</a></h3>
-                                    <span>$367</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-6 col-sm-6">
-                            <div class="single-new-arrival mb-50 text-center">
-                                <div class="popular-img">
-                                    <img src="~/Scripts/img/gallery/popular2.png" alt="">
-                                </div>
-                                <div class="popular-caption">
-                                    <h3><a href="product_details.html">Bly Microfiber / Microsuede 56" Armless Loveseat</a></h3>
-                                    <span>$367</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-6 col-sm-6">
-                            <div class="single-new-arrival mb-50 text-center">
-                                <div class="popular-img">
-                                    <img src="~/Scripts/img/gallery/popular3.png" alt="">
-                                </div>
-                                <div class="popular-caption">
-                                    <h3><a href="product_details.html">Bly Microfiber / Microsuede 56" Armless Loveseat</a></h3>
-                                    <span>$367</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Card FIVE -->
-                <div class="tab-pane fade" id="nav-Lightning" role="tabpanel" aria-labelledby="nav-Lightning-tab">
-                    <div class="row">
-                        <div class="col-lg-4 col-md-6 col-sm-6">
-                            <div class="single-new-arrival mb-50 text-center">
-                                <div class="popular-img">
-                                    <img src="~/Scripts/img/gallery/popular1.png" alt="">
-                                </div>
-                                <div class="popular-caption">
-                                    <h3><a href="product_details.html">Bly Microfiber / Microsuede 56" Armless Loveseat</a></h3>
-                                    <span>$367</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-6 col-sm-6">
-                            <div class="single-new-arrival mb-50 text-center">
-                                <div class="popular-img">
-                                    <img src="~/Scripts/img/gallery/popular2.png" alt="">
-                                </div>
-                                <div class="popular-caption">
-                                    <h3><a href="product_details.html">Bly Microfiber / Microsuede 56" Armless Loveseat</a></h3>
-                                    <span>$367</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-6 col-sm-6">
-                            <div class="single-new-arrival mb-50 text-center">
-                                <div class="popular-img">
-                                    <img src="~/Scripts/img/gallery/popular3.png" alt="">
-                                </div>
-                                <div class="popular-caption">
-                                    <h3><a href="product_details.html">Bly Microfiber / Microsuede 56" Armless Loveseat</a></h3>
-                                    <span>$367</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Card SIX -->
-                <div class="tab-pane fade" id="nav-Decore" role="tabpanel" aria-labelledby="nav-Decore-tab">
-                    <div class="row">
-                        <div class="col-lg-4 col-md-6 col-sm-6">
-                            <div class="single-new-arrival mb-50 text-center">
-                                <div class="popular-img">
-                                    <img src="~/Scripts/img/gallery/popular1.png" alt="">
-                                </div>
-                                <div class="popular-caption">
-                                    <h3><a href="product_details.html">Bly Microfiber / Microsuede 56" Armless Loveseat</a></h3>
-                                    <span>$367</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-6 col-sm-6">
-                            <div class="single-new-arrival mb-50 text-center">
-                                <div class="popular-img">
-                                    <img src="~/Scripts/img/gallery/popular2.png" alt="">
-                                </div>
-                                <div class="popular-caption">
-                                    <h3><a href="product_details.html">Bly Microfiber / Microsuede 56" Armless Loveseat</a></h3>
-                                    <span>$367</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-6 col-sm-6">
-                            <div class="single-new-arrival mb-50 text-center">
-                                <div class="popular-img">
-                                    <img src="~/Scripts/img/gallery/popular3.png" alt="">
-                                </div>
-                                <div class="popular-caption">
-                                    <h3><a href="product_details.html">Bly Microfiber / Microsuede 56" Armless Loveseat</a></h3>
-                                    <span>$367</span>
-                                </div>
-                            </div>
+                    <div class="row justify-content-center">
+                        <div class="room-btn">
+                            <a href="@Url.Action("Index", "ScientificApparatus")" class="border-btn">Discover More</a>
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- End Nav Card -->
         </div>
     </div>
 </section>
 
 <div class="visit-tailor-area fix">
-    <!--Right Contents  -->
-    <div class="tailor-offers"></div>
-    <!-- left Contents -->
-    <div class="tailor-details">
-        <h2>Best Furniture<br> manufacturer</h2>
-        <p>
-            Suspendisse varius enim in eros elementum
-            tristique. Duis cursus, mi quis viverra ornare, eros
-            dolor interdum nulla.
-        </p>
-        <p class="pera-bottom">
-            Suspendisse varius enim in eros elementum
-            tristique. Duis cursus, mi quis viverra ornare, eros
-            dolor interdum nulla.
-        </p>
-        <a href="#" class="btn">Discover More</a>
-    </div>
-
+    @if (education != null)
+    {
+        foreach (var item in education)
+        {
+            <div class="tailor-offers" style="background-image: url(@Url.Content(item.Thumbnail))"></div>
+            <div class="tailor-details">
+                <h2>@item.LessonName</h2>
+                <p><i class="fa fa-pen"></i> &nbsp; @item.Activity.ActivityName</p>
+                <p><i class="fa fa-book"></i> &nbsp; @item.Subject.SubjectName</p>
+                <p><i class="fa fa-calendar"></i> &nbsp; @item.CreateDate</p>
+                <p><i class="fa fa-comment"></i> &nbsp; @item.EducationFeedbacks.Count()</p>
+                <a href="@Url.Action("Detail", "Education", new { id = item.EducationID })" class="btn">Read More</a>
+            </div>
+        }
+    }
 </div>
-<!-- Visit Our Tailor End -->
-<!--? New Arrival-2 Start -->
+
 <div class="new-arrival new-arrival2">
     <div class="container">
-        <!-- Section tittle -->
         <div class="row justify-content-center">
             <div class="col-xl-6 col-lg-8 col-md-10">
                 <div class="section-tittle mb-60 text-center wow fadeInUp" data-wow-duration="2s" data-wow-delay=".2s">
@@ -305,50 +89,36 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-lg-4 col-md-6 col-sm-6">
-                <div class="single-new-arrival mb-50 text-center wow fadeInUp" data-wow-duration="1s" data-wow-delay=".1s">
-                    <div class="popular-img">
-                        <img src="~/Scripts/img/gallery/popular4.png" alt="">
+            @if (medicine != null)
+            {
+                foreach (var item in medicine)
+                {
+                    <div class="col-lg-4 col-md-6 col-sm-6">
+                        <div class="single-new-arrival mb-50 text-center wow fadeInUp" data-wow-duration="1s" data-wow-delay=".1s">
+                            <div class="popular-img">
+                                <img src="@Url.Content(item.Thumbnail)" alt="">
+                            </div>
+                            <div class="popular-caption">
+                                <h3><a href="@Url.Action("Detail", "Medicine", new { id = item.MedicineID })">@item.MedicineName</a></h3>
+                                <span>$@item.UnitPrice</span>
+                                <div style="text-decoration: line-through; font-size:small">
+                                    $@item.OldUnitPrice
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="popular-caption">
-                        <h3><a href="product_details.html">Bly Microfiber / Microsuede 56" Armless Loveseat</a></h3>
-                        <span>$367</span>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 col-sm-6">
-                <div class="single-new-arrival mb-50 text-center wow fadeInUp" data-wow-duration="1s" data-wow-delay=".2s">
-                    <div class="popular-img">
-                        <img src="~/Scripts/img/gallery/popular5.png" alt="">
-                    </div>
-                    <div class="popular-caption">
-                        <h3><a href="product_details.html">Bly Microfiber / Microsuede 56" Armless Loveseat</a></h3>
-                        <span>$367</span>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 col-sm-6">
-                <div class="single-new-arrival mb-50 text-center wow fadeInUp" data-wow-duration="1s" data-wow-delay=".4s">
-                    <div class="popular-img">
-                        <img src="~/Scripts/img/gallery/popular6.png" alt="">
-                    </div>
-                    <div class="popular-caption">
-                        <h3><a href="product_details.html">Bly Microfiber / Microsuede 56" Armless Loveseat</a></h3>
-                        <span>$367</span>
-                    </div>
-                </div>
-            </div>
+                }
+
+            }
         </div>
-        <!-- Button -->
         <div class="row justify-content-center">
             <div class="room-btn">
-                <a href="product.html" class="border-btn">Discover More</a>
+                <a href="@Url.Action("Index", "Medicine")" class="border-btn">Discover More</a>
             </div>
         </div>
     </div>
 </div>
-<!--? New Arrival End -->
-<!--? instagram-social start -->
+
 <div class="instagram-area">
     <div class="container-fluid">
         <div class="row align-items-center">
@@ -358,31 +128,30 @@
                         <img src="~/Scripts/img/gallery/insta.png" alt="">
                         <h2>Get Inspired with Instagram</h2>
                         <P class="mb-35">Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla.</P>
-                        <a href="product.html" class="border-btn">Discover More</a>
+                        <a href="" class="border-btn">Discover More</a>
                     </div>
                 </div>
             </div>
             <div class="col-xl-9 col-lg-8">
                 <div class="row no-gutters">
-                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
-                        <div class="single-instagram">
-                            <img src="~/Scripts/img//gallery/instra1.png" alt="" class="w-100">
-                            <a href="#"><i class="ti-instagram"></i></a>
-                        </div>
-                    </div>
-                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
-                        <div class="single-instagram">
-                            <img src="~/Scripts/img//gallery/instra2.png" alt="" class="w-100">
-                            <a href="#"><i class="ti-instagram"></i></a>
-                        </div>
-                    </div>
+                    @if (moreEducation != null)
+                    {
+                        foreach (var item in moreEducation)
+                        {
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                                <div class="single-instagram">
+                                    <img src="@Url.Content(item.Thumbnail)" alt="" class="w-100">
+                                    <a href="@Url.Action("Detail", "Education", new { id = item.EducationID })"><i class="ti-instagram"></i></a>
+                                </div>
+                            </div>
+                        }
+                    }
                 </div>
             </div>
         </div>
     </div>
 </div>
-<!-- instagram-social End -->
-<!--? New Arrival-3 Start -->
+
 <div class="new-arrival new-arrival2">
     <div class="container">
         <!-- Section tittle -->
@@ -395,44 +164,30 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-lg-4 col-md-6 col-sm-6">
-                <div class="single-new-arrival mb-50 text-center wow fadeInUp" data-wow-duration="1s" data-wow-delay=".1s">
-                    <div class="popular-img">
-                        <img src="~/Scripts/img/gallery/popular7.png" alt="">
+            @if (topPick != null)
+            {
+                foreach (var item in topPick)
+                {
+                    <div class="col-lg-4 col-md-6 col-sm-6">
+                        <div class="single-new-arrival mb-50 text-center wow fadeInUp" data-wow-duration="1s" data-wow-delay=".1s">
+                            <div class="popular-img">
+                                <img src="@Url.Content(item.Thumbnail)" alt="">
+                            </div>
+                            <div class="popular-caption">
+                                <h3><a href="@Url.Action("Detail", "ScientificApparatus", new { id = item.ScientificApparatusID })">@item.ScientificApparatusName</a></h3>
+                                <span>@item.UnitPrice</span>
+                                <div style="text-decoration: line-through; font-size:small">
+                                    $@item.OldUnitPrice
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="popular-caption">
-                        <h3><a href="product_details.html">Bly Microfiber / Microsuede 56" Armless Loveseat</a></h3>
-                        <span>$367</span>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 col-sm-6">
-                <div class="single-new-arrival mb-50 text-center wow fadeInUp" data-wow-duration="1s" data-wow-delay=".2s">
-                    <div class="popular-img">
-                        <img src="~/Scripts/img/gallery/popular8.png" alt="">
-                    </div>
-                    <div class="popular-caption">
-                        <h3><a href="product_details.html">Bly Microfiber / Microsuede 56" Armless Loveseat</a></h3>
-                        <span>$367</span>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 col-sm-6">
-                <div class="single-new-arrival mb-50 text-center wow fadeInUp" data-wow-duration="1s" data-wow-delay=".4s">
-                    <div class="popular-img">
-                        <img src="~/Scripts/img/gallery/popular9.png" alt="">
-                    </div>
-                    <div class="popular-caption">
-                        <h3><a href="product_details.html">Bly Microfiber / Microsuede 56" Armless Loveseat</a></h3>
-                        <span>$367</span>
-                    </div>
-                </div>
-            </div>
+                }
+            }
         </div>
-        <!-- Button -->
         <div class="row justify-content-center">
             <div class="room-btn">
-                <a href="product.html" class="border-btn">Discover More</a>
+                <a href="@Url.Action("Index", "ScientificApparatus")" class="border-btn">Discover More</a>
             </div>
         </div>
     </div>
