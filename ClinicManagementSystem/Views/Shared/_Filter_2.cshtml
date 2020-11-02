@@ -1,0 +1,33 @@
+﻿@{
+    var supplier = (List<ClinicManagementSystem.EF.Supplier>)ViewBag.Supplier;
+    var type = (List<ClinicManagementSystem.EF.MedicineType>)ViewBag.MedicineType;
+}
+<div class="category-listing mb-50">
+    <div class="categories-wrapper">
+        <div class="row">
+            <div class="col-12">
+                <div class="select-categories">
+                    <select onchange="window.location.href='/Medicine/Index/'+$(this).val()">
+                        <option value="">Type</option>
+                        @foreach (var item in type)
+                        {
+                            <option value="@item.TypeID">@item.TypeName</option>
+                        }
+
+                    </select>
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="select-categories">
+                    <select onchange="window.location.href='/Medicine/SearchBySupplier/'+$(this).val()">
+                        <option value="">Supplier</option>
+                        @foreach (var item in supplier)
+                        {
+                            <option value="@item.SupplierID">@item.CompanyName</option>
+                        }
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

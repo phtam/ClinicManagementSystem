@@ -14,6 +14,7 @@ namespace ClinicManagementSystem.Controllers
     {
         private ScientificApparatusTypeDAO scientificApparatusTypeDAO = new ScientificApparatusTypeDAO();
         private ScientificApparatusDAO scientificApparatusDAO = new ScientificApparatusDAO();
+        private SupplierDAO supplierDAO = new SupplierDAO();
         private ClinicSystemData db = new ClinicSystemData();
 
         public ActionResult Index(int? id, int? page)
@@ -21,9 +22,6 @@ namespace ClinicManagementSystem.Controllers
             if (page == null) page = 1;
             int pageSize = 9;
             int pageNumber = (page ?? 1);
-            var scientificApparatusTypeList = scientificApparatusTypeDAO.GetAll();
-            ViewBag.ScientificApparatusType = scientificApparatusTypeList;
-            ViewBag.Header = "Scientific Apparatus";
 
             if (id != null)
             {
@@ -36,7 +34,25 @@ namespace ClinicManagementSystem.Controllers
                 var model = scientificApparatusDAO.GetAll().ToPagedList(pageNumber, pageSize);
                 return View(model);
             }
+        }
 
+        public ActionResult SearchBySupplier(int? id, int? page)
+        {
+            if (page == null) page = 1;
+            int pageSize = 9;
+            int pageNumber = (page ?? 1);
+
+            if (id != null)
+            {
+                var model = scientificApparatusDAO.SortBySupplier(id).ToPagedList(pageNumber, pageSize);
+                ViewBag.Child = supplierDAO.Get(id).CompanyName;
+                return View(model);
+            }
+            else
+            {
+                var model = scientificApparatusDAO.GetAll().ToPagedList(pageNumber, pageSize);
+                return View(model);
+            }
         }
 
         public ActionResult Detail(int? id, int? page)

@@ -17,6 +17,7 @@ namespace ClinicManagementSystem.Controllers
         private MedicineDAO medicineDAO = new MedicineDAO();
         private ScientificApparatusDAO apparatusDAO = new ScientificApparatusDAO();
         private EducationDAO educationDAO = new EducationDAO();
+        private SupplierDAO supplierDAO = new SupplierDAO();
 
         public ActionResult Index()
         {
@@ -44,7 +45,18 @@ namespace ClinicManagementSystem.Controllers
         [ChildActionOnly]
         public ActionResult _Filter()
         {
-            ViewBag.TypeList = medicineTypeDAO.GetAll().ToList();
+            ViewBag.ApparatusType = scientificApparatusTypeDAO.GetAll().ToList();
+            ViewBag.Supplier = supplierDAO.GetAll();
+
+            return PartialView();
+        }
+
+        [ChildActionOnly]
+        public ActionResult _Filter_2()
+        {
+            ViewBag.MedicineType = medicineTypeDAO.GetAll().ToList();
+            ViewBag.Supplier = supplierDAO.GetAll();
+
             return PartialView();
         }
 

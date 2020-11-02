@@ -82,6 +82,23 @@ namespace ClinicManagementSystem.DAO
             }
         }
 
+        public List<ScientificApparatu> SortBySupplier(int? supId)
+        {
+            if (supId == null)
+            {
+                return null;
+            }
+            var list = db.ScientificApparatus.Where(p => p.SupplierID == supId);
+            if (list != null)
+            {
+                return list.ToList();
+            }
+            else
+            {
+                return null;
+            }
+        }
+
         public List<ScientificApparatu> GetNewScientificApparatus(int typeId)
         {
             var list = db.ScientificApparatus.Where(p => p.TypeID == typeId);
@@ -94,5 +111,26 @@ namespace ClinicManagementSystem.DAO
                 return null;
             }
         }
+
+        public int CountProductByCategoryInStock(int cateID)
+        {
+            int num = 0;
+            foreach (var item in db.ScientificApparatus.Where(pro => pro.TypeID == cateID))
+            {
+                num += item.UnitInStock.GetValueOrDefault(0);
+            }
+            return num;
+        }
+
+        public int CountProductByCategoryOnOrder(int cateID)
+        {
+            int num = 0;
+            foreach (var item in db.ScientificApparatus.Where(pro => pro.TypeID == cateID))
+            {
+                num += item.UnitOnOrder.GetValueOrDefault(0);
+            }
+            return num;
+        }
+
     }
 }

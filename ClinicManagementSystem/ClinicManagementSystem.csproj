@@ -184,6 +184,7 @@
     <Compile Include="DAO\ScientificApparatusDAO.cs" />
     <Compile Include="DAO\ScientificApparatusTypeDAO.cs" />
     <Compile Include="DAO\SubjectDAO.cs" />
+    <Compile Include="DAO\SupplierDAO.cs" />
     <Compile Include="EF\Activity.cs">
       <DependentUpon>ClinicSystemModel.tt</DependentUpon>
     </Compile>
@@ -3017,6 +3018,9 @@
     <Content Include="Views\Profile\OrderDetail.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Search\Index.cshtml" />
+    <Content Include="Views\Shared\_Filter_2.cshtml" />
+    <Content Include="Views\Medicine\SearchBySupplier.cshtml" />
+    <Content Include="Views\ScientificApparatus\SearchBySupplier.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

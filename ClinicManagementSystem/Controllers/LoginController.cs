@@ -51,6 +51,7 @@ namespace ClinicManagementSystem.Controllers
                 userSession.Avatar = user.Avatar;
                 Session.Add(Common.CommonConstants.CUSTOMER_SESSION, userSession);
                 TempData["Notice_Login_Success"] = true;
+                
                 return RedirectToAction("Index", "Home");
             }
             else

@@ -1,93 +1,33 @@
-﻿
+﻿@{
+    var supplier = (List<ClinicManagementSystem.EF.Supplier>)ViewBag.Supplier;
+    var type = (List<ClinicManagementSystem.EF.ScientificApparatusType>)ViewBag.ApparatusType;
+}
     <div class="category-listing mb-50">
-
         <div class="categories-wrapper">
             <div class="row">
                 <div class="col-12">
-                    <!-- Select State items start -->
                     <div class="select-categories">
-                        <select name="select1">
+                        <select onchange="window.location.href='/ScientificApparatus/Index/'+$(this).val()">
                             <option value="">Type</option>
-                            <option value="">Type 1</option>
+                            @foreach (var item in type)
+                            {
+                                <option value="@item.TypeID">@item.TypeName</option>
+                            }
+
                         </select>
                     </div>
-                    <!--  Select State items End-->
                 </div>
                 <div class="col-12">
-                    <!-- Select km items start -->
                     <div class="select-categories">
-                        <select name="select2">
+                        <select onchange="window.location.href='/ScientificApparatus/SearchBySupplier/'+$(this).val()">
                             <option value="">Supplier</option>
-                            <option value="">2.2ft</option>
-                            <option value="">5.5ft</option>
-                            <option value="">8.2ft</option>
-                            <option value="">10.2ft</option>
+                            @foreach (var item in supplier)
+                            {
+                                <option value="@item.SupplierID">@item.CompanyName</option>
+                            }
                         </select>
                     </div>
-                    <!--  Select km items End-->
-                </div>
-            </div>
-
-
-
-        </div>
-
-        <!-- Range Slider Start -->
-        <div class="range-slider mt-50">
-            <div class="small-tittle small-tittle2">
-                <h4>Price Range</h4>
-            </div>
-            <div class="range_item">
-                <!-- <div id="slider-range"></div> -->
-                <input type="text" class="js-range-slider" value="" />
-                <div class="d-flex align-items-center">
-                    <div class="price_text">
-                        <p>Price :</p>
-                    </div>
-                    <div class="price_value d-flex justify-content-center">
-                        <input type="text" class="js-input-from" id="amount" readonly />
-                        <span>to</span>
-                        <input type="text" class="js-input-to" id="amount" readonly />
-                    </div>
                 </div>
             </div>
         </div>
-        <!-- Range Slider End -->
-        <!-- Check box -->
-        <div class="select-checkbox mt-30 mb-30">
-            <div class="small-tittle">
-                <h4>Latest Product</h4>
-            </div>
-            <label class="container">
-                Any
-                <input type="checkbox">
-                <span class="checkmark"></span>
-            </label>
-            <label class="container">
-                Today
-                <input type="checkbox" checked="checked active">
-                <span class="checkmark"></span>
-            </label>
-            <label class="container">
-                Last 2 days
-                <input type="checkbox">
-                <span class="checkmark"></span>
-            </label>
-            <label class="container">
-                Last 5 days
-                <input type="checkbox">
-                <span class="checkmark"></span>
-            </label>
-            <label class="container">
-                Last 10 days
-                <input type="checkbox">
-                <span class="checkmark"></span>
-            </label>
-            <label class="container">
-                Last 15 days
-                <input type="checkbox">
-                <span class="checkmark"></span>
-            </label>
-        </div>
-        <!-- Check box /-->
     </div>

@@ -76,6 +76,23 @@ namespace ClinicManagementSystem.DAO
             }
         }
 
+        public List<Medicine> SortBySupplier(int? supId)
+        {
+            if (supId == null)
+            {
+                return null;
+            }
+            var list = db.Medicines.Where(p => p.SupplierID == supId);
+            if (list != null)
+            {
+                return list.ToList();
+            }
+            else
+            {
+                return null;
+            }
+        }
+
         public List<Medicine> GetNewMedicines(int typeId)
         {
             var list = db.Medicines.Where(p => p.TypeID == typeId);
@@ -87,6 +104,26 @@ namespace ClinicManagementSystem.DAO
             {
                 return null;
             }
+        }
+
+        public int CountProductByCategoryInStock(int cateID)
+        {
+            int num = 0;
+            foreach (var item in db.Medicines.Where(pro => pro.TypeID == cateID))
+            {
+                num += item.UnitInStock.GetValueOrDefault(0);
+            }
+            return num;
+        }
+
+        public int CountProductByCategoryOnOrder(int cateID)
+        {
+            int num = 0;
+            foreach (var item in db.Medicines.Where(pro => pro.TypeID == cateID))
+            {
+                num += item.UnitOnOrder.GetValueOrDefault(0);
+            }
+            return num;
         }
     }
 }
