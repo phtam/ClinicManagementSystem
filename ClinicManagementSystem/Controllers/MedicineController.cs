@@ -1,4 +1,6 @@
 ﻿using ClinicManagementSystem.DAO;
+using ClinicManagementSystem.EF;
+using ClinicManagementSystem.Models;
 using PagedList;
 using System;
 using System.Collections.Generic;
@@ -12,6 +14,7 @@ namespace ClinicManagementSystem.Controllers
     {
         private MedicineTypeDAO medicineTypeDAO = new MedicineTypeDAO();
         private MedicineDAO medicineDAO = new MedicineDAO();
+        private ClinicSystemData db = new ClinicSystemData();
 
         public ActionResult Index(int? id, int? page)
         {
@@ -34,21 +37,44 @@ namespace ClinicManagementSystem.Controllers
                 var model = medicineDAO.GetAll().ToPagedList(pageNumber, pageSize);
                 return View(model);
             }
-
         }
 
-        public ActionResult Detail(int? id)
+        public ActionResult Detail(int? id, int? page)
         {
             if (id == null)
             {
                 return RedirectToAction("Index", "Home");
             }
+            if (page == null) page = 1;
+            int pageSize = 6;
+            int pageNumber = (page ?? 1);
 
             ViewBag.Child = medicineDAO.Get(id).MedicineName;
             ViewBag.Header = "Medicine";
             ViewBag.MedicineImages = medicineDAO.GetImages(id);
-            ViewBag.MedicineFeedbacks = medicineDAO.GetFeedbacks(id);
-            return View(medicineDAO.Get(id));
+            ViewBag.Detail = medicineDAO.Get(id);
+            var model = medicineDAO.GetFeedbacks(id).ToPagedList(pageNumber, pageSize);
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult Feedback(int medicineId, String message)
+        {
+            if (Session[Common.CommonConstants.CUSTOMER_SESSION] == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
+
+            var user = (CustomerAuthentication)Session[Common.CommonConstants.CUSTOMER_SESSION];
+            var feedback = new MedicineFeedback();
+            feedback.Username = user.Username;
+            feedback.MedicineID = medicineId;
+            feedback.CreatedDate = DateTime.Now;
+            feedback.Content = message;
+            db.MedicineFeedbacks.Add(feedback);
+            db.SaveChanges();
+            return RedirectToAction("Detail", "Medicine", new { id = medicineId });
         }
     }
 }

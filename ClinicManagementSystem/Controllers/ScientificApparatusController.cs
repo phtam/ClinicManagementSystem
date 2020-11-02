@@ -1,4 +1,6 @@
 ﻿using ClinicManagementSystem.DAO;
+using ClinicManagementSystem.EF;
+using ClinicManagementSystem.Models;
 using PagedList;
 using System;
 using System.Collections.Generic;
@@ -12,6 +14,7 @@ namespace ClinicManagementSystem.Controllers
     {
         private ScientificApparatusTypeDAO scientificApparatusTypeDAO = new ScientificApparatusTypeDAO();
         private ScientificApparatusDAO scientificApparatusDAO = new ScientificApparatusDAO();
+        private ClinicSystemData db = new ClinicSystemData();
 
         public ActionResult Index(int? id, int? page)
         {
@@ -36,17 +39,42 @@ namespace ClinicManagementSystem.Controllers
 
         }
 
-        public ActionResult Detail(int? id)
+        public ActionResult Detail(int? id, int? page)
         {
             if (id == null)
             {
                 return RedirectToAction("Index", "Home");
             }
+            if (page == null) page = 1;
+            int pageSize = 6;
+            int pageNumber = (page ?? 1);
+
             ViewBag.Child = scientificApparatusDAO.Get(id).ScientificApparatusName;
             ViewBag.Header = "Scientific Apparatus";
             ViewBag.ApparatusImages = scientificApparatusDAO.GetImages(id);
-            ViewBag.ApparatusFeedbacks = scientificApparatusDAO.GetFeedbacks(id);
-            return View(scientificApparatusDAO.Get(id));
+            ViewBag.Detail = scientificApparatusDAO.Get(id);
+            var model = scientificApparatusDAO.GetFeedbacks(id).ToPagedList(pageNumber, pageSize);
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult Feedback(int apparatusId, String message)
+        {
+            if (Session[Common.CommonConstants.CUSTOMER_SESSION] == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
+
+            var user = (CustomerAuthentication)Session[Common.CommonConstants.CUSTOMER_SESSION];
+            var feedback = new ScientificApparatusFeedback();
+            feedback.Username = user.Username;
+            feedback.ScientificApparatusID = apparatusId;
+            feedback.CreatedDate = DateTime.Now;
+            feedback.Content = message;
+            db.ScientificApparatusFeedbacks.Add(feedback);
+            db.SaveChanges();
+            return RedirectToAction("Detail", "ScientificApparatus", new { id = apparatusId });
         }
     }
 }

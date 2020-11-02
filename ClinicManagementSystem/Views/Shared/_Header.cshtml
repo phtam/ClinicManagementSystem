@@ -66,13 +66,15 @@
                         <div class="search">
                             <ul class="d-flex align-items-center">
                                 <li>
-                                    <!-- Search Box -->
-                                    <form action="#" class="form-box f-right ">
-                                        <input type="text" name="Search" placeholder="Search products">
-                                        <div class="search-icon">
-                                            <i class="ti-search"></i>
+                                    @using (Html.BeginForm("Index", "Search", FormMethod.Get, new { @id="search" }))
+                                    {
+                                        <div class="form-box f-right">
+                                            <input type="text" name="keyword" placeholder="Search products">
+                                            <div class="search-icon">
+                                                <i class="ti-search" onclick="document.get"></i>
+                                            </div>
                                         </div>
-                                    </form>
+                                    }
                                 </li>
                                 @if (user != null)
                                 {

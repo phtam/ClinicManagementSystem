@@ -62,7 +62,7 @@ namespace ClinicManagementSystem.DAO
             if (id == null)
                 return null;
             else
-                return db.ScientificApparatusFeedbacks.Where(m => m.ScientificApparatusID == id).ToList();
+                return db.ScientificApparatusFeedbacks.Where(m => m.ScientificApparatusID == id).OrderByDescending(m=>m.FeedbackID).ToList();
         }
 
         public List<ScientificApparatu> SortByType(int? typeId)

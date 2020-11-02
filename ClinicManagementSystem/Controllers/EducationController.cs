@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using ClinicManagementSystem.DAO;
+using ClinicManagementSystem.EF;
+using ClinicManagementSystem.Models;
 using PagedList;
 
 namespace ClinicManagementSystem.Controllers
@@ -13,6 +15,7 @@ namespace ClinicManagementSystem.Controllers
         private EducationDAO educationDAO = new EducationDAO();
         private SubjectDAO subjectDAO = new SubjectDAO();
         private ActivityDAO activityDAO = new ActivityDAO();
+        private ClinicSystemData db = new ClinicSystemData();
 
         public ActionResult Index(int? id, int? page)
         {
@@ -56,12 +59,18 @@ namespace ClinicManagementSystem.Controllers
             }
         }
 
-        public ActionResult Detail(int? id)
+        public ActionResult Detail(int? id, int? page)
         {
-            ViewBag.EducationFeedbacks = educationDAO.GetFeedbacks(id);
+            if (page == null) page = 1;
+            int pageSize = 6;
+            int pageNumber = (page ?? 1);
+
+            var model = educationDAO.GetFeedbacks(id).ToPagedList(pageNumber, pageSize);
             ViewBag.Header = "Education";
             ViewBag.Child = educationDAO.Get(id).LessonName;
-            return View(educationDAO.Get(id));
+            ViewBag.Detail = educationDAO.Get(id);
+
+            return View(model);
         }
 
         [ChildActionOnly]
@@ -72,6 +81,25 @@ namespace ClinicManagementSystem.Controllers
             ViewBag.RecentPost = educationDAO.GetAll().Take(4).ToList();
             return PartialView();
         }
-        
+
+        [HttpPost]
+        public ActionResult Feedback(int educationId, String comment)
+        {
+            if (Session[Common.CommonConstants.CUSTOMER_SESSION] == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
+
+            var user = (CustomerAuthentication)Session[Common.CommonConstants.CUSTOMER_SESSION];
+            var feedback = new EducationFeedback();
+            feedback.Username = user.Username;
+            feedback.EducationID = educationId;
+            feedback.CreatedDate = DateTime.Now;
+            feedback.Content = comment;
+            db.EducationFeedbacks.Add(feedback);
+            db.SaveChanges();
+            return RedirectToAction("Detail", "Education", new { id = educationId });
+        }
+
     }
 }

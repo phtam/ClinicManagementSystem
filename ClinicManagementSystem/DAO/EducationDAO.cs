@@ -54,7 +54,7 @@ namespace ClinicManagementSystem.DAO
             if (id == null)
                 return null;
             else
-                return db.EducationFeedbacks.Where(e => e.EducationID == id).ToList();
+                return db.EducationFeedbacks.Where(e => e.EducationID == id).OrderByDescending(m=>m.FeedbackID).ToList();
         }
     }
 }

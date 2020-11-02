@@ -1,9 +1,11 @@
-﻿@model ClinicManagementSystem.EF.Education
+﻿@model PagedList.IPagedList<ClinicManagementSystem.EF.EducationFeedback>
+@using PagedList.Mvc;
 
 @{
-    ViewBag.Title = "Detail";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    var feedbacks = (List<ClinicManagementSystem.EF.EducationFeedback>)ViewBag.EducationFeedbacks;
+    var detail = (ClinicManagementSystem.EF.Education)ViewBag.Detail;
+    ViewBag.Title = "Education - " + detail.LessonName;
+    var user = (ClinicManagementSystem.Models.CustomerAuthentication)Session["CUSTOMER_SESSION"];
 }
 
 <section class="blog_area single-post-area section-padding">
@@ -12,27 +14,23 @@
             <div class="col-lg-8 posts-list">
                 <div class="single-post">
                     <div class="feature-img">
-                        <img class="img-fluid" src="@Url.Content(Model.Thumbnail)" alt="">
+                        <img class="img-fluid" src="@Url.Content(detail.Thumbnail)" alt="">
                     </div>
                     <div class="blog_details">
                         <h2 style="color: #2d2d2d;">
-                            @Model.LessonName
+                            @detail.LessonName
                         </h2>
                         <ul class="blog-info-link mt-3 mb-4">
-                            <li><a><i class="fa fa-calendar"></i> @Model.CreateDate</a></li>
-                            <li><a><i class="fa fa-comments"></i> @Model.EducationFeedbacks.Count()</a></li>
+                            <li><a><i class="fa fa-calendar"></i> @detail.CreateDate</a></li>
+                            <li><a><i class="fa fa-comments"></i> @detail.EducationFeedbacks.Count()</a></li>
                         </ul>
                         <div>
-                            @Html.Raw(Model.Content)
+                            @Html.Raw(detail.Content)
                         </div>
                     </div>
                 </div>
                 <div class="navigation-top">
                     <div class="d-sm-flex justify-content-between text-center">
-                        <p class="like-info">
-                            <span class="align-middle"><i class="fa fa-heart"></i></span> Lily and 4
-                            people like this
-                        </p>
                         <div class="col-sm-4 text-center my-2 my-sm-0">
                         </div>
                         <ul class="social-icons">
@@ -47,67 +45,87 @@
 
                 <div class="comments-area">
 
-                    <h4>@feedbacks.Count() Comment(s)</h4>
-                    @foreach (var item in feedbacks)
+                    <h4>@Model.Count() Comment(s)</h4>
+                    @if (Model.Count() > 0)
                     {
-                        <div class="comment-list">
-                            <div class="single-comment justify-content-between d-flex">
-                                <div class="user justify-content-between d-flex">
-                                    <div class="thumb">
-                                        <img src="@Url.Content(item.Customer.Avatar)" width="17%" alt="">
-                                    </div>
-                                    <div class="desc">
-                                        <p class="comment">
-                                            @Html.Raw(item.Content)
-                                        </p>
-                                        <div class="d-flex justify-content-between">
-                                            <div class="d-flex align-items-center">
-                                                <h5>
-                                                    <a href="#">@item.Customer.FullName</a>
-                                                </h5>
-                                                <p class="date">@item.CreatedDate </p>
+                        foreach (var item in Model)
+                        {
+                            <div class="comment-list">
+                                <div class="single-comment justify-content-between d-flex">
+                                    <div class="user justify-content-between d-flex">
+                                        <div class="thumb">
+                                            <img src="@Url.Content(item.Customer.Avatar)" width="17%" alt="">
+                                        </div>
+                                        <div class="desc">
+                                            <p class="comment">
+                                                @Html.Raw(item.Content)
+                                            </p>
+                                            <div class="d-flex justify-content-between">
+                                                <div class="d-flex align-items-center">
+                                                    <h5>
+                                                        <a href="#">@item.Customer.FullName</a>
+                                                    </h5>
+                                                    <p class="date">@item.CreatedDate </p>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        }
+                        <nav class="blog-pagination justify-content-center d-flex">
+                            <ul class="pagination">
+                                <li class="page-item">
+                                    @Html.PagedListPager(Model, page => Url.Action("Detail", new { id = detail.EducationID, page }))
+                                </li>
+                            </ul>
+                        </nav>
                     }
 
                 </div>
                 <div class="comment-form">
                     <h4>Leave a Reply</h4>
-                    <form class="form-contact comment_form" action="#" id="commentForm">
-                        <div class="row">
-                            <div class="col-12">
+                    @if (user != null)
+                    {
+                        using (Html.BeginForm("Feedback", "Education", FormMethod.Post))
+                        {
+                            @Html.Hidden("educationId", detail.EducationID)
+                            <div class="form-contact comment_form">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <textarea class="form-control w-100" name="comment" id="comment" cols="30" rows="9"
+                                                      placeholder="Write Comment"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <input class="form-control" value="@user.FullName" type="text" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <input class="form-control" value="@user.Email" type="email" readonly>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="form-group">
-                                    <textarea class="form-control w-100" name="comment" id="comment" cols="30" rows="9"
-                                              placeholder="Write Comment"></textarea>
+                                    <button type="submit" class="button button-contactForm btn_1 boxed-btn">Post Comment</button>
                                 </div>
                             </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <input class="form-control" name="name" id="name" type="text" placeholder="Name">
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <input class="form-control" name="email" id="email" type="email" placeholder="Email">
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="form-group">
-                                    <input class="form-control" name="website" id="website" type="text" placeholder="Website">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <button type="submit" class="button button-contactForm btn_1 boxed-btn">Post Comment</button>
-                        </div>
-                    </form>
+                        }
+
+                    }
+                    else
+                    {
+                        <div class="alert alert-info" style="font-size:large">Please login first to feedback on this lesson!</div>
+                    }
+
                 </div>
             </div>
             @{ Html.RenderAction("_RightSlibar", "Education"); }
         </div>
     </div>
 </section>
+
+<link href="~/Content/pageStyle.css" rel="stylesheet" />

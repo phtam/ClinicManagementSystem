@@ -172,6 +172,7 @@
     <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Controllers\RegisterController.cs" />
     <Compile Include="Controllers\ScientificApparatusController.cs" />
+    <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="DAO\ActivityDAO.cs" />
     <Compile Include="DAO\CustomerDAO.cs" />
@@ -2495,6 +2496,7 @@
     <Content Include="Content\jsController\customerController.js" />
     <Content Include="Content\jsController\employeeController.js" />
     <Content Include="Content\PagedList.css" />
+    <Content Include="Content\pageStyle.css" />
     <Content Include="EF\ClinicSystemModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>ClinicSystemModel.edmx</DependentUpon>
@@ -3014,6 +3016,7 @@
     <Content Include="Views\Profile\ViewOrder.cshtml" />
     <Content Include="Views\Profile\OrderDetail.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Search\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

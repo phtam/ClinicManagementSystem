@@ -1,9 +1,11 @@
-﻿@model ClinicManagementSystem.EF.Medicine
+﻿@model PagedList.IPagedList<ClinicManagementSystem.EF.MedicineFeedback>
+@using PagedList.Mvc;
 @{
-    ViewBag.Title = "Detail";
+    ViewBag.Title = "Medicine Detail";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var detail = (ClinicManagementSystem.EF.Medicine)ViewBag.Detail;
     var imageList = (List<ClinicManagementSystem.EF.MedicineImage>)ViewBag.MedicineImages;
-    var feedbacks = (List<ClinicManagementSystem.EF.MedicineFeedback>)ViewBag.MedicineFeedbacks;
+    var user = (ClinicManagementSystem.Models.CustomerAuthentication)Session["CUSTOMER_SESSION"];
 }
 
 <div class="product_image_area section-padding40">
@@ -23,22 +25,22 @@
             </div>
             <div class="col-lg-5 offset-lg-1">
                 <div class="s_product_text">
-                    <h3>@Model.MedicineName</h3>
-                    <h2>$@Model.UnitPrice</h2>
+                    <h3>@detail.MedicineName</h3>
+                    <h2>$@detail.UnitPrice</h2>
                     <ul class="list">
                         <li>
                             <a class="active" href="#">
-                                <span>Type</span> : @Model.MedicineType.TypeName
+                                <span>Type</span> : @detail.MedicineType.TypeName
                             </a>
                         </li>
                         <li>
                             <a class="active" href="#">
-                                <span>Supplier</span> : @Model.Supplier.CompanyName
+                                <span>Supplier</span> : @detail.Supplier.CompanyName
                             </a>
                         </li>
                         <li>
 
-                            @if (Model.UnitInStock > 0)
+                            @if (detail.UnitInStock > 0)
                             {
                                 <a href="#"> <span>Availibility</span> : In Stock</a>
                             }
@@ -49,7 +51,7 @@
                         </li>
                     </ul>
                     <p>
-                        @Model.ShortDescription
+                        @detail.ShortDescription
                     </p>
                     <div class="card_area">
                         <div class="product_count d-inline-block">
@@ -91,32 +93,43 @@
         </ul>
         <div class="tab-content" id="myTabContent">
             <div class="tab-pane fade" id="home" role="tabpanel" aria-labelledby="home-tab">
-                @Html.Raw(Model.Usage)
+                @Html.Raw(detail.Usage)
             </div>
             <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                @Html.Raw(Model.Composition)
+                @Html.Raw(detail.Composition)
             </div>
             <div class="tab-pane fade show active" id="contact" role="tabpanel" aria-labelledby="contact-tab">
                 <div class="row">
                     <div class="col-lg-6">
                         <div class="comment_list">
-                            @foreach (var item in feedbacks)
+                            @if (Model.Count() > 0)
                             {
-                                <div class="review_item">
-                                    <div class="media">
-                                        <div class="d-flex">
-                                            <img style="border-radius: 50%;" width="70" src="@Url.Content(item.Customer.Avatar)" alt="" />
+                                foreach (var item in Model)
+                                {
+                                    <div class="review_item">
+                                        <div class="media">
+                                            <div class="d-flex">
+                                                <img style="border-radius: 50%;" width="70" src="@Url.Content(item.Customer.Avatar)" alt="" />
+                                            </div>
+                                            <div class="media-body">
+                                                <h4>@item.Customer.FullName</h4>
+                                                <h5>@item.CreatedDate</h5>
+                                            </div>
                                         </div>
-                                        <div class="media-body">
-                                            <h4>@item.Customer.FullName</h4>
-                                            <h5>@item.CreatedDate</h5>
-                                        </div>
+                                        <p>
+                                            @item.Content
+                                        </p>
                                     </div>
-                                    <p>
-                                        @item.Content
-                                    </p>
-                                </div>
+                                }
+                                <nav class="blog-pagination justify-content-center d-flex">
+                                    <ul class="pagination">
+                                        <li class="page-item">
+                                            @Html.PagedListPager(Model, page => Url.Action("Detail", new { id = detail.MedicineID, page }))
+                                        </li>
+                                    </ul>
+                                </nav>
                             }
+
 
 
                         </div>
@@ -124,35 +137,41 @@
                     <div class="col-lg-6">
                         <div class="review_box">
                             <h4>Post a comment</h4>
-                            <form class="row contact_form" action="contact_process.php" method="post" id="contactForm"
-                                  novalidate="novalidate">
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <input type="text" class="form-control" id="name" name="name" placeholder="Your Full name" />
+                            @if (user != null)
+                            {
+                                using (Html.BeginForm("Feedback", "Medicine", FormMethod.Post))
+                                {
+                                    @Html.Hidden("medicineId", detail.MedicineID);
+                                    <div class="row contact_form">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" value="@user.FullName" readonly />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <input type="email" class="form-control" value="@user.Email" readonly />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <textarea class="form-control" name="message" id="message" rows="1"
+                                                          placeholder="Message"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12 text-right">
+                                            <button type="submit" value="submit" class="btn">
+                                                Submit Now
+                                            </button>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <input type="email" class="form-control" id="email" name="email" placeholder="Email Address" />
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <input type="text" class="form-control" id="number" name="number" placeholder="Phone Number" />
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <textarea class="form-control" name="message" id="message" rows="1"
-                                                  placeholder="Message"></textarea>
-                                    </div>
-                                </div>
-                                <div class="col-md-12 text-right">
-                                    <button type="submit" value="submit" class="btn">
-                                        Submit Now
-                                    </button>
-                                </div>
-                            </form>
+                                }
+                            }
+                            else
+                            {
+                                <div class="alert alert-info" style="font-size:large">Please login first to feedback on this product!</div>
+                            }
+
                         </div>
                     </div>
                 </div>
@@ -168,10 +187,11 @@
         $(document).ready(function () {
             $(".btn").click(function () {
                 var qty = $("#txtQty").val();
-                window.location = "/add-medicine?productID=@Model.MedicineID&quantity=" + qty;
+                window.location = "/add-medicine?productID=@detail.MedicineID&quantity=" + qty;
             });
         });
 
     </script>
 
 }
+<link href="~/Content/pageStyle.css" rel="stylesheet" />

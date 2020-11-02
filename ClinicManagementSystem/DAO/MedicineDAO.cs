@@ -56,7 +56,7 @@ namespace ClinicManagementSystem.DAO
             if (id == null)
                 return null;
             else
-                return db.MedicineFeedbacks.Where(m => m.MedicineID == id).ToList();
+                return db.MedicineFeedbacks.Where(m => m.MedicineID == id).OrderByDescending(m=>m.FeedbackID).ToList();
         }
 
         public List<Medicine> SortByType(int? typeId)

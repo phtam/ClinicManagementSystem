@@ -1,7 +1,7 @@
 ﻿@model PagedList.IPagedList<ClinicManagementSystem.EF.Education>
 @using PagedList.Mvc;
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Education";
     var currentId = ViewBag.ID;
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -56,22 +56,4 @@
     </div>
 </section>
 
-<style>
-    .page-item a {
-        text-decoration: none;
-        transition: .4s;
-        font-size: 14px;
-        position: relative;
-        display: block;
-        padding: 0;
-        text-align: center;
-        margin-left: -1px;
-        line-height: 45px;
-        width: 45px;
-        height: 45px;
-        border-radius: 0 !important;
-        color: #8a8a8a;
-        border: 1px solid #f0e9ff;
-        margin-right: 10px;
-    }
-</style>
+<link href="~/Content/pageStyle.css" rel="stylesheet" />
